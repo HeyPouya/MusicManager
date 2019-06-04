@@ -11,11 +11,11 @@ def appcompat_version = "1.0.2"
 def retrofit_version = "2.5.0"
 
 //Application versioning
-ext.versionMajor = 0
-ext.versionMinor = 1
+ext.versionMajor = 1
+ext.versionMinor = 0
 ext.versionPatch = 0
-ext.versionClassifier = null
-ext.isSnapshot = true
+ext.versionClassifier = "BETA"
+ext.isBeta = true
 
 private Integer generateVersionCode() {
     return ext.versionMajor * 100 + ext.versionMinor * 10 + ext.versionPatch
@@ -23,11 +23,8 @@ private Integer generateVersionCode() {
 
 private String generateVersionName() {
     String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
-    if (ext.versionClassifier == null && ext.isSnapshot) {
-        ext.versionClassifier = "SNAPSHOT"
-    }
 
-    if (ext.versionClassifier != null) {
+    if (ext.isBeta) {
         versionName += "-" + ext.versionClassifier
     }
     return versionName
