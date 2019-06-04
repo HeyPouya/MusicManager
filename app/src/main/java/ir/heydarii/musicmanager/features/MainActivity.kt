@@ -1,6 +1,5 @@
 package ir.heydarii.musicmanager.features
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity

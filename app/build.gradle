@@ -4,11 +4,14 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 //Important library versions :
 def rxjava_Version = "2.2.9"
 def lifecycle_version = "2.0.0"
 def appcompat_version = "1.0.2"
 def retrofit_version = "2.5.0"
+def dagger_version = "2.23.1"
 
 //Application versioning
 ext.versionMajor = 1
@@ -49,6 +52,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
+    }
+
 }
 
 dependencies {
@@ -70,7 +79,9 @@ dependencies {
     //REST
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
 
     //Rx
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_Version"
@@ -79,5 +90,8 @@ dependencies {
     //LiveData and ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
+    //Dagger
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
 }
