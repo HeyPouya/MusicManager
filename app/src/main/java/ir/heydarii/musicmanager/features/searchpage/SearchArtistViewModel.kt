@@ -2,6 +2,7 @@ package ir.heydarii.musicmanager.features.searchpage
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
 import ir.heydarii.musicmanager.repository.DataRepository
@@ -23,6 +24,7 @@ class SearchArtistViewModel : ViewModel() {
                     artistResponse.value = it
                 }, {
 
+                    Logger.d(it.message)
                     //TODO : Add error handling
                 }))
 

@@ -9,10 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
-import ir.heydarii.musicmanager.repository.DataRepository
 import kotlinx.android.synthetic.main.search_artist_fragment.*
-import kotlinx.android.synthetic.main.search_artist_fragment.view.*
-import javax.inject.Inject
 
 class SearchArtistFragment : BaseFragment() {
 
@@ -30,13 +27,12 @@ class SearchArtistFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SearchArtistViewModel::class.java)
+
+        init()
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        view.btnSearch.setOnClickListener {
+    private fun init() {
+        btnSearch.setOnClickListener {
             viewModel.onUserSearchedArtist(edtSearch.text.toString())
         }
 
@@ -45,6 +41,7 @@ class SearchArtistFragment : BaseFragment() {
         })
 
     }
+
 
     private fun showRecycler(artistResponseModel: ArtistResponseModel) {
     }
