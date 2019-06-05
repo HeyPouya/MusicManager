@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Music Manager</string>
+    <string name="please_search_an_artist_name">Please search an artist name</string>
 </resources>
