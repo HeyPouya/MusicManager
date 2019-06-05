@@ -2,6 +2,7 @@ package ir.heydarii.musicmanager.base.di
 
 import dagger.Module
 import dagger.Provides
+import ir.heydarii.musicmanager.retrofit.RetrofitMainInterface
 import ir.heydarii.musicmanager.retrofit.RetrofitServiceGenerator
 import ir.heydarii.musicmanager.utils.Consts
 import okhttp3.OkHttpClient
@@ -56,4 +57,11 @@ class RetrofitModule {
     fun provideBaseURL(): String {
         return Consts.BASE_URL
     }
+
+    @Singleton
+    @Provides
+    fun getMainInterface(retrofit: Retrofit): RetrofitMainInterface {
+        return retrofit.create(RetrofitMainInterface::class.java)
+    }
+
 }
