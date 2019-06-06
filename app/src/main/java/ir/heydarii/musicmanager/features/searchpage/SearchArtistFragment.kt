@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
@@ -44,6 +46,10 @@ class SearchArtistFragment : BaseFragment() {
 
 
     private fun showRecycler(artistResponseModel: ArtistResponseModel) {
+        //TODO : Change this
+        val adapter = SearchArtistAdapter(artistResponseModel.results.artistmatches.artist)
+        recycler.adapter = adapter
+        recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     }
 
 
