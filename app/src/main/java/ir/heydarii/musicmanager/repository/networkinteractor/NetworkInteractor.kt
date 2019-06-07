@@ -6,8 +6,10 @@ import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import ir.heydarii.musicmanager.retrofit.RetrofitMainInterface
 import javax.inject.Inject
 
-
-class NetworkInteractor @Inject constructor(val retrofitInterface: RetrofitMainInterface) {
+/**
+ * All the network Observables are here
+ */
+class NetworkInteractor @Inject constructor(private val retrofitInterface: RetrofitMainInterface) {
 
 
     fun getArtistsName(artistName: String, page: Int, apiKey: String): Observable<ArtistResponseModel> {

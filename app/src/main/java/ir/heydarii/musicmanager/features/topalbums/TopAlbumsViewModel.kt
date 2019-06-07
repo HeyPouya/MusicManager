@@ -1,25 +1,27 @@
 package ir.heydarii.musicmanager.features.topalbums
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
+import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import ir.heydarii.musicmanager.repository.DataRepository
 
-class TopAlbumsViewModel : ViewModel() {
+class TopAlbumsViewModel : BaseViewModel() {
 
-    val topAlbumsData = MutableLiveData<ArtistTopAlbumsResponseModel>()
-
+    private val topAlbumsData = MutableLiveData<ArtistTopAlbumsResponseModel>()
+    //TODO : Provide the repository with dagger
     private val dataRepository = DataRepository()
     private val composite = CompositeDisposable()
 
 
+    /**
+     * Fetches the top albums of a selected artist
+     */
     fun onTopAlbumsRequested(artistName: String, page: Int, apiKey: String) {
-
         composite.add(dataRepository.getTopAlbumsByArtist(artistName, page, apiKey)
                 .subscribe({
-
                     topAlbumsData.value = it
                 }, {
 
@@ -28,7 +30,15 @@ class TopAlbumsViewModel : ViewModel() {
                 }))
     }
 
+    /**
+     * Serving LiveData instead of MutableLiveData for activity
+     */
+    fun getTopAlbumsLiveData(): LiveData<ArtistTopAlbumsResponseModel> = topAlbumsData
 
+
+    /**
+     * Disposing all disposables after the ViewModel dies
+     */
     override fun onCleared() {
         composite.dispose()
         super.onCleared()

@@ -21,8 +21,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        //TODO : // clean the fragments
+        //We don't want to ruin everything on configuration change
         if (savedInstanceState == null) {
             setUpFragments()
             addFragmentsToLayout()
@@ -32,11 +31,18 @@ class MainActivity : BaseActivity() {
         setUpBottomNav()
     }
 
+
+    /**
+     * Adds all fragments to the container once the user opens the app
+     */
     private fun addFragmentsToLayout() {
         FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, searchFragment)
         FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, aboutMeFragment)
     }
 
+    /**
+     * Retains all fragments after rotation, so we wont make new fragments
+     */
     private fun retainFragments(fragment: String?) {
         searchFragment =
                 supportFragmentManager.findFragmentByTag(SearchArtistFragment::class.java.simpleName) as SearchArtistFragment
@@ -50,20 +56,29 @@ class MainActivity : BaseActivity() {
 
     }
 
+    /**
+     * gets a new instance of fragments only once
+     */
+    //TODO : Provide the fragments using dagger
     private fun setUpFragments() {
         searchFragment = SearchArtistFragment.newInstance()
         aboutMeFragment = AboutMeFragment.newInstance()
     }
 
+    /**
+     * SetonItemListener fot bottomNavigation menu
+     */
     private fun setUpBottomNav() {
-        bottomNav.inflateMenu(R.menu.bottom_nav_menu)
         bottomNav.setOnNavigationItemSelectedListener {
             showFragment(it.itemId)
             true
         }
     }
 
-
+    /**
+     * Decides witch fragment should be displayed based on what user has selected
+     * from the bottom navigation menu
+     */
     private fun showFragment(id: Int) {
         when (id) {
             R.id.search -> {
@@ -78,6 +93,9 @@ class MainActivity : BaseActivity() {
 
     }
 
+    /**
+     * Displays the requested fragment and hides other fragments
+     */
     private fun displayOrHideFragments(clickedFragment: Fragment) {
         val manager = supportFragmentManager.beginTransaction()
 
@@ -96,6 +114,10 @@ class MainActivity : BaseActivity() {
 
     }
 
+    /**
+     * Saves the latest fragment that is showing to user before rotation,
+     * so after rotation we wont loos the control
+     */
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.putString(CURRENT_FRAGMENT, currentFragment?.tag)
         super.onSaveInstanceState(outState)

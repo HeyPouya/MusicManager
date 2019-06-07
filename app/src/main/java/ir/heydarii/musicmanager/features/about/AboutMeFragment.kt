@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 
-class AboutMeFragment : BaseFragment() {
 
+/**
+ * A dummy fragment only to show some about me info
+ */
+class AboutMeFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = AboutMeFragment()

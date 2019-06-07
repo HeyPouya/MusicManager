@@ -26,6 +26,8 @@ class TopAlbumsAdapter(private val list: List<Album>) : RecyclerView.Adapter<Top
     class SearchArtistViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(album: Album) {
             view.txtName.text = album.name
+
+            // Last image has always the best quality
             if (album.image.last().text.isNotEmpty())
                 Picasso.get().load(album.image.last().text).into(view.imgArtist)
         }

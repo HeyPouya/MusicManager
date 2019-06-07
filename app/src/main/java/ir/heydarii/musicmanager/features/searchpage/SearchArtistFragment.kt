@@ -18,12 +18,12 @@ import kotlinx.android.synthetic.main.search_artist_fragment.*
 
 class SearchArtistFragment : BaseFragment() {
 
-
     companion object {
         fun newInstance() = SearchArtistFragment()
     }
 
     private lateinit var viewModel: SearchArtistViewModel
+    private lateinit var adapter: SearchArtistAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.search_artist_fragment, container, false)
@@ -31,14 +31,27 @@ class SearchArtistFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SearchArtistViewModel::class.java)
 
-        init()
+        viewModel = ViewModelProviders.of(this).get(SearchArtistViewModel::class.java)
+        init()  //add setOnClickListener and observe observables
+        setUpRecyclerView()
+    }
+
+    /**
+     * Sets up the recycler for the first time
+     */
+    private fun setUpRecyclerView() {
+        //TODO : Provide the adapter via dagger
+        adapter = SearchArtistAdapter(emptyList()) { artistName, artistId ->
+            startTopAlbumsView(artistName, artistId)
+        }
+        recycler.adapter = adapter
+        recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     }
 
     private fun init() {
         btnSearch.setOnClickListener {
-            viewModel.onUserSearchedArtist(edtSearch.text.toString())
+            viewModel.onUserSearchedArtist(edtSearch.text.toString(), 1, Consts.API_KEY)
         }
 
         viewModel.artistResponse.observe(this, Observer {
@@ -48,15 +61,17 @@ class SearchArtistFragment : BaseFragment() {
     }
 
 
+    /**
+     * SetsUp the recyclerView
+     */
     private fun showRecycler(artistResponseModel: ArtistResponseModel) {
-        //TODO : Change this
-        val adapter = SearchArtistAdapter(artistResponseModel.results.artistmatches.artist) { artistName, artistId ->
-            startTopAlbumsView(artistName, artistId)
-        }
-        recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        adapter.list = artistResponseModel.results.artistmatches.artist
+        adapter.notifyDataSetChanged()
     }
 
+    /**
+     * navigates to the view that shows the top albums of the selected artist
+     */
     private fun startTopAlbumsView(artistName: String, artistId: String) {
         val intent = Intent(activity, TopAlbumsActivity::class.java)
         intent.putExtra(Consts.ARTIST_NAME, artistName)
