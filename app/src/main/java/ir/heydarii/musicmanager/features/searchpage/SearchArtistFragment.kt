@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,8 +51,16 @@ class SearchArtistFragment : BaseFragment() {
     }
 
     private fun init() {
+
+        edtSearch.setOnEditorActionListener { _, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> searchArtist()
+            }
+            false
+        }
+
         btnSearch.setOnClickListener {
-            viewModel.onUserSearchedArtist(edtSearch.text.toString(), 1, Consts.API_KEY)
+            searchArtist()
         }
 
         viewModel.getArtistResponse().observe(this, Observer {
@@ -64,6 +73,10 @@ class SearchArtistFragment : BaseFragment() {
             progress.visibility = if (it == Consts.SHOW_LOADING) View.VISIBLE else View.INVISIBLE
         })
 
+    }
+
+    private fun searchArtist() {
+        viewModel.onUserSearchedArtist(edtSearch.text.toString(), 1, Consts.API_KEY)
     }
 
 
