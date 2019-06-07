@@ -17,15 +17,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/txtName"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:lines="1"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:lines="1"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 

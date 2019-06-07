@@ -1,6 +1,7 @@
 package ir.heydarii.musicmanager.features.topalbums
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_ID
 import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_NAME
+import ir.heydarii.musicmanager.utils.Consts.Companion.SHOW_LOADING
 import kotlinx.android.synthetic.main.activity_top_albums.*
 
 class TopAlbumsActivity : BaseActivity() {
@@ -27,6 +29,9 @@ class TopAlbumsActivity : BaseActivity() {
 
         viewModel.getTopAlbumsLiveData().observe(this, Observer {
             showList(it)
+        })
+        viewModel.getLoadingData().observe(this, Observer {
+            progress.visibility = if (it == SHOW_LOADING) View.VISIBLE else View.INVISIBLE
         })
 
 

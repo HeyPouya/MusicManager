@@ -54,8 +54,14 @@ class SearchArtistFragment : BaseFragment() {
             viewModel.onUserSearchedArtist(edtSearch.text.toString(), 1, Consts.API_KEY)
         }
 
-        viewModel.artistResponse.observe(this, Observer {
+        viewModel.getArtistResponse().observe(this, Observer {
+
+            //TODO : Add an empty state view
             showRecycler(it)
+        })
+
+        viewModel.getLoadingData().observe(this, Observer {
+            progress.visibility = if (it == Consts.SHOW_LOADING) View.VISIBLE else View.INVISIBLE
         })
 
     }

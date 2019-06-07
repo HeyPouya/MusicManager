@@ -13,5 +13,7 @@ class Consts {
         const val ARTIST_NAME = "ArtistName"
         const val ARTIST_ID = "ArtistId"
         const val CURRENT_FRAGMENT = "CurrentFragment"
+        const val SHOW_LOADING = 1
+        const val HIDE_LOADING = 0
     }
 }

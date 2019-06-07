@@ -36,6 +36,13 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp" />
 
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:visibility="invisible" />
+
             <ImageView
                 android:id="@+id/btnSearch"
                 android:layout_width="32dp"
