@@ -1,6 +1,7 @@
 package ir.heydarii.musicmanager.retrofit
 
 import io.reactivex.Observable
+import ir.heydarii.musicmanager.pojos.AlbumDetailsResponseModel
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
 import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import retrofit2.http.GET
@@ -14,4 +15,8 @@ interface RetrofitMainInterface {
 
     @GET("?method=artist.gettopalbums&format=json")
     fun getTopAlbumsByArtist(@Query("artist") artist: String, @Query("api_key") apiKey: String, @Query("page") pageNumber: Int): Observable<ArtistTopAlbumsResponseModel>
+
+
+    @GET("?method=album.getinfo&format=json")
+    fun getAlbumDetails(@Query("artist") artist: String, @Query("api_key") apiKey: String, @Query("album") albumName: String): Observable<AlbumDetailsResponseModel>
 }

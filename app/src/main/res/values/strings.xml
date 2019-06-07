@@ -7,4 +7,5 @@
     <string name="about">about</string>
     <string name="copy_right">Developed By Pouya Heydari  For Appsfactory GmbH</string>
     <string name="technologies_description">Technologies : RxJava - MVVM - Architecture components(LiveData,ViewModel,Room) - Dagger2 - Retrofit</string>
+    <string name="tracks">Tracks</string>
 </resources>

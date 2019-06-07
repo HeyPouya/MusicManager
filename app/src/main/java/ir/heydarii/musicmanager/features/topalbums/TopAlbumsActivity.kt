@@ -1,5 +1,6 @@
 package ir.heydarii.musicmanager.features.topalbums
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -8,8 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
+import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
 import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.Consts.Companion.ALBUM_NAME
 import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_ID
 import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_NAME
 import ir.heydarii.musicmanager.utils.Consts.Companion.SHOW_LOADING
@@ -68,9 +71,18 @@ class TopAlbumsActivity : BaseActivity() {
      * Displays the topAlbums
      */
     private fun showList(albumsViewModel: ArtistTopAlbumsResponseModel) {
-        recycler.adapter = TopAlbumsAdapter(albumsViewModel.topalbums.album)
+        recycler.adapter = TopAlbumsAdapter(albumsViewModel.topalbums.album) { artistName, albumeName ->
+            showAlbumDetailsView(artistName, albumeName)
+        }
         recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
+    }
+
+    private fun showAlbumDetailsView(artistName: String, albumeName: String) {
+        val intent = Intent(this, AlbumDetailsActivity::class.java)
+        intent.putExtra(ARTIST_NAME, artistName)
+        intent.putExtra(ALBUM_NAME, albumeName)
+        startActivity(intent)
     }
 
 }

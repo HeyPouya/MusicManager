@@ -1,6 +1,7 @@
 package ir.heydarii.musicmanager.repository.networkinteractor
 
 import io.reactivex.Observable
+import ir.heydarii.musicmanager.pojos.AlbumDetailsResponseModel
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
 import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import ir.heydarii.musicmanager.retrofit.RetrofitMainInterface
@@ -19,5 +20,10 @@ class NetworkInteractor @Inject constructor(private val retrofitInterface: Retro
 
     fun getTopAlbumsByArtist(artistName: String, page: Int, apiKey: String): Observable<ArtistTopAlbumsResponseModel> {
         return retrofitInterface.getTopAlbumsByArtist(artistName, apiKey, page)
+    }
+
+    fun getAlbumDetails(artistName: String, albumName: String, apiKey: String): Observable<AlbumDetailsResponseModel> {
+        return retrofitInterface.getAlbumDetails(artistName, apiKey, albumName)
+
     }
 }

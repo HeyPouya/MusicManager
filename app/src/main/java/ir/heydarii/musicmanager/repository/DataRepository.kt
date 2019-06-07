@@ -4,6 +4,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ir.heydarii.musicmanager.base.BaseApplication
+import ir.heydarii.musicmanager.pojos.AlbumDetailsResponseModel
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
 import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import ir.heydarii.musicmanager.repository.di.DaggerDataProviderComponent
@@ -32,6 +33,13 @@ class DataRepository @Inject constructor() {
 
     fun getTopAlbumsByArtist(artistName: String, page: Int, apiKey: String): Observable<ArtistTopAlbumsResponseModel> {
         return network.getTopAlbumsByArtist(artistName, page, apiKey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
+
+    fun getAlbumDetails(artistName: String, albumName: String, apiKey: String): Observable<AlbumDetailsResponseModel> {
+        return network.getAlbumDetails(artistName, albumName, apiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
