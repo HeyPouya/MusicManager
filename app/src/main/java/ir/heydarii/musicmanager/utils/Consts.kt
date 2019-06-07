@@ -9,5 +9,6 @@ class Consts {
         const val BASE_URL = "https://ws.audioscrobbler.com/2.0/"
         const val ARTIST_NAME = "ArtistName"
         const val ARTIST_ID = "ArtistId"
+        const val CURRENT_FRAGMENT = "CurrentFragment"
     }
 }

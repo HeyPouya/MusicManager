@@ -10,6 +10,7 @@ apply plugin: 'kotlin-kapt'
 def rxjava_Version = "2.2.9"
 def lifecycle_version = "2.0.0"
 def appcompat_version = "1.0.2"
+def support_version = "1.0.0"
 def retrofit_version = "2.5.0"
 def dagger_version = "2.23.1"
 
@@ -69,12 +70,13 @@ dependencies {
     //Support
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$appcompat_version"
+    implementation "androidx.cardview:cardview:$support_version"
+    implementation "androidx.recyclerview:recyclerview:$support_version"
+    implementation "com.google.android.material:material:$support_version"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     //Test
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
@@ -93,13 +95,11 @@ dependencies {
 
     //LiveData and ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
 
     //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
 
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
@@ -110,5 +110,9 @@ dependencies {
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //lottie
+    implementation 'com.airbnb.android:lottie:3.0.6'
+
 
 }
