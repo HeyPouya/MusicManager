@@ -9,11 +9,11 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.Artist
 import kotlinx.android.synthetic.main.search_layout_item.view.*
 
-class SearchArtistAdapter(val list: List<Artist>) : RecyclerView.Adapter<SearchArtistAdapter.SearchArtistViewHolder>() {
+class SearchArtistAdapter(private val list: List<Artist>, private val clickListener: (String, String) -> Unit) : RecyclerView.Adapter<SearchArtistAdapter.SearchArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
-        return SearchArtistViewHolder(view)
+        return SearchArtistViewHolder(view, clickListener)
     }
 
     override fun getItemCount() = list.size
@@ -23,11 +23,15 @@ class SearchArtistAdapter(val list: List<Artist>) : RecyclerView.Adapter<SearchA
     }
 
 
-    class SearchArtistViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class SearchArtistViewHolder(private val view: View, val clickListener: (String, String) -> Unit) : RecyclerView.ViewHolder(view) {
         fun bind(artist: Artist) {
             view.txtName.text = artist.name
-            if (!artist.image.isNullOrEmpty())
+            if (artist.image.last().text.isNotEmpty())
                 Picasso.get().load(artist.image.last().text).into(view.imgArtist)
+
+            view.setOnClickListener {
+                clickListener(artist.name, artist.mbid)
+            }
         }
 
 

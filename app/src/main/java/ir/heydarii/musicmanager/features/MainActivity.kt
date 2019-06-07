@@ -16,9 +16,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
 
-        //TODO : clean the fragment mess :D
-
-
+        //TODO : // clean the fragments
         if (savedInstanceState == null)
             setUpFragments()
         else
@@ -29,7 +27,7 @@ class MainActivity : BaseActivity() {
 
     private fun retainFragments() {
         searchFragment =
-            supportFragmentManager.findFragmentByTag(SearchArtistFragment::class.java.simpleName) as SearchArtistFragment
+                supportFragmentManager.findFragmentByTag(SearchArtistFragment::class.java.simpleName) as SearchArtistFragment
     }
 
     private fun setUpFragments() {

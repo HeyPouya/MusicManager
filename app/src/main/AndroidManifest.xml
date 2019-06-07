@@ -3,6 +3,7 @@
     package="ir.heydarii.musicmanager">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -11,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".features.topalbums.TopAlbumsActivity" />
         <activity android:name=".features.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
