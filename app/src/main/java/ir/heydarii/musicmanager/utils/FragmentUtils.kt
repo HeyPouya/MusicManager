@@ -10,6 +10,7 @@ class FragmentUtils {
             val manager = fm.beginTransaction()
             manager.add(container, fragment, fragment::class.java.simpleName)
             manager.hide(fragment)
+            manager.commit()
         }
     }
 }
