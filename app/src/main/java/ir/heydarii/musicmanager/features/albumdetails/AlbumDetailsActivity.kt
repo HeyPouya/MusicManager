@@ -28,6 +28,9 @@ class AlbumDetailsActivity : BaseActivity() {
         val albumName = intent.getStringExtra(Consts.ALBUM_NAME)
 
 
+        txtToolbarTitle.title = albumName
+
+
         viewModel.getAlbumsResponse().observe(this, Observer {
 
             Picasso.get().load(it.album.image.last().text).into(imgAlbum)
@@ -39,7 +42,10 @@ class AlbumDetailsActivity : BaseActivity() {
         })
 
         viewModel.getLoadingData().observe(this, Observer {
-            progress.visibility = if (it == Consts.SHOW_LOADING) View.VISIBLE else View.INVISIBLE
+
+            progress.visibility = if (it == Consts.SHOW_LOADING) View.VISIBLE else { switcher.showPrevious()
+                View.INVISIBLE
+            }
         })
 
         viewModel.getAlbum(artistName, albumName, Consts.API_KEY)
@@ -49,6 +55,6 @@ class AlbumDetailsActivity : BaseActivity() {
 
     private fun showTrackList(tracks: List<Track>) {
         recycler.adapter = TracksAdapter(tracks)
-        recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
     }
 }
