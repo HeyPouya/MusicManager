@@ -6,20 +6,23 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
-//Important library versions :
-def rxjava_Version = "2.2.9"
-def lifecycle_version = "2.0.0"
-def appcompat_version = "1.0.2"
-def support_version = "1.0.0"
-def retrofit_version = "2.5.0"
-def dagger_version = "2.23.1"
+ext{
+    //Important library versions :
+    rxjava_Version = "2.2.9"
+    lifecycle_version = "2.0.0"
+    appcompat_version = "1.0.2"
+    support_version = "1.0.0"
+    retrofit_version = "2.5.0"
+    dagger_version = "2.23.1"
+    room_version = "2.1.0"
 
-//Application versioning
-ext.versionMajor = 1
-ext.versionMinor = 0
-ext.versionPatch = 0
-ext.versionClassifier = "BETA"
-ext.isBeta = true
+    //Application versioning
+    versionMajor = 1
+    versionMinor = 0
+    versionPatch = 0
+    versionClassifier = "BETA"
+    isBeta = true
+}
 
 private Integer generateVersionCode() {
     return ext.versionMajor * 100 + ext.versionMinor * 10 + ext.versionPatch
@@ -78,6 +81,7 @@ dependencies {
     //Test
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -87,7 +91,7 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.2'
 
     //Rx
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_Version"
@@ -104,7 +108,6 @@ dependencies {
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
 
-
     //CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
@@ -112,7 +115,12 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     //lottie
-    implementation 'com.airbnb.android:lottie:3.0.6'
+    implementation 'com.airbnb.android:lottie:3.0.7'
+
+    //Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    implementation "androidx.room:room-rxjava2:$room_version"
 
 
 }

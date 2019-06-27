@@ -19,27 +19,34 @@ class DataRepository @Inject constructor() {
 
 
     init {
-        DaggerDataProviderComponent.builder().retrofitComponent(BaseApplication.getRetrofitComponent()).build().inject(this)
+        DaggerDataProviderComponent.builder().retrofitComponent(BaseApplication.getRetrofitComponent()).build()
+            .inject(this)
     }
 
     @Inject
     lateinit var network: NetworkInteractor
 
+    
     fun getArtistName(artistName: String, page: Int, apiKey: String): Observable<ArtistResponseModel> {
         return network.getArtistsName(artistName, page, apiKey)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     fun getTopAlbumsByArtist(artistName: String, page: Int, apiKey: String): Observable<ArtistTopAlbumsResponseModel> {
         return network.getTopAlbumsByArtist(artistName, page, apiKey)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
 
-    fun getAlbumDetails(artistName: String, albumName: String, apiKey: String): Observable<AlbumDetailsResponseModel> {
-        return network.getAlbumDetails(artistName, albumName, apiKey)
+    fun getAlbumDetails(artistName: String, albumName: String, apiKey: String, offline: Boolean
+    ): Observable<AlbumDetailsResponseModel> {
+
+//        if (offline)
+//            return AlbumDetailsResponseModel()
+//        else
+            return network.getAlbumDetails(artistName, albumName, apiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }

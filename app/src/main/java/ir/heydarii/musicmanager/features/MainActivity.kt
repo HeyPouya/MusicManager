@@ -1,10 +1,12 @@
 package ir.heydarii.musicmanager.features
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
 import ir.heydarii.musicmanager.features.about.AboutMeFragment
+import ir.heydarii.musicmanager.features.savedalbums.SavedAlbumsFragment
 import ir.heydarii.musicmanager.features.searchpage.SearchArtistFragment
 import ir.heydarii.musicmanager.utils.Consts.Companion.CURRENT_FRAGMENT
 import ir.heydarii.musicmanager.utils.FragmentUtils
@@ -14,6 +16,7 @@ class MainActivity : BaseActivity() {
 
     private lateinit var searchFragment: SearchArtistFragment
     private lateinit var aboutMeFragment: AboutMeFragment
+    private lateinit var savedAlbumsFragment: SavedAlbumsFragment
     private var currentFragment: Fragment? = null
 
 
@@ -36,8 +39,19 @@ class MainActivity : BaseActivity() {
      * Adds all fragments to the container once the user opens the app
      */
     private fun addFragmentsToLayout() {
+        FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, savedAlbumsFragment)
         FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, searchFragment)
         FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, aboutMeFragment)
+
+        displayFirstTab()
+    }
+
+    /**
+     * Some delays to make sure that all fragments have added successfully to the container
+     */
+    private fun displayFirstTab() {
+        Handler().postDelayed({ displayFragments(savedAlbumsFragment) }
+                , 200)
     }
 
     /**
@@ -46,11 +60,15 @@ class MainActivity : BaseActivity() {
     private fun retainFragments(fragment: String?) {
         searchFragment =
                 supportFragmentManager.findFragmentByTag(SearchArtistFragment::class.java.simpleName) as SearchArtistFragment
-        aboutMeFragment = supportFragmentManager.findFragmentByTag(AboutMeFragment::class.java.simpleName) as AboutMeFragment
+        aboutMeFragment =
+                supportFragmentManager.findFragmentByTag(AboutMeFragment::class.java.simpleName) as AboutMeFragment
+        savedAlbumsFragment =
+                supportFragmentManager.findFragmentByTag(SavedAlbumsFragment::class.java.simpleName) as SavedAlbumsFragment
 
         when (fragment) {
             SearchArtistFragment::class.java.simpleName -> currentFragment = searchFragment
             AboutMeFragment::class.java.simpleName -> currentFragment = aboutMeFragment
+            SavedAlbumsFragment::class.java.simpleName -> currentFragment = savedAlbumsFragment
         }
 
 
@@ -63,6 +81,7 @@ class MainActivity : BaseActivity() {
     private fun setUpFragments() {
         searchFragment = SearchArtistFragment.newInstance()
         aboutMeFragment = AboutMeFragment.newInstance()
+        savedAlbumsFragment = SavedAlbumsFragment.newInstance()
     }
 
     /**
@@ -81,22 +100,16 @@ class MainActivity : BaseActivity() {
      */
     private fun showFragment(id: Int) {
         when (id) {
-            R.id.search -> {
-                displayOrHideFragments(searchFragment)
-            }
-            R.id.home -> {
-            }
-            R.id.about -> {
-                displayOrHideFragments(aboutMeFragment)
-            }
+            R.id.search -> displayFragments(searchFragment)
+            R.id.home -> displayFragments(savedAlbumsFragment)
+            R.id.about -> displayFragments(aboutMeFragment)
         }
-
     }
 
     /**
      * Displays the requested fragment and hides other fragments
      */
-    private fun displayOrHideFragments(clickedFragment: Fragment) {
+    private fun displayFragments(clickedFragment: Fragment) {
         val manager = supportFragmentManager.beginTransaction()
 
         if (currentFragment == clickedFragment)
