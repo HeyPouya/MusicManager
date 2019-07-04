@@ -1,20 +1,19 @@
 package ir.heydarii.musicmanager.features.savedalbums
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import com.orhanobut.logger.Logger
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
+import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
-import ir.heydarii.musicmanager.utils.AppDatabase
+import ir.heydarii.musicmanager.utils.Consts
 import kotlinx.android.synthetic.main.saved_albums_fragment.*
 
 class SavedAlbumsFragment : BaseFragment() {
@@ -46,9 +45,26 @@ class SavedAlbumsFragment : BaseFragment() {
      * Sets up the recycler for the first time
      */
     private fun setUpRecycler() {
-        adapter = SavedAlbumsAdapter(emptyList())
+        adapter = SavedAlbumsAdapter(emptyList()) { artistName: String, albumName: String ->
+            savedAlbumsClickListener(
+                artistName,
+                albumName
+            )
+        }
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+    }
+
+    /**
+     * Handles the click event on items
+     */
+    private fun savedAlbumsClickListener(artistName: String, albumName: String) {
+        val intent = Intent(context, AlbumDetailsActivity::class.java)
+        intent.putExtra(Consts.IS_OFFLINE, true)
+        intent.putExtra(Consts.ARTIST_NAME, artistName)
+        intent.putExtra(Consts.ALBUM_NAME, albumName)
+        startActivity(intent)
+
     }
 
     /**
@@ -65,21 +81,10 @@ class SavedAlbumsFragment : BaseFragment() {
      */
     override fun onResume() {
         super.onResume()
+        viewModel.getAllAlbums()
 
-
-        //TODO : Clean up this mess
-        val db = Room.databaseBuilder(context!!, AppDatabase::class.java, "Albums.db").build()
-
-
-        db.albumsDAO().getAllAlbums()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Logger.d(it.size)
-                showRecycler(it)
-            }, {
-                Logger.d(it)
-            })
-
+        viewModel.getAlbumList().observe(this, Observer {
+            showRecycler(it)
+        })
     }
 }

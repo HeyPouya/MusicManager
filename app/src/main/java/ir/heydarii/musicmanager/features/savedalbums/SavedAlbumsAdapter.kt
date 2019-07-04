@@ -10,11 +10,12 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import kotlinx.android.synthetic.main.search_layout_item.view.*
 
-class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>) : RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
+class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>, var clickListener: (String, String) -> Unit) :
+    RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
-        return SearchArtistViewHolder(view)
+        return SearchArtistViewHolder(view, clickListener)
     }
 
     override fun getItemCount() = list.size
@@ -24,7 +25,8 @@ class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>) : RecyclerView.Ada
     }
 
 
-    class SearchArtistViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class SearchArtistViewHolder(private val view: View, var clickListener: (String, String) -> Unit) :
+        RecyclerView.ViewHolder(view) {
         fun bind(album: AlbumDatabaseEntity) {
             view.txtName.text = album.albumName
 
@@ -34,6 +36,9 @@ class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>) : RecyclerView.Ada
                 Picasso.get().load(album.image).into(view.imgArtist)
 
 
+            view.setOnClickListener {
+                clickListener(album.artistName, album.albumName)
+            }
         }
 
 

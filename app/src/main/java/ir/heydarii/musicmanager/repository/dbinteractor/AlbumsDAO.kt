@@ -16,4 +16,9 @@ interface AlbumsDAO {
 
     @Query("SELECT * FROM albums")
     fun getAllAlbums(): Observable<List<AlbumDatabaseEntity>>
+
+
+    @Query("SELECT * FROM albums WHERE artist_name = :artistName and album_name = :albumName LIMIT 1")
+    fun getSpecificAlbum(artistName: String, albumName: String): Observable<AlbumDatabaseEntity>
+
 }

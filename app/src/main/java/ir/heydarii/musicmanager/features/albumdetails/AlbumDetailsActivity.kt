@@ -6,16 +6,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import com.orhanobut.logger.Logger
 import com.squareup.picasso.Picasso
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
-import ir.heydarii.musicmanager.utils.AppDatabase
 import ir.heydarii.musicmanager.utils.Consts
-import ir.heydarii.musicmanager.utils.Consts.Companion.ALBUM_DB_NAME
 import ir.heydarii.musicmanager.utils.Consts.Companion.IS_OFFLINE
 import kotlinx.android.synthetic.main.activity_album_details.*
 
@@ -36,7 +30,6 @@ class AlbumDetailsActivity : BaseActivity() {
 
 
         viewModel.getAlbumsResponse().observe(this, Observer {
-
             Picasso.get().load(it.image).into(imgAlbum)
             txtAlbumName.text = it.albumName
             txtArtistName.text = it.artistName
@@ -44,19 +37,7 @@ class AlbumDetailsActivity : BaseActivity() {
             showTrackList(it.tracks)
 
 
-            val db = Room.databaseBuilder(this, AppDatabase::class.java, ALBUM_DB_NAME)
-                .build()
-
-
-            db.albumsDAO().saveAlbum(it)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-
-                }, {
-                    Logger.d(it)
-                })
-
+            viewModel.saveAlbum(it)
         })
 
         viewModel.getLoadingData().observe(this, Observer {
@@ -67,7 +48,7 @@ class AlbumDetailsActivity : BaseActivity() {
             }
         })
 
-        viewModel.getAlbum(artistName, albumName, Consts.API_KEY,isOffline)
+        viewModel.getAlbum(artistName, albumName, Consts.API_KEY, isOffline)
 
 
     }

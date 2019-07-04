@@ -25,24 +25,33 @@ class AlbumDetailsViewModel : BaseViewModel() {
 
         loadingData.value = Consts.SHOW_LOADING
 
-        composite.add(repository.getAlbumDetails(artistName, albumName, apiKey, offline)
-            .map {
-                val tracks = ArrayList<String>()
-                it.album.tracks.track.forEach { track ->
-                    tracks.add(track.name)
-                }
-                AlbumDatabaseEntity(null, it.album.name, it.album.artist, it.album.image.last().text, tracks)
-            }
-            .subscribe({
-                loadingData.value = Consts.HIDE_LOADING
-                albumDetailsResponse.value = it
-            }, {
-                loadingData.value = Consts.HIDE_LOADING
-                //TODO : Error handling
-                Logger.d(it)
-            })
+        composite.add(
+            repository.getAlbumDetails(artistName, albumName, apiKey, offline)
+                .subscribe({
+                    loadingData.value = Consts.HIDE_LOADING
+                    albumDetailsResponse.value = it
+                }, {
+                    loadingData.value = Consts.HIDE_LOADING
+                    //TODO : Error handling
+                    Logger.d(it)
+                })
         )
 
+    }
+
+    /**
+     * Saves an album into the database
+     */
+    fun saveAlbum(data: AlbumDatabaseEntity) {
+        composite.add(
+            repository.saveAlbum(data)
+                .subscribe({
+
+                }, {
+                    Logger.d(it)
+                    //TODO : Handle Error
+                })
+        )
     }
 
 
