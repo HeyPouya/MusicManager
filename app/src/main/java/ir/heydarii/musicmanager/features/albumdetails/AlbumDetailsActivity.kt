@@ -1,6 +1,7 @@
 package ir.heydarii.musicmanager.features.albumdetails
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -36,27 +37,53 @@ class AlbumDetailsActivity : BaseActivity() {
 
         })
 
-        btnSave.setOnClickListener {
-            saveAlbum()
-        }
 
         //subscribes to show or hide loading
         viewModel.getViewNotifier().observe(this, Observer {
-
             when (it) {
                 ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
-                ViewNotifierEnums.HIDE_LOADING-> {
-                    progress.visibility = View.INVISIBLE
+                ViewNotifierEnums.HIDE_LOADING -> {
                     switcher.showPrevious()
                 }
+                ViewNotifierEnums.SAVED_INTO_DB -> showSaveStatus()
+                ViewNotifierEnums.REMOVED_FROM_DB -> btnSave.progress = 0f
             }
         })
 
+        //observes the viewModel to undestand the state of btnSave for the first time activity starts
+        viewModel.getAlbumExistenceResponse().observe(this, Observer {
+            when (it) {
+                true -> btnSave.progress = 1f
+                false -> btnSave.progress = 0f
+            }
+        })
+
+        //click listener for btnSave
+        btnSave.setOnClickListener {
+            disableSaveButtonForASecond()
+            viewModel.onClickedOnSaveButton()
+        }
+
+
     }
 
-    private fun saveAlbum() {
-        viewModel.saveAlbum()
+    /**
+     * Disables the save button so the database have some time to perform the requested action
+     */
+    private fun disableSaveButtonForASecond() {
+        btnSave.isEnabled = false
+        Handler().postDelayed({
+            btnSave.isEnabled = true
+        }, 2000)
     }
+
+    /**
+     * Shows save animation
+     */
+    private fun showSaveStatus() {
+        btnSave.playAnimation()
+    }
+
 
     /**
      * Sets Albums general data in the view

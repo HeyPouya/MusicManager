@@ -31,7 +31,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="@string/please_search_an_artist_name"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionSearch"
                 android:inputType="textPersonName"
                 android:lines="1"
                 android:paddingStart="8dp"

@@ -55,7 +55,7 @@ class SearchArtistFragment : BaseFragment() {
 
         edtSearch.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {
-                EditorInfo.IME_ACTION_DONE -> searchArtist()
+                EditorInfo.IME_ACTION_SEARCH -> searchArtist()
             }
             false
         }

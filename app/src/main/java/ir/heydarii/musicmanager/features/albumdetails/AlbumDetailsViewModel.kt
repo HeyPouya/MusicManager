@@ -7,7 +7,6 @@ import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.DataRepository
-import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class AlbumDetailsViewModel : BaseViewModel() {
@@ -18,7 +17,8 @@ class AlbumDetailsViewModel : BaseViewModel() {
     private val composite = CompositeDisposable()
     private val albumDetailsResponse = MutableLiveData<AlbumDatabaseEntity>()
     private var albumData: AlbumDatabaseEntity? = null
-
+    private val doesAlbumExistsInDb = MutableLiveData<Boolean>()
+    private var isAlbumSaved = false
 
     /**
      * Gets the album data
@@ -27,30 +27,51 @@ class AlbumDetailsViewModel : BaseViewModel() {
 
         viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 
+        checkAlbumExistenceInDb(artistName, albumName)
+
         composite.add(
                 repository.getAlbumDetails(artistName, albumName, apiKey, offline)
                         .subscribe({
-                            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                             albumDetailsResponse.value = it
                             albumData = it
+                            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                         }, {
                             viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                             //TODO : Error handling
                             Logger.d(it)
                         })
         )
-
     }
 
     /**
      * Saves an album into the database
      */
-    fun saveAlbum() {
-
+    private fun saveAlbum() {
         if (albumData != null)
             composite.add(repository.saveAlbum(albumData!!)
                     .subscribe({
+                        viewNotifier.value = ViewNotifierEnums.SAVED_INTO_DB
+                        isAlbumSaved = true
+                    }, {
+                        Logger.d(it)
+                        //TODO : Handle Error
+                    }))
+        //TODO : Set else to show error message
+    }
 
+    fun onClickedOnSaveButton() {
+        when (isAlbumSaved) {
+            true -> removeAlbum()
+            false -> saveAlbum()
+        }
+    }
+
+    private fun removeAlbum() {
+        if (albumData != null)
+            composite.add(repository.removeAlbum(albumData!!.artistName, albumData!!.albumName)
+                    .subscribe({
+                        viewNotifier.value = ViewNotifierEnums.REMOVED_FROM_DB
+                        isAlbumSaved = false
                     }, {
                         Logger.d(it)
                         //TODO : Handle Error
@@ -59,12 +80,29 @@ class AlbumDetailsViewModel : BaseViewModel() {
 
     }
 
-
     /**
      * Returns an ImmutableLiveData instance of albumDetailsResponse
      */
     fun getAlbumsResponse(): LiveData<AlbumDatabaseEntity> = albumDetailsResponse
 
+
+    private fun checkAlbumExistenceInDb(artistName: String, albumName: String) {
+        composite.add(repository.doestAlbumExists(artistName, albumName)
+                .subscribe({
+                    doesAlbumExistsInDb.value = it
+                    isAlbumSaved = it
+                }, {
+                    Logger.d(it)
+                    //TODO : Some error Handling
+                }))
+    }
+
+    /**
+     * Returns an ImmutableLiveData instance of doesAlbumExistsInDb
+     */
+    fun getAlbumExistenceResponse(): LiveData<Boolean> {
+        return doesAlbumExistsInDb
+    }
 
     /**
      * Clearing the RX disposables
@@ -73,4 +111,5 @@ class AlbumDetailsViewModel : BaseViewModel() {
         composite.dispose()
         super.onCleared()
     }
+
 }

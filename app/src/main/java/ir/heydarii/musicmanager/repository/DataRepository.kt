@@ -2,6 +2,7 @@ package ir.heydarii.musicmanager.repository
 
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ir.heydarii.musicmanager.base.BaseApplication
@@ -22,7 +23,7 @@ class DataRepository @Inject constructor() {
 
     init {
         DaggerDataProviderComponent.builder().retrofitComponent(BaseApplication.getRetrofitComponent()).build()
-            .inject(this)
+                .inject(this)
     }
 
     @Inject
@@ -32,53 +33,65 @@ class DataRepository @Inject constructor() {
     lateinit var database: AlbumsDAO
 
 
-    fun getArtistName(artistName: String, page: Int, apiKey: String): Observable<ArtistResponseModel> {
+    fun getArtistName(artistName: String, page: Int, apiKey: String): Single<ArtistResponseModel> {
         return network.getArtistsName(artistName, page, apiKey)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getTopAlbumsByArtist(artistName: String, page: Int, apiKey: String): Observable<ArtistTopAlbumsResponseModel> {
+    fun getTopAlbumsByArtist(artistName: String, page: Int, apiKey: String): Single<ArtistTopAlbumsResponseModel> {
         return network.getTopAlbumsByArtist(artistName, page, apiKey)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
 
-    fun getAlbumDetails(
-        artistName: String, albumName: String, apiKey: String, offline: Boolean
-    ): Observable<AlbumDatabaseEntity> {
+    fun getAlbumDetails(artistName: String, albumName: String, apiKey: String, offline: Boolean): Single<AlbumDatabaseEntity> {
 
         if (offline)
             return database.getSpecificAlbum(artistName, albumName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
         else
             return network.getAlbumDetails(artistName, albumName, apiKey)
-                .map {
-                    val tracks = arrayListOf<String>()
-                    it.album.tracks.track.forEach {
-                        tracks.add(it.name)
-                    }
+                    .map {
+                        val tracks = arrayListOf<String>()
+                        it.album.tracks.track.forEach {
+                            tracks.add(it.name)
+                        }
 
-                    val image = it.album.image.last().text ?: ""
-                    AlbumDatabaseEntity(null, it.album.name, it.album.artist, image, tracks)
-                }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                        val image = it.album.image.last().text ?: ""
+                        AlbumDatabaseEntity( null,it.album.name, it.album.artist, image, tracks)
+                    }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getAllSavedAlbums(): Observable<List<AlbumDatabaseEntity>> {
+    fun getAllSavedAlbums(): Single<List<AlbumDatabaseEntity>> {
         return database.getAllAlbums()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
 
     }
 
     fun saveAlbum(albumDatabaseEntity: AlbumDatabaseEntity): Completable {
         return database.saveAlbum(albumDatabaseEntity)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+
+    }
+
+    fun doestAlbumExists(artistName: String, albumName: String): Single<Boolean> {
+        return database.doesAlbumExists(artistName, albumName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+
+    }
+
+    fun removeAlbum(artistName: String,albumName: String): Completable {
+        return database.removeAlbum(artistName, albumName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
 
     }
 }
