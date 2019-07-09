@@ -15,6 +15,7 @@ import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.features.topalbums.TopAlbumsActivity
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
 import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.search_artist_fragment.*
 
 class SearchArtistFragment : BaseFragment() {
@@ -69,8 +70,11 @@ class SearchArtistFragment : BaseFragment() {
             showRecycler(it)
         })
 
-        viewModel.getLoadingData().observe(this, Observer {
-            progress.visibility = if (it == Consts.SHOW_LOADING) View.VISIBLE else View.INVISIBLE
+        viewModel.getViewNotifier().observe(this, Observer {
+            when (it) {
+                ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
+                ViewNotifierEnums.HIDE_LOADING -> progress.visibility = View.INVISIBLE
+            }
         })
 
     }

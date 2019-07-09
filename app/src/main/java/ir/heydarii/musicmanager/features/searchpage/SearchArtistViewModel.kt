@@ -8,6 +8,7 @@ import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class SearchArtistViewModel : BaseViewModel() {
 
@@ -22,7 +23,7 @@ class SearchArtistViewModel : BaseViewModel() {
      */
     fun onUserSearchedArtist(artistName: String, page: Int, apiKey: String) {
 
-        loadingData.value = Consts.SHOW_LOADING
+        viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 
         //disposing all disposables before adding a new one
         if (composite.size() > 0)
@@ -31,10 +32,10 @@ class SearchArtistViewModel : BaseViewModel() {
         composite.add(repository.getArtistName(artistName, page, apiKey)
                 .subscribe({
                     artistResponse.value = it
-                    loadingData.value = Consts.HIDE_LOADING
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                 }, {
 
-                    loadingData.value = Consts.HIDE_LOADING
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                     Logger.d(it.message)
                     //TODO : Add error handling
                 }))

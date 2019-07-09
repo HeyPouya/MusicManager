@@ -8,6 +8,7 @@ import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class AlbumDetailsViewModel : BaseViewModel() {
 
@@ -16,6 +17,7 @@ class AlbumDetailsViewModel : BaseViewModel() {
     private val repository = DataRepository()
     private val composite = CompositeDisposable()
     private val albumDetailsResponse = MutableLiveData<AlbumDatabaseEntity>()
+    private var albumData: AlbumDatabaseEntity? = null
 
 
     /**
@@ -23,18 +25,19 @@ class AlbumDetailsViewModel : BaseViewModel() {
      */
     fun getAlbum(artistName: String, albumName: String, apiKey: String, offline: Boolean) {
 
-        loadingData.value = Consts.SHOW_LOADING
+        viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 
         composite.add(
-            repository.getAlbumDetails(artistName, albumName, apiKey, offline)
-                .subscribe({
-                    loadingData.value = Consts.HIDE_LOADING
-                    albumDetailsResponse.value = it
-                }, {
-                    loadingData.value = Consts.HIDE_LOADING
-                    //TODO : Error handling
-                    Logger.d(it)
-                })
+                repository.getAlbumDetails(artistName, albumName, apiKey, offline)
+                        .subscribe({
+                            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                            albumDetailsResponse.value = it
+                            albumData = it
+                        }, {
+                            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                            //TODO : Error handling
+                            Logger.d(it)
+                        })
         )
 
     }
@@ -42,16 +45,18 @@ class AlbumDetailsViewModel : BaseViewModel() {
     /**
      * Saves an album into the database
      */
-    fun saveAlbum(data: AlbumDatabaseEntity) {
-        composite.add(
-            repository.saveAlbum(data)
-                .subscribe({
+    fun saveAlbum() {
 
-                }, {
-                    Logger.d(it)
-                    //TODO : Handle Error
-                })
-        )
+        if (albumData != null)
+            composite.add(repository.saveAlbum(albumData!!)
+                    .subscribe({
+
+                    }, {
+                        Logger.d(it)
+                        //TODO : Handle Error
+                    }))
+        //TODO : Set else to show error message
+
     }
 
 

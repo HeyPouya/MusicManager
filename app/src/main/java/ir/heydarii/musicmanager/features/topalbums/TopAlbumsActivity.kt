@@ -15,7 +15,7 @@ import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.Consts.Companion.ALBUM_NAME
 import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_ID
 import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_NAME
-import ir.heydarii.musicmanager.utils.Consts.Companion.SHOW_LOADING
+import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.activity_top_albums.*
 
 class TopAlbumsActivity : BaseActivity() {
@@ -28,23 +28,27 @@ class TopAlbumsActivity : BaseActivity() {
 
         viewModel = ViewModelProviders.of(this).get(TopAlbumsViewModel::class.java)
 
-        getDataPassedByIntent(savedInstanceState)
+        showData(savedInstanceState)
 
+        //subscribes to get the albums data
         viewModel.getTopAlbumsLiveData().observe(this, Observer {
             showList(it)
         })
-        viewModel.getLoadingData().observe(this, Observer {
-            progress.visibility = if (it == SHOW_LOADING) View.VISIBLE else View.INVISIBLE
+
+        //subscribes to show or hide loading
+        viewModel.getViewNotifier().observe(this, Observer {
+            when (it) {
+                ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
+                ViewNotifierEnums.HIDE_LOADING -> progress.visibility = View.INVISIBLE
+            }
         })
-
-
     }
 
     /**
      * Checks if the developer has passed data via intent or not
      * and requests ViewModel to fetch the data
      */
-    private fun getDataPassedByIntent(savedInstanceState: Bundle?) {
+    private fun showData(savedInstanceState: Bundle?) {
 
         val artistName = intent.getStringExtra(ARTIST_NAME)
         val artistId = intent.getStringExtra(ARTIST_ID)

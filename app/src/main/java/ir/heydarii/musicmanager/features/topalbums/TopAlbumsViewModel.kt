@@ -7,7 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import ir.heydarii.musicmanager.repository.DataRepository
-import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class TopAlbumsViewModel : BaseViewModel() {
 
@@ -21,15 +21,15 @@ class TopAlbumsViewModel : BaseViewModel() {
      * Fetches the top albums of a selected artist
      */
     fun onTopAlbumsRequested(artistName: String, page: Int, apiKey: String) {
-        loadingData.value = Consts.SHOW_LOADING
+        viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 
         composite.add(dataRepository.getTopAlbumsByArtist(artistName, page, apiKey)
                 .subscribe({
-                    loadingData.value = Consts.HIDE_LOADING
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                     topAlbumsData.value = it
                 }, {
 
-                    loadingData.value = Consts.HIDE_LOADING
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                     //TODO : Error handling
                     Logger.d(it)
                 }))
