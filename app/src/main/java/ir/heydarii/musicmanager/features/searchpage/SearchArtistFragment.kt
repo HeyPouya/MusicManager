@@ -44,8 +44,8 @@ class SearchArtistFragment : BaseFragment() {
      */
     private fun setUpRecyclerView() {
         //TODO : Provide the adapter via dagger
-        adapter = SearchArtistAdapter(emptyList()) { artistName, artistId ->
-            startTopAlbumsView(artistName, artistId)
+        adapter = SearchArtistAdapter(emptyList()) { artistName ->
+            startTopAlbumsView(artistName)
         }
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -95,10 +95,9 @@ class SearchArtistFragment : BaseFragment() {
     /**
      * navigates to the view that shows the top albums of the selected artist
      */
-    private fun startTopAlbumsView(artistName: String, artistId: String) {
+    private fun startTopAlbumsView(artistName: String) {
         val intent = Intent(activity, TopAlbumsActivity::class.java)
         intent.putExtra(Consts.ARTIST_NAME, artistName)
-        intent.putExtra(Consts.ARTIST_ID, artistId)
         startActivity(intent)
     }
 

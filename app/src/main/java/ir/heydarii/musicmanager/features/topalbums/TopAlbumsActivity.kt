@@ -51,16 +51,15 @@ class TopAlbumsActivity : BaseActivity() {
     private fun showData(savedInstanceState: Bundle?) {
 
         val artistName = intent.getStringExtra(ARTIST_NAME)
-        val artistId = intent.getStringExtra(ARTIST_ID)
 
-        if (!artistName.isNullOrEmpty() && !artistId.isNullOrEmpty()) {
+        if (!artistName.isNullOrEmpty()) {
             showArtistName(artistName)
 
             //don't request again to get data after rotation
             if (savedInstanceState == null)
                 viewModel.onTopAlbumsRequested(artistName, 1, Consts.API_KEY)
         } else
-            throw IllegalStateException("You have to pass the artist Name and the Artist Id")
+            throw IllegalStateException("You have to pass the artist Name")
 
     }
 

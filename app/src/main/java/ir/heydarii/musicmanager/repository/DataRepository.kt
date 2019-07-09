@@ -20,17 +20,18 @@ import javax.inject.Inject
  */
 class DataRepository @Inject constructor() {
 
+    lateinit var network: NetworkInteractor
+    lateinit var database: AlbumsDAO
+
 
     init {
-        DaggerDataProviderComponent.builder().retrofitComponent(BaseApplication.getRetrofitComponent()).build()
-                .inject(this)
+      val component =  DaggerDataProviderComponent.builder().retrofitComponent(BaseApplication.getRetrofitComponent()).build()
+
+        network = component.getNetworkInteractor()
+        database = component.getDbInteractor()
     }
 
-    @Inject
-    lateinit var network: NetworkInteractor
 
-    @Inject
-    lateinit var database: AlbumsDAO
 
 
     fun getArtistName(artistName: String, page: Int, apiKey: String): Single<ArtistResponseModel> {

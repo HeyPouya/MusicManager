@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
+import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.Consts
@@ -13,10 +14,14 @@ import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 class SearchArtistViewModel : BaseViewModel() {
 
     //TODO : Provide the repository with dagger
-    private val repository = DataRepository()
+    private val repository : DataRepository
     private val composite = CompositeDisposable()
     private val artistResponse = MutableLiveData<ArtistResponseModel>()
 
+    init {
+        val component = DaggerDataRepositoryComponent.builder().build()
+        repository = component.getDataRepository()
+    }
 
     /**
      * Fetches all artists with the name that user enters

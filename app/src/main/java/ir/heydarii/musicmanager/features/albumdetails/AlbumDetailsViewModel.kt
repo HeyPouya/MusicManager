@@ -5,20 +5,26 @@ import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
+import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class AlbumDetailsViewModel : BaseViewModel() {
 
-    //TODO : get the repository from dagger
 
-    private val repository = DataRepository()
+    private val repository: DataRepository
     private val composite = CompositeDisposable()
     private val albumDetailsResponse = MutableLiveData<AlbumDatabaseEntity>()
     private var albumData: AlbumDatabaseEntity? = null
     private val doesAlbumExistsInDb = MutableLiveData<Boolean>()
     private var isAlbumSaved = false
+
+
+    init {
+        val component = DaggerDataRepositoryComponent.builder().build()
+        repository = component.getDataRepository()
+    }
 
     /**
      * Gets the album data

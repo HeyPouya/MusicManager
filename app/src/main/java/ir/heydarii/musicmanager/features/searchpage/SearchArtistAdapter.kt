@@ -9,7 +9,7 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.Artist
 import kotlinx.android.synthetic.main.search_layout_item.view.*
 
-class SearchArtistAdapter(var list: List<Artist>, private val clickListener: (String, String) -> Unit) : RecyclerView.Adapter<SearchArtistAdapter.SearchArtistViewHolder>() {
+class SearchArtistAdapter(var list: List<Artist>, private val clickListener: (String) -> Unit) : RecyclerView.Adapter<SearchArtistAdapter.SearchArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
@@ -23,7 +23,7 @@ class SearchArtistAdapter(var list: List<Artist>, private val clickListener: (St
     }
 
 
-    class SearchArtistViewHolder(private val view: View, val clickListener: (String, String) -> Unit) : RecyclerView.ViewHolder(view) {
+    class SearchArtistViewHolder(private val view: View, val clickListener: (String) -> Unit) : RecyclerView.ViewHolder(view) {
         fun bind(artist: Artist) {
             view.txtName.text = artist.name
 
@@ -32,7 +32,7 @@ class SearchArtistAdapter(var list: List<Artist>, private val clickListener: (St
                 Picasso.get().load(artist.image.last().text).into(view.imgArtist)
 
             view.setOnClickListener {
-                clickListener(artist.name, artist.mbid)
+                clickListener(artist.name)
             }
         }
 

@@ -14,6 +14,4 @@ interface DataProviderComponent {
     fun getNetworkInteractor(): NetworkInteractor
 
     fun getDbInteractor(): AlbumsDAO
-
-    fun inject(dataRepository: DataRepository)
 }

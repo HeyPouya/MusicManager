@@ -63,8 +63,6 @@ class AlbumDetailsActivity : BaseActivity() {
             disableSaveButtonForASecond()
             viewModel.onClickedOnSaveButton()
         }
-
-
     }
 
     /**
@@ -84,12 +82,12 @@ class AlbumDetailsActivity : BaseActivity() {
         btnSave.playAnimation()
     }
 
-
     /**
      * Sets Albums general data in the view
      */
     private fun setImagesTexts(album: AlbumDatabaseEntity) {
-        Picasso.get().load(album.image).into(imgAlbum)
+        if (album.image.isNotEmpty())
+            Picasso.get().load(album.image).into(imgAlbum)
         txtAlbumName.text = album.albumName
         txtArtistName.text = album.artistName
     }
