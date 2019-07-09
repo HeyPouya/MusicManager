@@ -13,7 +13,7 @@ import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 class AlbumDetailsViewModel : BaseViewModel() {
 
 
-    private val repository: DataRepository
+    private val dataRepository: DataRepository = DaggerDataRepositoryComponent.create().getDataRepository()
     private val composite = CompositeDisposable()
     private val albumDetailsResponse = MutableLiveData<AlbumDatabaseEntity>()
     private var albumData: AlbumDatabaseEntity? = null
@@ -21,10 +21,6 @@ class AlbumDetailsViewModel : BaseViewModel() {
     private var isAlbumSaved = false
 
 
-    init {
-        val component = DaggerDataRepositoryComponent.builder().build()
-        repository = component.getDataRepository()
-    }
 
     /**
      * Gets the album data
@@ -36,7 +32,7 @@ class AlbumDetailsViewModel : BaseViewModel() {
         checkAlbumExistenceInDb(artistName, albumName)
 
         composite.add(
-                repository.getAlbumDetails(artistName, albumName, apiKey, offline)
+                dataRepository.getAlbumDetails(artistName, albumName, apiKey, offline)
                         .subscribe({
                             albumDetailsResponse.value = it
                             albumData = it
@@ -54,7 +50,7 @@ class AlbumDetailsViewModel : BaseViewModel() {
      */
     private fun saveAlbum() {
         if (albumData != null)
-            composite.add(repository.saveAlbum(albumData!!)
+            composite.add(dataRepository.saveAlbum(albumData!!)
                     .subscribe({
                         viewNotifier.value = ViewNotifierEnums.SAVED_INTO_DB
                         isAlbumSaved = true
@@ -74,7 +70,7 @@ class AlbumDetailsViewModel : BaseViewModel() {
 
     private fun removeAlbum() {
         if (albumData != null)
-            composite.add(repository.removeAlbum(albumData!!.artistName, albumData!!.albumName)
+            composite.add(dataRepository.removeAlbum(albumData!!.artistName, albumData!!.albumName)
                     .subscribe({
                         viewNotifier.value = ViewNotifierEnums.REMOVED_FROM_DB
                         isAlbumSaved = false
@@ -93,7 +89,7 @@ class AlbumDetailsViewModel : BaseViewModel() {
 
 
     private fun checkAlbumExistenceInDb(artistName: String, albumName: String) {
-        composite.add(repository.doestAlbumExists(artistName, albumName)
+        composite.add(dataRepository.doestAlbumExists(artistName, albumName)
                 .subscribe({
                     doesAlbumExistsInDb.value = it
                     isAlbumSaved = it

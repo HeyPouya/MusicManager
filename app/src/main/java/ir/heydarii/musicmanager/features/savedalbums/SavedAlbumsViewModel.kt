@@ -11,21 +11,17 @@ import ir.heydarii.musicmanager.repository.DataRepository
 
 class SavedAlbumsViewModel : BaseViewModel() {
 
-    private val repository : DataRepository
+    private val dataRepository: DataRepository = DaggerDataRepositoryComponent.create().getDataRepository()
     private val composite = CompositeDisposable()
     private val albumsList = MutableLiveData<List<AlbumDatabaseEntity>>()
 
-    init {
-        val component = DaggerDataRepositoryComponent.builder().build()
-        repository = component.getDataRepository()
-    }
 
     /**
      * Fetches all albums from database
      */
     fun getAllAlbums() {
         composite.add(
-            repository.getAllSavedAlbums()
+                dataRepository.getAllSavedAlbums()
                 .subscribe({
                     albumsList.value = it
                 }, {

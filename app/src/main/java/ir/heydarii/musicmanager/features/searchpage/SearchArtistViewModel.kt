@@ -13,15 +13,10 @@ import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class SearchArtistViewModel : BaseViewModel() {
 
-    //TODO : Provide the repository with dagger
-    private val repository : DataRepository
+    private val dataRepository: DataRepository = DaggerDataRepositoryComponent.create().getDataRepository()
     private val composite = CompositeDisposable()
     private val artistResponse = MutableLiveData<ArtistResponseModel>()
 
-    init {
-        val component = DaggerDataRepositoryComponent.builder().build()
-        repository = component.getDataRepository()
-    }
 
     /**
      * Fetches all artists with the name that user enters
@@ -34,7 +29,7 @@ class SearchArtistViewModel : BaseViewModel() {
         if (composite.size() > 0)
             composite.clear()
 
-        composite.add(repository.getArtistName(artistName, page, apiKey)
+        composite.add(dataRepository.getArtistName(artistName, page, apiKey)
                 .subscribe({
                     artistResponse.value = it
                     viewNotifier.value = ViewNotifierEnums.HIDE_LOADING

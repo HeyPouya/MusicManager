@@ -5,17 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
+import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class TopAlbumsViewModel : BaseViewModel() {
 
+    private val dataRepository: DataRepository = DaggerDataRepositoryComponent.create().getDataRepository()
     private val topAlbumsData = MutableLiveData<ArtistTopAlbumsResponseModel>()
-    //TODO : Provide the repository with dagger
-    private val dataRepository = DataRepository()
     private val composite = CompositeDisposable()
-
 
     /**
      * Fetches the top albums of a selected artist
