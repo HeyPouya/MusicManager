@@ -10,8 +10,8 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import kotlinx.android.synthetic.main.search_layout_item.view.*
 
-class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>, var clickListener: (String, String) -> Unit) :
-    RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
+class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>, private var clickListener: (String, String) -> Unit) :
+        RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
@@ -26,14 +26,14 @@ class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>, var clickListener:
 
 
     class SearchArtistViewHolder(private val view: View, var clickListener: (String, String) -> Unit) :
-        RecyclerView.ViewHolder(view) {
+            RecyclerView.ViewHolder(view) {
         fun bind(album: AlbumDatabaseEntity) {
             view.txtName.text = album.albumName
 
             Logger.d(album.albumName)
             // Last image has always the best quality
             if (!album.image.isNullOrEmpty())
-                Picasso.get().load(album.image).into(view.imgArtist)
+                Picasso.get().load(album.image).placeholder(R.drawable.ic_album_placeholder).into(view.imgArtist)
 
 
             view.setOnClickListener {
