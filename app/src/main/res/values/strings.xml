@@ -8,4 +8,6 @@
     <string name="copy_right">Developed By Pouya Heydari  For Appsfactory GmbH</string>
     <string name="technologies_description">Technologies : RxJava - MVVM - Architecture components(LiveData,ViewModel,Room) - Dagger2 - Retrofit</string>
     <string name="tracks">Tracks</string>
+    <string name="please_enter_artist_name">Please enter an artist\'s name</string>
+    <string name="a_notifier_is_not_defined_in_the_when_block">A notifier is not defined in the when block!</string>
 </resources>

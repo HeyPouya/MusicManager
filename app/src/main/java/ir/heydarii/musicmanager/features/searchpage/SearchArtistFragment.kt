@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +38,7 @@ class SearchArtistFragment : BaseFragment() {
         viewModel = ViewModelProviders.of(this).get(SearchArtistViewModel::class.java)
         init()  //add setOnClickListener and observe observables
         setUpRecyclerView()
+        showEmptyState()
     }
 
     /**
@@ -65,8 +67,6 @@ class SearchArtistFragment : BaseFragment() {
         }
 
         viewModel.getArtistResponse().observe(this, Observer {
-
-            //TODO : Add an empty state view
             showRecycler(it)
         })
 
@@ -74,13 +74,17 @@ class SearchArtistFragment : BaseFragment() {
             when (it) {
                 ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
                 ViewNotifierEnums.HIDE_LOADING -> progress.visibility = View.INVISIBLE
+                else -> throw IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
             }
         })
 
     }
 
     private fun searchArtist() {
-        viewModel.onUserSearchedArtist(edtSearch.text.toString(), 1, Consts.API_KEY)
+        if (edtSearch.text.toString().isNotEmpty())
+            viewModel.onUserSearchedArtist(edtSearch.text.toString(), 1, Consts.API_KEY)
+        else
+            Toast.makeText(context, getString(R.string.please_enter_artist_name), Toast.LENGTH_LONG).show()
     }
 
 
@@ -88,6 +92,7 @@ class SearchArtistFragment : BaseFragment() {
      * SetsUp the recyclerView
      */
     private fun showRecycler(artistResponseModel: ArtistResponseModel) {
+        hideEmptyState()
         adapter.list = artistResponseModel.results.artistmatches.artist
         adapter.notifyDataSetChanged()
     }
@@ -99,6 +104,16 @@ class SearchArtistFragment : BaseFragment() {
         val intent = Intent(activity, TopAlbumsActivity::class.java)
         intent.putExtra(Consts.ARTIST_NAME, artistName)
         startActivity(intent)
+    }
+
+    private fun hideEmptyState() {
+        empty.visibility = View.GONE
+        recycler.visibility = View.VISIBLE
+    }
+
+    private fun showEmptyState() {
+        empty.visibility = View.VISIBLE
+        recycler.visibility = View.GONE
     }
 
 

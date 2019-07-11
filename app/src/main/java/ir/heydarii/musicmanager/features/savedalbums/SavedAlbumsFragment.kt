@@ -14,6 +14,7 @@ import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.saved_albums_fragment.*
 
 class SavedAlbumsFragment : BaseFragment() {
@@ -84,7 +85,25 @@ class SavedAlbumsFragment : BaseFragment() {
         viewModel.getAllAlbums()
 
         viewModel.getAlbumList().observe(this, Observer {
+            hideEmptyState()
             showRecycler(it)
         })
+
+        viewModel.getViewNotifier().observe(this, Observer {
+            when (it) {
+                ViewNotifierEnums.EMPTY_STATE -> showEmptyState()
+                else -> throw IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
+            }
+        })
+    }
+
+    private fun hideEmptyState() {
+        empty.visibility = View.GONE
+        recycler.visibility = View.VISIBLE
+    }
+
+    private fun showEmptyState() {
+        empty.visibility = View.VISIBLE
+        recycler.visibility = View.GONE
     }
 }

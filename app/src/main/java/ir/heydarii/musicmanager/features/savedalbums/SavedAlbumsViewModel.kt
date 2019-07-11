@@ -8,6 +8,7 @@ import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.DataRepository
+import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class SavedAlbumsViewModel : BaseViewModel() {
 
@@ -23,7 +24,10 @@ class SavedAlbumsViewModel : BaseViewModel() {
         composite.add(
                 dataRepository.getAllSavedAlbums()
                         .subscribe({
-                            albumsList.value = it
+                            if (it.isEmpty())
+                                viewNotifier.value = ViewNotifierEnums.EMPTY_STATE
+                            else
+                                albumsList.value = it
                         }, {
                             Logger.d(it)
                             //TODO : Handle the error

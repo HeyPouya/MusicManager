@@ -33,6 +33,12 @@ class AlbumDetailsViewModel : BaseViewModel() {
         composite.add(
                 dataRepository.getAlbumDetails(artistName, albumName, apiKey, offline)
                         .subscribe({
+
+                            if (it.tracks.isEmpty())
+                                viewNotifier.value = ViewNotifierEnums.EMPTY_STATE
+                            else
+                                viewNotifier.value = ViewNotifierEnums.NOT_EMPTY
+
                             albumDetailsResponse.value = it
                             albumData = it
                             viewNotifier.value = ViewNotifierEnums.HIDE_LOADING

@@ -47,10 +47,14 @@ class AlbumDetailsActivity : BaseActivity() {
                 }
                 ViewNotifierEnums.SAVED_INTO_DB -> showSaveStatus()
                 ViewNotifierEnums.REMOVED_FROM_DB -> btnSave.progress = 0f
+                ViewNotifierEnums.EMPTY_STATE -> showEmptyState()
+                ViewNotifierEnums.NOT_EMPTY -> hideEmptyState()
+                else -> throw IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
+
             }
         })
 
-        //observes the viewModel to undestand the state of btnSave for the first time activity starts
+        //observes the viewModel to understand the state of btnSave for the first time activity starts
         viewModel.getAlbumExistenceResponse().observe(this, Observer {
             when (it) {
                 true -> btnSave.progress = 1f
@@ -112,4 +116,15 @@ class AlbumDetailsActivity : BaseActivity() {
         recycler.adapter = TracksAdapter(tracks)
         recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
+
+    private fun hideEmptyState() {
+        empty.visibility = View.GONE
+        recycler.visibility = View.VISIBLE
+    }
+
+    private fun showEmptyState() {
+        empty.visibility = View.VISIBLE
+        recycler.visibility = View.GONE
+    }
+
 }

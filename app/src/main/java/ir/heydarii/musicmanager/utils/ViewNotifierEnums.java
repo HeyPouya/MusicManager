@@ -4,5 +4,7 @@ public enum ViewNotifierEnums {
     SHOW_LOADING,
     HIDE_LOADING,
     SAVED_INTO_DB,
-    REMOVED_FROM_DB
+    REMOVED_FROM_DB,
+    EMPTY_STATE,
+    NOT_EMPTY
 }
