@@ -30,15 +30,16 @@ class SearchArtistViewModel : BaseViewModel() {
             composite.clear()
 
         composite.add(dataRepository.getArtistName(artistName, page, apiKey)
-                .subscribe({
-                    artistResponse.value = it
-                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                }, {
+            .subscribe({
+                artistResponse.value = it
+                viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+            }, {
 
-                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                    Logger.d(it.message)
-                    //TODO : Add error handling
-                }))
+                viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                Logger.d(it.message)
+                //TODO : Add error handling
+            })
+        )
     }
 
     fun getArtistResponse(): LiveData<ArtistResponseModel> = artistResponse
@@ -50,5 +51,4 @@ class SearchArtistViewModel : BaseViewModel() {
         composite.dispose()
         super.onCleared()
     }
-
 }
