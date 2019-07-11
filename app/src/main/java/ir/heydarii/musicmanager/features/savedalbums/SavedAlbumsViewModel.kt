@@ -22,12 +22,12 @@ class SavedAlbumsViewModel : BaseViewModel() {
     fun getAllAlbums() {
         composite.add(
                 dataRepository.getAllSavedAlbums()
-                .subscribe({
-                    albumsList.value = it
-                }, {
-                    Logger.d(it)
-                    //TODO : Handle the error
-                })
+                        .subscribe({
+                            albumsList.value = it
+                        }, {
+                            Logger.d(it)
+                            //TODO : Handle the error
+                        })
         )
     }
 

@@ -21,7 +21,6 @@ class AlbumDetailsViewModel : BaseViewModel() {
     private var isAlbumSaved = false
 
 
-
     /**
      * Gets the album data
      */

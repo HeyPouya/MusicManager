@@ -1,8 +1,10 @@
 package ir.heydarii.musicmanager.repository.dbinteractor
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 

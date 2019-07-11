@@ -1,7 +1,6 @@
 package ir.heydarii.musicmanager.repository
 
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -20,18 +19,16 @@ import javax.inject.Inject
  */
 class DataRepository @Inject constructor() {
 
-    lateinit var network: NetworkInteractor
-    lateinit var database: AlbumsDAO
+    private var network: NetworkInteractor
+    private var database: AlbumsDAO
 
 
     init {
-      val component =  DaggerDataProviderComponent.builder().retrofitComponent(BaseApplication.getRetrofitComponent()).build()
+        val component = DaggerDataProviderComponent.builder().retrofitComponent(BaseApplication.getRetrofitComponent()).build()
 
         network = component.getNetworkInteractor()
         database = component.getDbInteractor()
     }
-
-
 
 
     fun getArtistName(artistName: String, page: Int, apiKey: String): Single<ArtistResponseModel> {
@@ -62,7 +59,7 @@ class DataRepository @Inject constructor() {
                         }
 
                         val image = it.album.image.last().text ?: ""
-                        AlbumDatabaseEntity( null,it.album.name, it.album.artist, image, tracks)
+                        AlbumDatabaseEntity(null, it.album.name, it.album.artist, image, tracks)
                     }
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -89,7 +86,7 @@ class DataRepository @Inject constructor() {
 
     }
 
-    fun removeAlbum(artistName: String,albumName: String): Completable {
+    fun removeAlbum(artistName: String, albumName: String): Completable {
         return database.removeAlbum(artistName, albumName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

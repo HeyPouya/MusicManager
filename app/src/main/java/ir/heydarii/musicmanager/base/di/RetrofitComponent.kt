@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [RetrofitModule::class,RoomModule::class])
+@Component(modules = [RetrofitModule::class, RoomModule::class])
 interface RetrofitComponent {
 
     fun getRetrofit(): Retrofit
@@ -17,6 +17,6 @@ interface RetrofitComponent {
 
     fun getAppDataBase(): AppDatabase
 
-    fun getAlbumsDAO () : AlbumsDAO
+    fun getAlbumsDAO(): AlbumsDAO
 
 }

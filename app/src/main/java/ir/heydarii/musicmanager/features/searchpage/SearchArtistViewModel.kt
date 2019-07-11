@@ -8,7 +8,6 @@ import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
 import ir.heydarii.musicmanager.repository.DataRepository
-import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class SearchArtistViewModel : BaseViewModel() {
@@ -30,15 +29,15 @@ class SearchArtistViewModel : BaseViewModel() {
             composite.clear()
 
         composite.add(dataRepository.getArtistName(artistName, page, apiKey)
-            .subscribe({
-                artistResponse.value = it
-                viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-            }, {
+                .subscribe({
+                    artistResponse.value = it
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                }, {
 
-                viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                Logger.d(it.message)
-                //TODO : Add error handling
-            })
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                    Logger.d(it.message)
+                    //TODO : Add error handling
+                })
         )
     }
 

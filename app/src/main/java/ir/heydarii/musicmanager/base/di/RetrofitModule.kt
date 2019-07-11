@@ -20,9 +20,9 @@ class RetrofitModule {
     @Singleton
     @Provides
     fun provideRetrofit(
-        converter: GsonConverterFactory,
-        httpClient: OkHttpClient.Builder,
-        @Named("baseURL") baseURL: String
+            converter: GsonConverterFactory,
+            httpClient: OkHttpClient.Builder,
+            @Named("baseURL") baseURL: String
     ): Retrofit {
         val retrofitClass = RetrofitServiceGenerator(converter, httpClient, baseURL)
         return retrofitClass.getClient()

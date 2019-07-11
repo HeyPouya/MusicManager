@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.album_details_main_layout.*
 
 class AlbumDetailsActivity : BaseActivity() {
 
-    lateinit var viewModel: AlbumDetailsViewModel
+    private lateinit var viewModel: AlbumDetailsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

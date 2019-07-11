@@ -13,7 +13,6 @@ import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
 import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.Consts.Companion.ALBUM_NAME
-import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_ID
 import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_NAME
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.activity_top_albums.*

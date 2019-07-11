@@ -7,7 +7,7 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
 
 
-@Database(entities = [AlbumDatabaseEntity::class], version = 1,exportSchema = false)
+@Database(entities = [AlbumDatabaseEntity::class], version = 1, exportSchema = false)
 @TypeConverters(StringListDataConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 

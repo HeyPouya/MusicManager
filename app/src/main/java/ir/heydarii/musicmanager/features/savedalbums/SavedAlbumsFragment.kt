@@ -47,8 +47,8 @@ class SavedAlbumsFragment : BaseFragment() {
     private fun setUpRecycler() {
         adapter = SavedAlbumsAdapter(emptyList()) { artistName: String, albumName: String ->
             savedAlbumsClickListener(
-                artistName,
-                albumName
+                    artistName,
+                    albumName
             )
         }
         recycler.adapter = adapter

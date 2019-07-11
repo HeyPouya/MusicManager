@@ -1,6 +1,5 @@
 package ir.heydarii.musicmanager.repository.networkinteractor
 
-import io.reactivex.Observable
 import io.reactivex.Single
 import ir.heydarii.musicmanager.pojos.AlbumDetailsResponseModel
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel
