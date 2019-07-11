@@ -87,7 +87,7 @@ class AlbumDetailsActivity : BaseActivity() {
      */
     private fun setImagesTexts(album: AlbumDatabaseEntity) {
         if (album.image.isNotEmpty())
-            Picasso.get().load(album.image).into(imgAlbum)
+            Picasso.get().load(album.image).placeholder(R.drawable.ic_album_placeholder).into(imgAlbum)
         txtAlbumName.text = album.albumName
         txtArtistName.text = album.artistName
     }

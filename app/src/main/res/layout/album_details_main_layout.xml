@@ -16,6 +16,7 @@
             app:layout_scrollFlags="enterAlwaysCollapsed|scroll">
 
             <ImageView
+                android:src="@drawable/ic_album_placeholder"
                 android:id="@+id/imgAlbum"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
@@ -52,10 +53,10 @@
             android:layout_height="68dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            app:lottie_fileName="bookmark.json"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/txtAlbumName"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_fileName="bookmark.json" />
 
         <TextView
             android:id="@+id/txtArtistName"
