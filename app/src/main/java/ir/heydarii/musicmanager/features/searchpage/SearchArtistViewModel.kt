@@ -34,9 +34,9 @@ class SearchArtistViewModel : BaseViewModel() {
                     viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                 }, {
 
-                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                     Logger.d(it.message)
-                    //TODO : Add error handling
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
                 })
         )
     }

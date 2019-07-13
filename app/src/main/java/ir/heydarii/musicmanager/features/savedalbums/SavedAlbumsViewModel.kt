@@ -30,7 +30,7 @@ class SavedAlbumsViewModel : BaseViewModel() {
                                 albumsList.value = it
                         }, {
                             Logger.d(it)
-                            //TODO : Handle the error
+                            viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
                         })
         )
     }

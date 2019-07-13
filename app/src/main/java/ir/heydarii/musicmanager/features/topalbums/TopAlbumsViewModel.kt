@@ -29,7 +29,7 @@ class TopAlbumsViewModel : BaseViewModel() {
                 }, {
 
                     viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                    //TODO : Error handling
+                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
                     Logger.d(it)
                 }))
     }

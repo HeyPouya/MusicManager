@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
@@ -92,16 +93,33 @@ class SavedAlbumsFragment : BaseFragment() {
         viewModel.getViewNotifier().observe(this, Observer {
             when (it) {
                 ViewNotifierEnums.EMPTY_STATE -> showEmptyState()
+                ViewNotifierEnums.ERROR_GETTING_DATA -> showTryAgain()
                 else -> throw IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
             }
         })
     }
 
+    /**
+     * Shows try again if something wrong happens while fetching data from the database
+     */
+    private fun showTryAgain() {
+        if (view != null)
+            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {
+                viewModel.getAllAlbums()
+            }.show()
+    }
+
+    /**
+     * Hides the empty state animation
+     */
     private fun hideEmptyState() {
         empty.visibility = View.GONE
         recycler.visibility = View.VISIBLE
     }
 
+    /**
+     * Shows the empty state animation
+     */
     private fun showEmptyState() {
         empty.visibility = View.VISIBLE
         recycler.visibility = View.GONE

@@ -7,6 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.orhanobut.logger.Logger
 import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
@@ -16,6 +18,7 @@ import ir.heydarii.musicmanager.utils.Consts.Companion.IS_OFFLINE
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.activity_album_details.*
 import kotlinx.android.synthetic.main.album_details_main_layout.*
+
 
 class AlbumDetailsActivity : BaseActivity() {
 
@@ -38,17 +41,27 @@ class AlbumDetailsActivity : BaseActivity() {
         })
 
 
-        //subscribes to show or hide loading
+        //subscribes to react to loading and errors
         viewModel.getViewNotifier().observe(this, Observer {
             when (it) {
-                ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
+                ViewNotifierEnums.SHOW_LOADING -> {
+                    Logger.d(progress.isShown)
+                    if (progress.visibility != View.VISIBLE)
+                        progress.visibility = View.VISIBLE
+                }
                 ViewNotifierEnums.HIDE_LOADING -> {
-                    switcher.showPrevious()
+                    Logger.d(progress.isShown)
+                    if (progress.visibility == View.VISIBLE)
+                        progress.visibility = View.GONE
                 }
                 ViewNotifierEnums.SAVED_INTO_DB -> showSaveStatus()
                 ViewNotifierEnums.REMOVED_FROM_DB -> btnSave.progress = 0f
                 ViewNotifierEnums.EMPTY_STATE -> showEmptyState()
                 ViewNotifierEnums.NOT_EMPTY -> hideEmptyState()
+                ViewNotifierEnums.ERROR_GETTING_DATA -> showTryAgain()
+                ViewNotifierEnums.ERROR_DATA_NOT_AVAILABLE -> showDataNotAvailable()
+                ViewNotifierEnums.ERROR_REMOVING_DATA, ViewNotifierEnums.ERROR_SAVING_DATA -> showDbError()
+
                 else -> throw IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
 
             }
@@ -67,6 +80,37 @@ class AlbumDetailsActivity : BaseActivity() {
             disableSaveButtonForASecond()
             viewModel.onClickedOnSaveButton()
         }
+    }
+
+    /**
+     * Shows an error when something wrong happens while user is trying to save or remove some data from db
+     */
+    private fun showDbError() {
+        val parentLayout = findViewById<View>(android.R.id.content)
+        Snackbar.make(parentLayout, getString(R.string.album_not_saved), Snackbar.LENGTH_LONG).setAction(getString(R.string.try_again)) {
+            viewModel.onClickedOnSaveButton()
+        }.show()
+    }
+
+    /**
+     * Shows an error whenever the album data is not available and user tries to save it
+     * into the db. this is an IllegalState and in future can be replaced with
+     * an exception
+     */
+    private fun showDataNotAvailable() {
+        val parentLayout = findViewById<View>(android.R.id.content)
+        Snackbar.make(parentLayout, getString(R.string.album_is_not_available), Snackbar.LENGTH_LONG).show()
+
+    }
+
+    /**
+     * Shows try again button whenever an error accrues while receiving the albums data
+     */
+    private fun showTryAgain() {
+        val parentLayout = findViewById<View>(android.R.id.content)
+        Snackbar.make(parentLayout, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {
+            showData()
+        }.show()
     }
 
     /**
@@ -117,11 +161,17 @@ class AlbumDetailsActivity : BaseActivity() {
         recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
 
+    /**
+     * Hides the empty state animation
+     */
     private fun hideEmptyState() {
         empty.visibility = View.GONE
         recycler.visibility = View.VISIBLE
     }
 
+    /**
+     * Shows the empty state animation
+     */
     private fun showEmptyState() {
         empty.visibility = View.VISIBLE
         recycler.visibility = View.GONE

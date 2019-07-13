@@ -8,29 +8,22 @@
     tools:context=".features.albumdetails.AlbumDetailsActivity">
 
 
-<ViewSwitcher
-        android:id="@+id/switcher"
+    <include layout="@layout/album_details_main_layout" />
+
+    <LinearLayout
+        android:id="@+id/progress"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <ProgressBar
-                android:id="@+id/progress"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-        <include layout="@layout/album_details_main_layout" />
-    </ViewSwitcher>
-
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

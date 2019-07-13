@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
 import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
@@ -39,10 +40,21 @@ class TopAlbumsActivity : BaseActivity() {
             when (it) {
                 ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
                 ViewNotifierEnums.HIDE_LOADING -> progress.visibility = View.INVISIBLE
+                ViewNotifierEnums.ERROR_GETTING_DATA -> showTryAgain()
                 else -> throw java.lang.IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
 
             }
         })
+    }
+
+    /**
+     * Shows try again button whenever an error accrues while receiving the top albums data
+     */
+    private fun showTryAgain() {
+        val parentLayout = findViewById<View>(android.R.id.content)
+        Snackbar.make(parentLayout, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {
+            showData(null)
+        }.show()
     }
 
     /**
@@ -82,6 +94,9 @@ class TopAlbumsActivity : BaseActivity() {
 
     }
 
+    /**
+     * Navigates to  album details view
+     */
     private fun showAlbumDetailsView(artistName: String, albumeName: String) {
         val intent = Intent(this, AlbumDetailsActivity::class.java)
         intent.putExtra(ARTIST_NAME, artistName)
