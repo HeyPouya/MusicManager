@@ -7,12 +7,16 @@ import java.io.File
 import java.io.FileInputStream
 
 class ImageStorageManager {
+
+
+    //TODO : Make this none static
     companion object {
         fun saveToInternalStorage(context: Context, bitmapImage: Bitmap, imageFileName: String): String {
-            context.openFileOutput(imageFileName, Context.MODE_PRIVATE).use { fos ->
+            val name = imageFileName.replace(" ", "") + ".png"
+            context.openFileOutput(name, Context.MODE_PRIVATE).use { fos ->
                 bitmapImage.compress(Bitmap.CompressFormat.PNG, 25, fos)
             }
-            return context.filesDir.absolutePath
+            return context.filesDir.absolutePath + "/" + name
         }
 
         fun getImageFromInternalStorage(context: Context, imageFileName: String): Bitmap {

@@ -3,6 +3,7 @@ package ir.heydarii.musicmanager.features.albumdetails
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,9 +16,11 @@ import ir.heydarii.musicmanager.base.BaseActivity
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.Consts.Companion.IS_OFFLINE
+import ir.heydarii.musicmanager.utils.ImageStorageManager
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.activity_album_details.*
 import kotlinx.android.synthetic.main.album_details_main_layout.*
+import java.io.File
 
 
 class AlbumDetailsActivity : BaseActivity() {
@@ -77,8 +80,15 @@ class AlbumDetailsActivity : BaseActivity() {
 
         //click listener for btnSave
         btnSave.setOnClickListener {
+
+            //TODO : Provide this via Dagger
+            val path = ImageStorageManager.saveToInternalStorage(
+                this,
+                imgAlbum.drawable.toBitmap(),
+                intent.getStringExtra(Consts.ALBUM_NAME)
+            )
             disableSaveButtonForASecond()
-            viewModel.onClickedOnSaveButton()
+            viewModel.onClickedOnSaveButton(path)
         }
     }
 
@@ -87,9 +97,15 @@ class AlbumDetailsActivity : BaseActivity() {
      */
     private fun showDbError() {
         val parentLayout = findViewById<View>(android.R.id.content)
-        Snackbar.make(parentLayout, getString(R.string.album_not_saved), Snackbar.LENGTH_LONG).setAction(getString(R.string.try_again)) {
-            viewModel.onClickedOnSaveButton()
-        }.show()
+        Snackbar.make(parentLayout, getString(R.string.album_not_saved), Snackbar.LENGTH_LONG)
+            .setAction(getString(R.string.try_again)) {
+                val path = ImageStorageManager.saveToInternalStorage(
+                    this,
+                    imgAlbum.drawable.toBitmap(),
+                    intent.getStringExtra(Consts.ALBUM_NAME)
+                )
+                viewModel.onClickedOnSaveButton(path)
+            }.show()
     }
 
     /**
@@ -108,9 +124,10 @@ class AlbumDetailsActivity : BaseActivity() {
      */
     private fun showTryAgain() {
         val parentLayout = findViewById<View>(android.R.id.content)
-        Snackbar.make(parentLayout, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {
-            showData()
-        }.show()
+        Snackbar.make(parentLayout, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(R.string.try_again)) {
+                showData()
+            }.show()
     }
 
     /**
@@ -135,7 +152,12 @@ class AlbumDetailsActivity : BaseActivity() {
      */
     private fun setImagesTexts(album: AlbumDatabaseEntity) {
         if (album.image.isNotEmpty())
-            Picasso.get().load(album.image).placeholder(R.drawable.ic_album_placeholder).into(imgAlbum)
+            if (album.image.startsWith("http"))
+                Picasso.get().load(album.image).placeholder(R.drawable.ic_album_placeholder).into(imgAlbum)
+            else {
+                val file = File(album.image)
+                Picasso.get().load(file).placeholder(R.drawable.ic_album_placeholder).into(imgAlbum)
+            }
         txtAlbumName.text = album.albumName
         txtArtistName.text = album.artistName
     }

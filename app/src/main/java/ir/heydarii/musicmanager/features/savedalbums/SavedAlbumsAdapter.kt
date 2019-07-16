@@ -9,9 +9,10 @@ import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import kotlinx.android.synthetic.main.search_layout_item.view.*
+import java.io.File
 
 class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>, private var clickListener: (String, String) -> Unit) :
-        RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
+    RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
@@ -26,15 +27,17 @@ class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>, private var clickL
 
 
     class SearchArtistViewHolder(private val view: View, var clickListener: (String, String) -> Unit) :
-            RecyclerView.ViewHolder(view) {
+        RecyclerView.ViewHolder(view) {
         fun bind(album: AlbumDatabaseEntity) {
             view.txtName.text = album.albumName
 
             Logger.d(album.albumName)
             // Last image has always the best quality
-            if (!album.image.isNullOrEmpty())
-                Picasso.get().load(album.image).placeholder(R.drawable.ic_album_placeholder).into(view.imgArtist)
-
+            if (!album.image.isNullOrEmpty()) {
+                val file = File(album.image)
+                if (file.exists())
+                    Picasso.get().load(file).placeholder(R.drawable.ic_album_placeholder).into(view.imgArtist)
+            }
 
             view.setOnClickListener {
                 clickListener(album.artistName, album.albumName)

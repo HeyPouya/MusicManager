@@ -31,39 +31,42 @@ class AlbumDetailsViewModel : BaseViewModel() {
         checkAlbumExistenceInDb(artistName, albumName)
 
         composite.add(
-                dataRepository.getAlbumDetails(artistName, albumName, apiKey, offline)
-                        .subscribe({
+            dataRepository.getAlbumDetails(artistName, albumName, apiKey, offline)
+                .subscribe({
 
-                            if (it.tracks.isEmpty())
-                                viewNotifier.value = ViewNotifierEnums.EMPTY_STATE
-                            else
-                                viewNotifier.value = ViewNotifierEnums.NOT_EMPTY
+                    if (it.tracks.isEmpty())
+                        viewNotifier.value = ViewNotifierEnums.EMPTY_STATE
+                    else
+                        viewNotifier.value = ViewNotifierEnums.NOT_EMPTY
 
-                            albumDetailsResponse.value = it
-                            albumData = it
-                            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                        }, {
-                            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                            viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
-                            Logger.d(it)
-                        })
+                    albumDetailsResponse.value = it
+                    albumData = it
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                }, {
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
+                    Logger.d(it)
+                })
         )
     }
 
     /**
      * Saves an album into the database
      */
-    private fun saveAlbum() {
-        if (albumData != null)
-            composite.add(dataRepository.saveAlbum(albumData!!)
+    private fun saveAlbum(imagePath: String) {
+        if (albumData != null) {
+            albumData?.image = imagePath
+            composite.add(
+                dataRepository.saveAlbum(albumData!!)
                     .subscribe({
                         viewNotifier.value = ViewNotifierEnums.SAVED_INTO_DB
                         isAlbumSaved = true
                     }, {
                         Logger.d(it)
                         viewNotifier.value = ViewNotifierEnums.ERROR_SAVING_DATA
-                    }))
-        else
+                    })
+            )
+        } else
             viewNotifier.value = ViewNotifierEnums.ERROR_DATA_NOT_AVAILABLE
 
     }
@@ -71,10 +74,10 @@ class AlbumDetailsViewModel : BaseViewModel() {
     /**
      * Decides to call remove or save function
      */
-    fun onClickedOnSaveButton() {
+    fun onClickedOnSaveButton(imagePath: String) {
         when (isAlbumSaved) {
             true -> removeAlbum()
-            false -> saveAlbum()
+            false -> saveAlbum(imagePath)
         }
     }
 
@@ -83,14 +86,16 @@ class AlbumDetailsViewModel : BaseViewModel() {
      */
     private fun removeAlbum() {
         if (albumData != null)
-            composite.add(dataRepository.removeAlbum(albumData!!.artistName, albumData!!.albumName)
+            composite.add(
+                dataRepository.removeAlbum(albumData!!.artistName, albumData!!.albumName)
                     .subscribe({
                         viewNotifier.value = ViewNotifierEnums.REMOVED_FROM_DB
                         isAlbumSaved = false
                     }, {
                         Logger.d(it)
                         viewNotifier.value = ViewNotifierEnums.ERROR_REMOVING_DATA
-                    }))
+                    })
+            )
         else
             viewNotifier.value = ViewNotifierEnums.ERROR_DATA_NOT_AVAILABLE
     }
@@ -104,14 +109,16 @@ class AlbumDetailsViewModel : BaseViewModel() {
      * Checks if the current album exists in db or not
      */
     private fun checkAlbumExistenceInDb(artistName: String, albumName: String) {
-        composite.add(dataRepository.doestAlbumExists(artistName, albumName)
+        composite.add(
+            dataRepository.doestAlbumExists(artistName, albumName)
                 .subscribe({
                     doesAlbumExistsInDb.value = it
                     isAlbumSaved = it
                 }, {
                     Logger.d(it)
                     checkAlbumExistenceInDb(artistName, albumName)
-                }))
+                })
+        )
     }
 
     /**
