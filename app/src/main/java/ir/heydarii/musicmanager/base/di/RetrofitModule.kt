@@ -13,6 +13,9 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
+/*
+A module to provide all needed dependencies for retrofit
+ */
 @Module
 class RetrofitModule {
 

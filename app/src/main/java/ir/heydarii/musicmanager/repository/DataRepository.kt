@@ -24,7 +24,7 @@ class DataRepository @Inject constructor() {
 
 
     init {
-        val component = DaggerDataProviderComponent.builder().retrofitComponent(BaseApplication.getRetrofitComponent()).build()
+        val component = DaggerDataProviderComponent.builder().dataProvidersComponent(BaseApplication.getDataProviderComponent()).build()
 
         network = component.getNetworkInteractor()
         database = component.getDbInteractor()

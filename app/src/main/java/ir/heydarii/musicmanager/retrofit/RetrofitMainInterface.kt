@@ -7,6 +7,9 @@ import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/*
+Retrofit interface to call the needed apis
+ */
 interface RetrofitMainInterface {
 
     @GET("?method=artist.search&format=json")

@@ -12,6 +12,12 @@ import ir.heydarii.musicmanager.utils.Consts.Companion.CURRENT_FRAGMENT
 import ir.heydarii.musicmanager.utils.FragmentUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
+/*
+The main activity that shows 3 main fragments
+1. SavedAlbums
+2. SearchArtist
+3. About
+ */
 class MainActivity : BaseActivity() {
 
     private lateinit var searchFragment: SearchArtistFragment
@@ -51,7 +57,7 @@ class MainActivity : BaseActivity() {
      */
     private fun displayFirstTab() {
         Handler().postDelayed({ displayFragments(savedAlbumsFragment) }
-                , 200)
+            , 200)
     }
 
     /**
@@ -59,11 +65,11 @@ class MainActivity : BaseActivity() {
      */
     private fun retainFragments(fragment: String?) {
         searchFragment =
-                supportFragmentManager.findFragmentByTag(SearchArtistFragment::class.java.simpleName) as SearchArtistFragment
+            supportFragmentManager.findFragmentByTag(SearchArtistFragment::class.java.simpleName) as SearchArtistFragment
         aboutMeFragment =
-                supportFragmentManager.findFragmentByTag(AboutMeFragment::class.java.simpleName) as AboutMeFragment
+            supportFragmentManager.findFragmentByTag(AboutMeFragment::class.java.simpleName) as AboutMeFragment
         savedAlbumsFragment =
-                supportFragmentManager.findFragmentByTag(SavedAlbumsFragment::class.java.simpleName) as SavedAlbumsFragment
+            supportFragmentManager.findFragmentByTag(SavedAlbumsFragment::class.java.simpleName) as SavedAlbumsFragment
 
         when (fragment) {
             SearchArtistFragment::class.java.simpleName -> currentFragment = searchFragment

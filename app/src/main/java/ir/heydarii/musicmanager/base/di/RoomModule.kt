@@ -8,9 +8,11 @@ import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
 import ir.heydarii.musicmanager.utils.AppDatabase
 import javax.inject.Singleton
 
-
+/*
+A module to provide all dependencies for room
+ */
 @Module
-class RoomModule(val baseApplication: BaseApplication) {
+class RoomModule(private val baseApplication: BaseApplication) {
 
     @Singleton
     @Provides
