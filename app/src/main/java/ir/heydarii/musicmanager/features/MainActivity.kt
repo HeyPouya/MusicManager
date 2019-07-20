@@ -7,7 +7,7 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
 import ir.heydarii.musicmanager.features.about.AboutMeFragment
 import ir.heydarii.musicmanager.features.savedalbums.SavedAlbumsFragment
-import ir.heydarii.musicmanager.features.searchpage.SearchArtistFragment
+import ir.heydarii.musicmanager.features.searchartist.SearchArtistFragment
 import ir.heydarii.musicmanager.utils.Consts.Companion.CURRENT_FRAGMENT
 import ir.heydarii.musicmanager.utils.FragmentUtils
 import kotlinx.android.synthetic.main.activity_main.*

@@ -1,4 +1,4 @@
-package ir.heydarii.musicmanager.features.searchpage
+package ir.heydarii.musicmanager.features.searchartist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
-import ir.heydarii.musicmanager.pojos.ArtistResponseModel
+import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
@@ -14,13 +14,17 @@ class SearchArtistViewModel : BaseViewModel() {
 
     private val dataRepository: DataRepository = DaggerDataRepositoryComponent.create().getDataRepository()
     private val composite = CompositeDisposable()
-    private val artistResponse = MutableLiveData<ArtistResponseModel>()
-
+    private val artistResponse = MutableLiveData<List<Artist>>()
+    private var page = 1
+    private var shouldLoadMore = true
+    private var list = arrayListOf<Artist>()
 
     /**
      * Fetches all artists with the name that user enters
      */
-    fun onUserSearchedArtist(artistName: String, page: Int, apiKey: String) {
+    fun onUserSearchedArtist(artistName: String, apiKey: String, isLoadMore: Boolean) {
+
+        prepareDataToSearch(isLoadMore)
 
         viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 
@@ -28,9 +32,15 @@ class SearchArtistViewModel : BaseViewModel() {
         if (composite.size() > 0)
             composite.clear()
 
-        composite.add(dataRepository.getArtistName(artistName, page, apiKey)
+        composite.add(
+            dataRepository.getArtistName(artistName, page, apiKey)
                 .subscribe({
-                    artistResponse.value = it
+
+                    if (it.results.artistmatches.artist.isEmpty())
+                        shouldLoadMore = false
+
+                    list.addAll(it.results.artistmatches.artist)
+                    artistResponse.value = list
                     viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                 }, {
 
@@ -41,7 +51,17 @@ class SearchArtistViewModel : BaseViewModel() {
         )
     }
 
-    fun getArtistResponse(): LiveData<ArtistResponseModel> = artistResponse
+    private fun prepareDataToSearch(isLoadMore: Boolean) {
+        if (isLoadMore && shouldLoadMore) {
+            page++
+        } else {
+            page = 1
+            list.clear()
+            shouldLoadMore = true
+        }
+    }
+
+    fun getArtistResponse(): LiveData<List<Artist>> = artistResponse
 
     /**
      * Disposing all disposables after the ViewModel dies

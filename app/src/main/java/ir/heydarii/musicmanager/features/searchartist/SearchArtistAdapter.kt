@@ -1,4 +1,4 @@
-package ir.heydarii.musicmanager.features.searchpage
+package ir.heydarii.musicmanager.features.searchartist
 
 import android.view.LayoutInflater
 import android.view.View

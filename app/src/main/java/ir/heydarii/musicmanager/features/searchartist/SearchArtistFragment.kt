@@ -1,4 +1,4 @@
-package ir.heydarii.musicmanager.features.searchpage
+package ir.heydarii.musicmanager.features.searchartist
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.features.topalbums.TopAlbumsActivity
-import ir.heydarii.musicmanager.pojos.ArtistResponseModel
+import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.search_artist_fragment.*
@@ -50,7 +50,20 @@ class SearchArtistFragment : BaseFragment() {
             startTopAlbumsView(artistName)
         }
         recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recycler.layoutManager = layoutManager
+
+        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val lastItem = layoutManager.findLastVisibleItemPosition()
+                val total = layoutManager.itemCount
+                if (total > 0)
+                    if (total - 1 == lastItem)
+                        viewModel.onUserSearchedArtist(edtSearch.text.toString(), Consts.API_KEY, true)
+            }
+        })
+
     }
 
     private fun init() {
@@ -89,7 +102,11 @@ class SearchArtistFragment : BaseFragment() {
      */
     private fun showTryAgain() {
         if (view != null)
-            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_LONG).setAction(getString(R.string.try_again)) {
+            Snackbar.make(
+                view!!,
+                getString(R.string.please_try_again),
+                Snackbar.LENGTH_LONG
+            ).setAction(getString(R.string.try_again)) {
                 searchArtist()
             }.show()
     }
@@ -97,7 +114,7 @@ class SearchArtistFragment : BaseFragment() {
 
     private fun searchArtist() {
         if (edtSearch.text.toString().isNotEmpty())
-            viewModel.onUserSearchedArtist(edtSearch.text.toString(), 1, Consts.API_KEY)
+            viewModel.onUserSearchedArtist(edtSearch.text.toString(), Consts.API_KEY, false)
         else
             Toast.makeText(context, getString(R.string.please_enter_artist_name), Toast.LENGTH_LONG).show()
     }
@@ -106,9 +123,9 @@ class SearchArtistFragment : BaseFragment() {
     /**
      * SetsUp the recyclerView
      */
-    private fun showRecycler(artistResponseModel: ArtistResponseModel) {
+    private fun showRecycler(artistResponseModel: List<Artist>) {
         hideEmptyState()
-        adapter.list = artistResponseModel.results.artistmatches.artist
+        adapter.list = artistResponseModel
         adapter.notifyDataSetChanged()
     }
 
