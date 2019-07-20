@@ -68,7 +68,6 @@ class AlbumDetailsViewModel : BaseViewModel() {
             )
         } else
             viewNotifier.value = ViewNotifierEnums.ERROR_DATA_NOT_AVAILABLE
-
     }
 
     /**

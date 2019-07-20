@@ -26,6 +26,5 @@ class TracksAdapter(val list: List<String>) : RecyclerView.Adapter<TracksAdapter
             view.txtTrackNumber.text = position.toString()
             view.txtTrackName.text = track
         }
-
     }
 }

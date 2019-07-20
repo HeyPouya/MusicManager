@@ -13,10 +13,10 @@ import com.orhanobut.logger.Logger
 import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
+import ir.heydarii.musicmanager.features.albumdetails.di.DaggerImageStorageComponent
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.Consts.Companion.IS_OFFLINE
-import ir.heydarii.musicmanager.utils.ImageStorageManager
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.activity_album_details.*
 import kotlinx.android.synthetic.main.album_details_main_layout.*
@@ -27,6 +27,10 @@ class AlbumDetailsActivity : BaseActivity() {
 
     private lateinit var viewModel: AlbumDetailsViewModel
 
+    private var albumName = ""
+
+    private val imageStorageManager = DaggerImageStorageComponent.create()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_album_details)
@@ -34,6 +38,8 @@ class AlbumDetailsActivity : BaseActivity() {
         viewModel = ViewModelProviders.of(this).get(AlbumDetailsViewModel::class.java)
 
         showData()
+
+        albumName = intent.getStringExtra(Consts.ALBUM_NAME)
 
         //subscribes to show the album data
         viewModel.getAlbumsResponse().observe(this, Observer {
@@ -58,7 +64,10 @@ class AlbumDetailsActivity : BaseActivity() {
                         progress.visibility = View.GONE
                 }
                 ViewNotifierEnums.SAVED_INTO_DB -> showSaveStatus()
-                ViewNotifierEnums.REMOVED_FROM_DB -> btnSave.progress = 0f
+                ViewNotifierEnums.REMOVED_FROM_DB -> {
+                    removeImage(albumName)
+                    btnSave.progress = 0f
+                }
                 ViewNotifierEnums.EMPTY_STATE -> showEmptyState()
                 ViewNotifierEnums.NOT_EMPTY -> hideEmptyState()
                 ViewNotifierEnums.ERROR_GETTING_DATA -> showTryAgain()
@@ -81,12 +90,7 @@ class AlbumDetailsActivity : BaseActivity() {
         //click listener for btnSave
         btnSave.setOnClickListener {
 
-            //TODO : Provide this via Dagger
-            val path = ImageStorageManager.saveToInternalStorage(
-                this,
-                imgAlbum.drawable.toBitmap(),
-                intent.getStringExtra(Consts.ALBUM_NAME)
-            )
+            val path = saveImage()
             disableSaveButtonForASecond()
             viewModel.onClickedOnSaveButton(path)
         }
@@ -99,11 +103,7 @@ class AlbumDetailsActivity : BaseActivity() {
         val parentLayout = findViewById<View>(android.R.id.content)
         Snackbar.make(parentLayout, getString(R.string.album_not_saved), Snackbar.LENGTH_LONG)
             .setAction(getString(R.string.try_again)) {
-                val path = ImageStorageManager.saveToInternalStorage(
-                    this,
-                    imgAlbum.drawable.toBitmap(),
-                    intent.getStringExtra(Consts.ALBUM_NAME)
-                )
+                val path = saveImage()
                 viewModel.onClickedOnSaveButton(path)
             }.show()
     }
@@ -197,6 +197,23 @@ class AlbumDetailsActivity : BaseActivity() {
     private fun showEmptyState() {
         empty.visibility = View.VISIBLE
         recycler.visibility = View.GONE
+    }
+
+    /**
+     * Saves image in internal storage
+     */
+    private fun saveImage(): String {
+        //TODO : Check this, because you are passing a context
+        return imageStorageManager.getImageStorageManager()
+            .saveToInternalStorage(this, imgAlbum.drawable.toBitmap(), albumName)
+    }
+
+    /**
+     * Removes Image from internal storage
+     */
+    private fun removeImage(path: String) {
+        imageStorageManager.getImageStorageManager()
+            .deleteImageFromInternalStorage(path)
     }
 
 }
