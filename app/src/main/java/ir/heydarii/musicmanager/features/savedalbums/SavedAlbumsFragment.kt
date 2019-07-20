@@ -109,17 +109,11 @@ class SavedAlbumsFragment : BaseFragment() {
             }.show()
     }
 
-    /**
-     * Hides the empty state animation
-     */
     private fun hideEmptyState() {
         empty.visibility = View.GONE
         recycler.visibility = View.VISIBLE
     }
 
-    /**
-     * Shows the empty state animation
-     */
     private fun showEmptyState() {
         empty.visibility = View.VISIBLE
         recycler.visibility = View.GONE

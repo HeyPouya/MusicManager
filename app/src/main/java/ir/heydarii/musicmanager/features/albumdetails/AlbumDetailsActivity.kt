@@ -41,6 +41,27 @@ class AlbumDetailsActivity : BaseActivity() {
 
         albumName = intent.getStringExtra(Consts.ALBUM_NAME)
 
+        subscribeToViewModel()
+
+        //click listener for btnSave
+        btnSave.setOnClickListener {
+
+            val path = saveImage()
+            disableSaveButtonForASecond()
+            viewModel.onClickedOnSaveButton(path)
+        }
+    }
+
+    private fun subscribeToViewModel() {
+
+        //observes the viewModel to understand the state of btnSave for the first time activity starts
+        viewModel.getAlbumExistenceResponse().observe(this, Observer {
+            when (it) {
+                true -> btnSave.progress = 1f
+                false -> btnSave.progress = 0f
+            }
+        })
+
         //subscribes to show the album data
         viewModel.getAlbumsResponse().observe(this, Observer {
             setImagesTexts(it)
@@ -63,7 +84,7 @@ class AlbumDetailsActivity : BaseActivity() {
                     if (progress.visibility == View.VISIBLE)
                         progress.visibility = View.GONE
                 }
-                ViewNotifierEnums.SAVED_INTO_DB -> showSaveStatus()
+                ViewNotifierEnums.SAVED_INTO_DB -> showSaveAnimation()
                 ViewNotifierEnums.REMOVED_FROM_DB -> {
                     removeImage(albumName)
                     btnSave.progress = 0f
@@ -78,22 +99,6 @@ class AlbumDetailsActivity : BaseActivity() {
 
             }
         })
-
-        //observes the viewModel to understand the state of btnSave for the first time activity starts
-        viewModel.getAlbumExistenceResponse().observe(this, Observer {
-            when (it) {
-                true -> btnSave.progress = 1f
-                false -> btnSave.progress = 0f
-            }
-        })
-
-        //click listener for btnSave
-        btnSave.setOnClickListener {
-
-            val path = saveImage()
-            disableSaveButtonForASecond()
-            viewModel.onClickedOnSaveButton(path)
-        }
     }
 
     /**
@@ -140,10 +145,7 @@ class AlbumDetailsActivity : BaseActivity() {
         }, 2000)
     }
 
-    /**
-     * Shows save animation
-     */
-    private fun showSaveStatus() {
+    private fun showSaveAnimation() {
         btnSave.playAnimation()
     }
 
@@ -175,42 +177,27 @@ class AlbumDetailsActivity : BaseActivity() {
     }
 
 
-    /**
-     * Shows tracks in a recycler view
-     */
     private fun showTrackList(tracks: List<String>) {
         recycler.adapter = TracksAdapter(tracks)
         recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
 
-    /**
-     * Hides the empty state animation
-     */
     private fun hideEmptyState() {
         empty.visibility = View.GONE
         recycler.visibility = View.VISIBLE
     }
 
-    /**
-     * Shows the empty state animation
-     */
     private fun showEmptyState() {
         empty.visibility = View.VISIBLE
         recycler.visibility = View.GONE
     }
 
-    /**
-     * Saves image in internal storage
-     */
     private fun saveImage(): String {
         //TODO : Check this, because you are passing a context
         return imageStorageManager.getImageStorageManager()
             .saveToInternalStorage(this, imgAlbum.drawable.toBitmap(), albumName)
     }
 
-    /**
-     * Removes Image from internal storage
-     */
     private fun removeImage(path: String) {
         imageStorageManager.getImageStorageManager()
             .deleteImageFromInternalStorage(path)

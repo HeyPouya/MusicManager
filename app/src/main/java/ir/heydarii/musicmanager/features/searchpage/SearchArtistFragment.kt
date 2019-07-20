@@ -95,9 +95,6 @@ class SearchArtistFragment : BaseFragment() {
     }
 
 
-    /**
-     * Checks if the artist name is'nt null and asks view model to fetches data
-     */
     private fun searchArtist() {
         if (edtSearch.text.toString().isNotEmpty())
             viewModel.onUserSearchedArtist(edtSearch.text.toString(), 1, Consts.API_KEY)
@@ -124,17 +121,11 @@ class SearchArtistFragment : BaseFragment() {
         startActivity(intent)
     }
 
-    /**
-     * Hides the empty state animation
-     */
     private fun hideEmptyState() {
         empty.visibility = View.GONE
         recycler.visibility = View.VISIBLE
     }
 
-    /**
-     * Shows the empty state animation
-     */
     private fun showEmptyState() {
         empty.visibility = View.VISIBLE
         recycler.visibility = View.GONE

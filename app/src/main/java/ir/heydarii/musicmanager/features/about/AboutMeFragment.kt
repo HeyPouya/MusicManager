@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 
-
-/**
+/*
  * A dummy fragment only to show some about me info
  */
 class AboutMeFragment : BaseFragment() {
