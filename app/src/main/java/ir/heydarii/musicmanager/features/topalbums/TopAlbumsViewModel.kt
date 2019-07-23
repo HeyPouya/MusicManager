@@ -6,38 +6,56 @@ import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
-import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
+import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class TopAlbumsViewModel : BaseViewModel() {
 
     private val dataRepository: DataRepository = DaggerDataRepositoryComponent.create().getDataRepository()
-    private val topAlbumsData = MutableLiveData<ArtistTopAlbumsResponseModel>()
+    private val topAlbumsData = MutableLiveData<List<Album>>()
     private val composite = CompositeDisposable()
+    private var page = 1
+    private val list = ArrayList<Album>()
+    private var shouldLoadMore = true
+    private var artist = ""
 
     /**
      * Fetches the top albums of a selected artist
      */
-    fun onTopAlbumsRequested(artistName: String, page: Int, apiKey: String) {
-        viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
+    fun onTopAlbumsRequested(artistName: String = artist, apiKey: String) {
 
-        composite.add(dataRepository.getTopAlbumsByArtist(artistName, page, apiKey)
-                .subscribe({
-                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                    topAlbumsData.value = it
-                }, {
+        if (artistName.isNotEmpty())
+            artist = artistName
 
-                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
-                    Logger.d(it)
-                }))
+        if (shouldLoadMore) {
+            viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
+
+            composite.add(
+                dataRepository.getTopAlbumsByArtist(artistName, page, apiKey)
+                    .subscribe({
+
+                        if (it.topalbums.album.isEmpty())
+                            shouldLoadMore = false
+
+                        page++
+                        list.addAll(it.topalbums.album)
+                        viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                        topAlbumsData.value = list
+
+                    }, {
+                        viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                        viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
+                        Logger.d(it)
+                    })
+            )
+        }
     }
 
     /**
      * Serving LiveData instead of MutableLiveData for activity
      */
-    fun getTopAlbumsLiveData(): LiveData<ArtistTopAlbumsResponseModel> = topAlbumsData
+    fun getTopAlbumsLiveData(): LiveData<List<Album>> = topAlbumsData
 
 
     /**
