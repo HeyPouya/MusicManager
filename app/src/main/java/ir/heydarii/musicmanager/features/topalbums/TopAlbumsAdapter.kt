@@ -9,7 +9,7 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.Album
 import kotlinx.android.synthetic.main.search_layout_item.view.*
 
-class TopAlbumsAdapter(private val list: List<Album>, private val clickListener: (String, String) -> Unit) :
+class TopAlbumsAdapter(var list: List<Album>, private val clickListener: (String, String) -> Unit) :
         RecyclerView.Adapter<TopAlbumsAdapter.SearchArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 

@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
 import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
-import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
+import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.Consts.Companion.ALBUM_NAME
 import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_NAME
@@ -21,12 +21,15 @@ import kotlinx.android.synthetic.main.activity_top_albums.*
 class TopAlbumsActivity : BaseActivity() {
 
     lateinit var viewModel: TopAlbumsViewModel
+    private lateinit var adapter: TopAlbumsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_albums)
 
         viewModel = ViewModelProviders.of(this).get(TopAlbumsViewModel::class.java)
+
+        setUpRecycler()
 
         showData(savedInstanceState)
 
@@ -47,14 +50,36 @@ class TopAlbumsActivity : BaseActivity() {
         })
     }
 
+    private fun setUpRecycler() {
+
+        adapter = TopAlbumsAdapter(emptyList()) { artistName, albumName ->
+            showAlbumDetailsView(artistName, albumName)
+        }
+        recycler.adapter = adapter
+        val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        recycler.layoutManager = layoutManager
+
+        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val lastItem = layoutManager.findLastVisibleItemPosition()
+                val total = layoutManager.itemCount
+                if (total > 0)
+                    if (total - 1 == lastItem)
+                        viewModel.onTopAlbumsRequested(apiKey = Consts.API_KEY)
+            }
+        })
+    }
+
     /**
      * Shows try again button whenever an error accrues while receiving the top albums data
      */
     private fun showTryAgain() {
         val parentLayout = findViewById<View>(android.R.id.content)
-        Snackbar.make(parentLayout, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {
-            showData(null)
-        }.show()
+        Snackbar.make(parentLayout, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(R.string.try_again)) {
+                showData(null)
+            }.show()
     }
 
     /**
@@ -70,7 +95,7 @@ class TopAlbumsActivity : BaseActivity() {
 
             //don't request again to get data after rotation
             if (savedInstanceState == null)
-                viewModel.onTopAlbumsRequested(artistName, 1, Consts.API_KEY)
+                viewModel.onTopAlbumsRequested(artistName, Consts.API_KEY)
         } else
             throw IllegalStateException("You have to pass the artist Name")
 
@@ -86,12 +111,9 @@ class TopAlbumsActivity : BaseActivity() {
     /**
      * Displays the topAlbums
      */
-    private fun showList(albumsViewModel: ArtistTopAlbumsResponseModel) {
-        recycler.adapter = TopAlbumsAdapter(albumsViewModel.topalbums.album) { artistName, albumeName ->
-            showAlbumDetailsView(artistName, albumeName)
-        }
-        recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
+    private fun showList(albumsViewModel: List<Album>) {
+        adapter.list = albumsViewModel
+        adapter.notifyDataSetChanged()
     }
 
     /**
