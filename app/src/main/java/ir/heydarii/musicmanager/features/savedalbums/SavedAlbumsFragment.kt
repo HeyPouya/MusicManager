@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
@@ -54,7 +54,7 @@ class SavedAlbumsFragment : BaseFragment() {
             )
         }
         recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recycler.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
     }
 
     /**
