@@ -9,7 +9,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
@@ -49,7 +49,7 @@ class SearchArtistFragment : BaseFragment() {
             startTopAlbumsView(artistName)
         }
         recycler.adapter = adapter
-        val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        val layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
         recycler.layoutManager = layoutManager
 
         recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -102,9 +102,9 @@ class SearchArtistFragment : BaseFragment() {
     private fun showTryAgain() {
         if (view != null)
             Snackbar.make(
-                view!!,
-                getString(R.string.please_try_again),
-                Snackbar.LENGTH_LONG
+                    view!!,
+                    getString(R.string.please_try_again),
+                    Snackbar.LENGTH_LONG
             ).setAction(getString(R.string.try_again)) {
                 searchArtist()
             }.show()
