@@ -21,6 +21,7 @@ import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.search_artist_fragment.*
 
 class SearchArtistFragment : BaseFragment() {
+
     companion object {
         fun newInstance() = SearchArtistFragment()
     }
