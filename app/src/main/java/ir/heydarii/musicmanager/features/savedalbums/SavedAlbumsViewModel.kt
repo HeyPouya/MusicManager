@@ -12,6 +12,7 @@ import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 class SavedAlbumsViewModel : BaseViewModel() {
 
+    //TODO : Must be provided via viewModel Factory
     private val dataRepository: DataRepository = DaggerDataRepositoryComponent.create().getDataRepository()
     private val composite = CompositeDisposable()
     private val albumsList = MutableLiveData<List<AlbumDatabaseEntity>>()

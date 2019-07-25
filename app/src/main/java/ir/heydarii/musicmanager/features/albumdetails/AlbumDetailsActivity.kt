@@ -193,9 +193,8 @@ class AlbumDetailsActivity : BaseActivity() {
     }
 
     private fun saveImage(): String {
-        //TODO : Check this, because you are passing a context
         return imageStorageManager.getImageStorageManager()
-            .saveToInternalStorage(this, imgAlbum.drawable.toBitmap(), albumName)
+            .saveToInternalStorage(applicationContext, imgAlbum.drawable.toBitmap(), albumName)
     }
 
     private fun removeImage(path: String) {

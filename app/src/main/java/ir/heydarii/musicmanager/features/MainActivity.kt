@@ -83,7 +83,6 @@ class MainActivity : BaseActivity() {
     /**
      * gets a new instance of fragments only once
      */
-    //TODO : Provide the fragments using dagger
     private fun setUpFragments() {
         searchFragment = SearchArtistFragment.newInstance()
         aboutMeFragment = AboutMeFragment.newInstance()
