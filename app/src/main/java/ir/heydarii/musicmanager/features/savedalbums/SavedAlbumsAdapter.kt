@@ -8,14 +8,14 @@ import com.orhanobut.logger.Logger
 import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
-import kotlinx.android.synthetic.main.saved_layout_item.view.*
+import kotlinx.android.synthetic.main.search_layout_item.view.*
 import java.io.File
 
 class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>, private var clickListener: (String, String) -> Unit) :
     RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.saved_layout_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
         return SearchArtistViewHolder(view, clickListener)
     }
 
