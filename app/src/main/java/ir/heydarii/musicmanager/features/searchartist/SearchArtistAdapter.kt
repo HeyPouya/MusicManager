@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.Artist
-import kotlinx.android.synthetic.main.saved_layout_item.view.*
+import kotlinx.android.synthetic.main.search_layout_item.view.*
 
 class SearchArtistAdapter(var list: List<Artist>, private val clickListener: (String) -> Unit) :
         RecyclerView.Adapter<SearchArtistAdapter.SearchArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.saved_layout_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
         return SearchArtistViewHolder(view, clickListener)
     }
 
