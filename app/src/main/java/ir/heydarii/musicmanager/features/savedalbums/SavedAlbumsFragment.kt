@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
+import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Consts
@@ -38,7 +39,9 @@ class SavedAlbumsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(SavedAlbumsViewModel::class.java)
+        val viewModelFactory = BaseViewModelFactory()
+        viewModel = ViewModelProviders.of(this,viewModelFactory).get(SavedAlbumsViewModel::class.java)
+
         setUpRecycler()
     }
 

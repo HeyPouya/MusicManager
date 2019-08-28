@@ -5,14 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
-import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
-class TopAlbumsViewModel : BaseViewModel() {
+class TopAlbumsViewModel(private val dataRepository: DataRepository) : BaseViewModel() {
 
-    private val dataRepository: DataRepository = DaggerDataRepositoryComponent.create().getDataRepository()
     private val topAlbumsData = MutableLiveData<List<Album>>()
     private val composite = CompositeDisposable()
     private var page = 1

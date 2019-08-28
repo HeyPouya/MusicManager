@@ -10,10 +10,8 @@ import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
-class SearchArtistViewModel : BaseViewModel() {
+class SearchArtistViewModel(private val dataRepository: DataRepository) : BaseViewModel() {
 
-    //TODO : Must be provided via viewModel Factory
-    private val dataRepository: DataRepository = DaggerDataRepositoryComponent.create().getDataRepository()
     private val composite = CompositeDisposable()
     private val artistResponse = MutableLiveData<List<Artist>>()
     private var page = 1

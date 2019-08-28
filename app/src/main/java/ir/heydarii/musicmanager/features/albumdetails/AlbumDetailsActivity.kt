@@ -13,6 +13,7 @@ import com.orhanobut.logger.Logger
 import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
+import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.features.albumdetails.di.DaggerImageStorageComponent
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Consts
@@ -35,8 +36,8 @@ class AlbumDetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_album_details)
 
-        viewModel = ViewModelProviders.of(this).get(AlbumDetailsViewModel::class.java)
-
+        val viewModelFactory = BaseViewModelFactory()
+        viewModel = ViewModelProviders.of(this,viewModelFactory).get(AlbumDetailsViewModel::class.java)
         showData()
 
         albumName = intent.getStringExtra(Consts.ALBUM_NAME)

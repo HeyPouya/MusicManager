@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
+import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.features.topalbums.TopAlbumsActivity
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Consts
@@ -35,7 +36,10 @@ class SearchArtistFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(SearchArtistViewModel::class.java)
+        val viewModelFactory = BaseViewModelFactory()
+        viewModel = ViewModelProviders.of(this,viewModelFactory).get(SearchArtistViewModel::class.java)
+
+
         init()  //add setOnClickListener and observe observables
         setUpRecyclerView()
         showEmptyState()

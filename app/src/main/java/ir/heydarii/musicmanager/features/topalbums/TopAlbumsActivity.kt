@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
+import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.utils.Consts
@@ -27,7 +28,10 @@ class TopAlbumsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_albums)
 
-        viewModel = ViewModelProviders.of(this).get(TopAlbumsViewModel::class.java)
+        val viewModelFactory = BaseViewModelFactory()
+
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
 
         setUpRecycler()
 
@@ -76,7 +80,11 @@ class TopAlbumsActivity : BaseActivity() {
      */
     private fun showTryAgain() {
         val parentLayout = findViewById<View>(android.R.id.content)
-        Snackbar.make(parentLayout, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(
+            parentLayout,
+            getString(R.string.please_try_again),
+            Snackbar.LENGTH_INDEFINITE
+        )
             .setAction(getString(R.string.try_again)) {
                 showData(null)
             }.show()

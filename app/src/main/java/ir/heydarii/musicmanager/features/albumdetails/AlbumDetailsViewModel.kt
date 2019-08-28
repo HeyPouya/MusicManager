@@ -10,11 +10,9 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
-class AlbumDetailsViewModel : BaseViewModel() {
+class AlbumDetailsViewModel(private val dataRepository: DataRepository) : BaseViewModel() {
 
 
-    //TODO : Must be provided via viewModel Factory
-    private val dataRepository: DataRepository = DaggerDataRepositoryComponent.create().getDataRepository()
     private val composite = CompositeDisposable()
     private val albumDetailsResponse = MutableLiveData<AlbumDatabaseEntity>()
     private var albumData: AlbumDatabaseEntity? = null
