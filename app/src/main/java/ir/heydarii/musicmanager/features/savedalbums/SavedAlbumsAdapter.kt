@@ -15,7 +15,7 @@ class SavedAlbumsAdapter(private var list: List<AlbumDatabaseEntity>, private va
         RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.saved_layout_item, parent, false)
         return SearchArtistViewHolder(view, clickListener)
     }
 

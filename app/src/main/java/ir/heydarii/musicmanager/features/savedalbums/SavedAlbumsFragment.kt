@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
@@ -34,9 +34,9 @@ class SavedAlbumsFragment : BaseFragment() {
     private lateinit var adapter: SavedAlbumsAdapter
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.saved_albums_fragment, container, false)
     }
@@ -46,7 +46,7 @@ class SavedAlbumsFragment : BaseFragment() {
 
         val viewModelFactory = BaseViewModelFactory()
         viewModel =
-                ViewModelProviders.of(this, viewModelFactory).get(SavedAlbumsViewModel::class.java)
+            ViewModelProviders.of(this, viewModelFactory).get(SavedAlbumsViewModel::class.java)
 
         setUpRecycler()
     }
@@ -60,7 +60,7 @@ class SavedAlbumsFragment : BaseFragment() {
             savedAlbumsClickListener(artistName, albumName)
         }
         recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recycler.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
     }
 
     /**
@@ -111,7 +111,11 @@ class SavedAlbumsFragment : BaseFragment() {
      */
     private fun showTryAgain() {
         if (view != null)
-            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {
+            Snackbar.make(
+                view!!,
+                getString(R.string.please_try_again),
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction(getString(R.string.try_again)) {
                 viewModel.getAllAlbums()
             }.show()
     }
