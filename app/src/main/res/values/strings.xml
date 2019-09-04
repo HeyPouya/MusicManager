@@ -5,7 +5,7 @@
     <string name="search">Search</string>
     <string name="top">Top</string>
     <string name="about">about</string>
-    <string name="copy_right">Developed By Pouya Heydari  For Appsfactory GmbH</string>
+    <string name="copy_right">Developed By Pouya Heydari</string>
     <string name="technologies_description">Technologies : RxJava - MVVM - Architecture components(LiveData,ViewModel,Room) - Dagger2 - Retrofit</string>
     <string name="tracks">Tracks</string>
     <string name="please_enter_artist_name">Please enter an artist\'s name</string>
