@@ -18,6 +18,7 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.saved_albums_fragment.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class SavedAlbumsFragment : BaseFragment() {
 
@@ -48,7 +49,14 @@ class SavedAlbumsFragment : BaseFragment() {
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(SavedAlbumsViewModel::class.java)
 
+        initToolbar()
+
         setUpRecycler()
+    }
+
+    private fun initToolbar() {
+        imgBack.visibility = View.GONE
+        txtTitle.text = getString(R.string.saved_albums)
     }
 
 

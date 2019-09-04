@@ -18,4 +18,5 @@
     <string name="cover">cover</string>
     <string name="top_albums">Top Albums</string>
     <string name="find_artist">Find Artist</string>
+    <string name="saved_albums">Saved Albums</string>
 </resources>
