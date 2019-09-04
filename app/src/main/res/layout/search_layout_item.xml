@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="140dp"
+    android:layout_marginTop="12dp"
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
@@ -30,7 +31,6 @@
         android:paddingEnd="8dp"
         android:textSize="18sp"
         android:textStyle="bold" />
-
 
 </LinearLayout>
 

@@ -20,6 +20,7 @@ import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.search_artist_fragment.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class SearchArtistFragment : BaseFragment() {
     companion object {
@@ -29,7 +30,11 @@ class SearchArtistFragment : BaseFragment() {
     private lateinit var viewModel: SearchArtistViewModel
     private lateinit var adapter: SearchArtistAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.search_artist_fragment, container, false)
     }
 
@@ -37,12 +42,19 @@ class SearchArtistFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         val viewModelFactory = BaseViewModelFactory()
-        viewModel = ViewModelProviders.of(this,viewModelFactory).get(SearchArtistViewModel::class.java)
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(SearchArtistViewModel::class.java)
 
+        initToolbar()
 
         init()  //add setOnClickListener and observe observables
         setUpRecyclerView()
         showEmptyState()
+    }
+
+    private fun initToolbar() {
+        imgBack.visibility = View.GONE
+        txtTitle.text = getString(R.string.find_artist)
     }
 
     /**
@@ -63,7 +75,11 @@ class SearchArtistFragment : BaseFragment() {
                 val total = layoutManager.itemCount
                 if (total > 0)
                     if (total - 1 == lastItem)
-                        viewModel.onUserSearchedArtist(edtSearch.text.toString(), Consts.API_KEY, true)
+                        viewModel.onUserSearchedArtist(
+                            edtSearch.text.toString(),
+                            Consts.API_KEY,
+                            true
+                        )
             }
         })
 
@@ -119,7 +135,11 @@ class SearchArtistFragment : BaseFragment() {
         if (edtSearch.text.toString().isNotEmpty())
             viewModel.onUserSearchedArtist(edtSearch.text.toString(), Consts.API_KEY, false)
         else
-            Toast.makeText(context, getString(R.string.please_enter_artist_name), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                getString(R.string.please_enter_artist_name),
+                Toast.LENGTH_LONG
+            ).show()
     }
 
 

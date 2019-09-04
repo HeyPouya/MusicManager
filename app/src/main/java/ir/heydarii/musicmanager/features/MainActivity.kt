@@ -136,8 +136,8 @@ class MainActivity : BaseActivity() {
      * Saves the latest fragment that is showing to user before rotation,
      * so after rotation we wont loos the control
      */
-    override fun onSaveInstanceState(outState: Bundle?) {
-        outState?.putString(CURRENT_FRAGMENT, currentFragment?.tag)
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(CURRENT_FRAGMENT, currentFragment?.tag)
         super.onSaveInstanceState(outState)
     }
 }

@@ -51,5 +51,5 @@
 -if interface * { @retrofit2.http.* <methods>; }
 -keep,allowobfuscation interface <1>
 
--keepclassmembers ir.heydarii.musicmanager.pojos*
--keepclassmembers ir.heydarii.musicmanager.pojos.*
+-keep class ir.heydarii.musicmanager.pojos*
+-keep class ir.heydarii.musicmanager.pojos.*

@@ -77,11 +77,9 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$support_version"
     implementation "com.google.android.material:material:$support_version"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //Test
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -99,7 +97,7 @@ dependencies {
 
     //LiveData and ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -107,9 +105,6 @@ dependencies {
 
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
-
-    //CircleImageView
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'

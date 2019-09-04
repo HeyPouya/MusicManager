@@ -6,15 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".features.searchartist.SearchArtistFragment">
 
+    <ImageView
+        android:id="@+id/imgCover"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:contentDescription="@string/cover"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_cover"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include layout="@layout/toolbar_layout" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="125dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -32,6 +45,7 @@
                 android:background="@android:color/transparent"
                 android:hint="@string/please_search_an_artist_name"
                 android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:lines="1"
                 android:paddingStart="8dp"
@@ -51,6 +65,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:contentDescription="@string/search"
                 android:padding="4dp"
                 app:srcCompat="@drawable/ic_search" />
         </LinearLayout>
@@ -67,7 +82,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintTop_toBottomOf="@id/imgCover" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/empty"
