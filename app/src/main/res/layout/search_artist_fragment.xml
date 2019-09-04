@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imgCover"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="@dimen/top_albums_cover_image_height"
         android:contentDescription="@string/cover"
         android:scaleType="centerCrop"
         android:src="@drawable/img_cover"
@@ -24,13 +24,14 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="@dimen/top_albums_search_card_margin_top"
         android:layout_marginEnd="16dp"
         app:cardCornerRadius="25dp"
         app:cardElevation="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="@dimen/search_card_max_width">
 
         <LinearLayout
             android:layout_width="match_parent"

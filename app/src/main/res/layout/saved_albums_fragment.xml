@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imgCover"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/main_cover_image_height"
         android:contentDescription="@string/cover"
         android:scaleType="centerCrop"
         android:src="@drawable/img_cover"
@@ -22,7 +22,7 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="@dimen/main_curved_image_margin_top"
         android:src="@drawable/main_curved_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,11 +33,12 @@
         android:id="@+id/recycler"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:maxWidth="310dp"
+        android:minWidth="@dimen/saved_items_recycler_min_width"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgCover" />
+        app:layout_constraintTop_toBottomOf="@id/imgCover"
+        app:layout_constraintWidth_max="@dimen/saved_items_recycler_max_width" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/empty"
