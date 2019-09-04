@@ -23,6 +23,7 @@ class TopAlbumsActivity : BaseActivity() {
 
     lateinit var viewModel: TopAlbumsViewModel
     private lateinit var adapter: TopAlbumsAdapter
+    private val albumDataList = ArrayList<Album>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,7 @@ class TopAlbumsActivity : BaseActivity() {
         val viewModelFactory = BaseViewModelFactory()
 
         viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
+                ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
 
         setUpRecycler()
 
@@ -56,7 +57,7 @@ class TopAlbumsActivity : BaseActivity() {
 
     private fun setUpRecycler() {
 
-        adapter = TopAlbumsAdapter(emptyList()) { artistName, albumName ->
+        adapter = TopAlbumsAdapter(albumDataList) { artistName, albumName ->
             showAlbumDetailsView(artistName, albumName)
         }
         recycler.adapter = adapter
@@ -81,13 +82,13 @@ class TopAlbumsActivity : BaseActivity() {
     private fun showTryAgain() {
         val parentLayout = findViewById<View>(android.R.id.content)
         Snackbar.make(
-            parentLayout,
-            getString(R.string.please_try_again),
-            Snackbar.LENGTH_INDEFINITE
+                parentLayout,
+                getString(R.string.please_try_again),
+                Snackbar.LENGTH_INDEFINITE
         )
-            .setAction(getString(R.string.try_again)) {
-                showData(null)
-            }.show()
+                .setAction(getString(R.string.try_again)) {
+                    showData(null)
+                }.show()
     }
 
     /**
@@ -119,18 +120,19 @@ class TopAlbumsActivity : BaseActivity() {
     /**
      * Displays the topAlbums
      */
-    private fun showList(albumsViewModel: List<Album>) {
-        adapter.list = albumsViewModel
+    private fun showList(albumsData: List<Album>) {
+        albumDataList.clear()
+        albumDataList.addAll(albumsData)
         adapter.notifyDataSetChanged()
     }
 
     /**
      * Navigates to  album details view
      */
-    private fun showAlbumDetailsView(artistName: String, albumeName: String) {
+    private fun showAlbumDetailsView(artistName: String, albumName: String) {
         val intent = Intent(this, AlbumDetailsActivity::class.java)
         intent.putExtra(ARTIST_NAME, artistName)
-        intent.putExtra(ALBUM_NAME, albumeName)
+        intent.putExtra(ALBUM_NAME, albumName)
         startActivity(intent)
     }
 

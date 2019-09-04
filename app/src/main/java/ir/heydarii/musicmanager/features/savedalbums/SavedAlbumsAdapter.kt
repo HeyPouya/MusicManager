@@ -11,8 +11,8 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import kotlinx.android.synthetic.main.search_layout_item.view.*
 import java.io.File
 
-class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>, private var clickListener: (String, String) -> Unit) :
-    RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
+class SavedAlbumsAdapter(private var list: List<AlbumDatabaseEntity>, private var clickListener: (String, String) -> Unit) :
+        RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
@@ -27,7 +27,7 @@ class SavedAlbumsAdapter(var list: List<AlbumDatabaseEntity>, private var clickL
 
 
     class SearchArtistViewHolder(private val view: View, var clickListener: (String, String) -> Unit) :
-        RecyclerView.ViewHolder(view) {
+            RecyclerView.ViewHolder(view) {
         fun bind(album: AlbumDatabaseEntity) {
             view.txtName.text = album.albumName
 

@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.saved_albums_fragment.*
 
 class SavedAlbumsFragment : BaseFragment() {
 
+    val list = ArrayList<AlbumDatabaseEntity>()
 
     /**
      * New instance function
@@ -32,7 +33,11 @@ class SavedAlbumsFragment : BaseFragment() {
     private lateinit var viewModel: SavedAlbumsViewModel
     private lateinit var adapter: SavedAlbumsAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.saved_albums_fragment, container, false)
     }
 
@@ -40,7 +45,8 @@ class SavedAlbumsFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         val viewModelFactory = BaseViewModelFactory()
-        viewModel = ViewModelProviders.of(this,viewModelFactory).get(SavedAlbumsViewModel::class.java)
+        viewModel =
+                ViewModelProviders.of(this, viewModelFactory).get(SavedAlbumsViewModel::class.java)
 
         setUpRecycler()
     }
@@ -50,11 +56,8 @@ class SavedAlbumsFragment : BaseFragment() {
      * Sets up the recycler for the first time
      */
     private fun setUpRecycler() {
-        adapter = SavedAlbumsAdapter(emptyList()) { artistName: String, albumName: String ->
-            savedAlbumsClickListener(
-                    artistName,
-                    albumName
-            )
+        adapter = SavedAlbumsAdapter(list) { artistName: String, albumName: String ->
+            savedAlbumsClickListener(artistName, albumName)
         }
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -76,7 +79,8 @@ class SavedAlbumsFragment : BaseFragment() {
      * Updates the recycler's list and shows it
      */
     private fun showRecycler(savedAlbums: List<AlbumDatabaseEntity>) {
-        adapter.list = savedAlbums
+        list.clear()
+        list.addAll(savedAlbums)
         adapter.notifyDataSetChanged()
     }
 
