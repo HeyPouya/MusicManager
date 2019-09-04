@@ -18,6 +18,7 @@ import ir.heydarii.musicmanager.utils.Consts.Companion.ALBUM_NAME
 import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_NAME
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.activity_top_albums.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class TopAlbumsActivity : BaseActivity() {
 
@@ -32,7 +33,9 @@ class TopAlbumsActivity : BaseActivity() {
         val viewModelFactory = BaseViewModelFactory()
 
         viewModel =
-                ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
+            ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
+
+        initToolbar()
 
         setUpRecycler()
 
@@ -53,6 +56,14 @@ class TopAlbumsActivity : BaseActivity() {
 
             }
         })
+    }
+
+    private fun initToolbar() {
+        txtTitle.text = getString(R.string.top_albums)
+
+        imgBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setUpRecycler() {
@@ -82,13 +93,13 @@ class TopAlbumsActivity : BaseActivity() {
     private fun showTryAgain() {
         val parentLayout = findViewById<View>(android.R.id.content)
         Snackbar.make(
-                parentLayout,
-                getString(R.string.please_try_again),
-                Snackbar.LENGTH_INDEFINITE
+            parentLayout,
+            getString(R.string.please_try_again),
+            Snackbar.LENGTH_INDEFINITE
         )
-                .setAction(getString(R.string.try_again)) {
-                    showData(null)
-                }.show()
+            .setAction(getString(R.string.try_again)) {
+                showData(null)
+            }.show()
     }
 
     /**

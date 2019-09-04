@@ -4,12 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_cover"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/cover" />
+
+    <include layout="@layout/toolbar_layout" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="8dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
