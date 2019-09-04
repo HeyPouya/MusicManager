@@ -18,15 +18,15 @@
                 android:id="@+id/imgAlbum"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:contentDescription="@string/cover"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_album_placeholder"
                 app:layout_collapseMode="parallax" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:layout_collapseMode="pin"
-                app:layout_scrollFlags="exitUntilCollapsed" />
+            <include
+                layout="@layout/toolbar_layout"
+                app:layout_collapseMode="pin" />
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

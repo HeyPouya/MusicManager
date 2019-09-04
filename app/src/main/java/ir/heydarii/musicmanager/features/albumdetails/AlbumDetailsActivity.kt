@@ -21,6 +21,7 @@ import ir.heydarii.musicmanager.utils.Consts.Companion.IS_OFFLINE
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.activity_album_details.*
 import kotlinx.android.synthetic.main.album_details_main_layout.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.io.File
 
 
@@ -37,7 +38,11 @@ class AlbumDetailsActivity : BaseActivity() {
         setContentView(R.layout.activity_album_details)
 
         val viewModelFactory = BaseViewModelFactory()
-        viewModel = ViewModelProviders.of(this,viewModelFactory).get(AlbumDetailsViewModel::class.java)
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(AlbumDetailsViewModel::class.java)
+
+        initToolbar()
+
         showData()
 
         albumName = intent.getStringExtra(Consts.ALBUM_NAME)
@@ -46,10 +51,16 @@ class AlbumDetailsActivity : BaseActivity() {
 
         //click listener for btnSave
         btnSave.setOnClickListener {
-
             val path = saveImage()
             disableSaveButtonForASecond()
             viewModel.onClickedOnSaveButton(path)
+        }
+    }
+
+    private fun initToolbar() {
+        txtTitle.visibility = View.GONE
+        imgBack.setOnClickListener {
+            finish()
         }
     }
 
@@ -121,7 +132,11 @@ class AlbumDetailsActivity : BaseActivity() {
      */
     private fun showDataNotAvailable() {
         val parentLayout = findViewById<View>(android.R.id.content)
-        Snackbar.make(parentLayout, getString(R.string.album_is_not_available), Snackbar.LENGTH_LONG).show()
+        Snackbar.make(
+            parentLayout,
+            getString(R.string.album_is_not_available),
+            Snackbar.LENGTH_LONG
+        ).show()
 
     }
 
@@ -130,7 +145,11 @@ class AlbumDetailsActivity : BaseActivity() {
      */
     private fun showTryAgain() {
         val parentLayout = findViewById<View>(android.R.id.content)
-        Snackbar.make(parentLayout, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(
+            parentLayout,
+            getString(R.string.please_try_again),
+            Snackbar.LENGTH_INDEFINITE
+        )
             .setAction(getString(R.string.try_again)) {
                 showData()
             }.show()
@@ -156,7 +175,9 @@ class AlbumDetailsActivity : BaseActivity() {
     private fun setImagesTexts(album: AlbumDatabaseEntity) {
         if (album.image.isNotEmpty())
             if (album.image.startsWith("http"))
-                Picasso.get().load(album.image).placeholder(R.drawable.ic_album_placeholder).into(imgAlbum)
+                Picasso.get().load(album.image).placeholder(R.drawable.ic_album_placeholder).into(
+                    imgAlbum
+                )
             else {
                 val file = File(album.image)
                 Picasso.get().load(file).placeholder(R.drawable.ic_album_placeholder).into(imgAlbum)
