@@ -31,7 +31,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:minWidth="@dimen/saved_items_recycler_min_width"
         app:layout_constraintBottom_toBottomOf="parent"
