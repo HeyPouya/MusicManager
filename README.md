@@ -3,45 +3,32 @@ An Android application to learn latest technologies in android world!
 
 
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
-[![Build Status](https://travis-ci.org/SirLordPouya/AndroidAppUpdater.svg?branch=master)](https://travis-ci.org/SirLordPouya/AndroidAppUpdater)
+[![Build Status](https://travis-ci.org/SirLordPouya/MusicManager.svg?branch=master)](https://travis-ci.org/SirLordPouya/MusicManager)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/67a4e8c3a6c240eea8bab676e83c1dbc)](https://www.codacy.com/app/SirLordPouya/MusicManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SirLordPouya/MusicManager&amp;utm_campaign=Badge_Grade)
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/SirLordPouya/AndroidAppUpdater/master/icon.png" width="250">
 </p>
 
-App Updater is a library to show update dialog to your users, whenever a new version of your application is available.
-It is really easy-to-use and fully customizable.
-
-##### It is fully integrated with Kotlin and androidX
+MusicManager is an Android application for those who want to get familiar with the latest technologies in Android World.
+I will keep this project up to date as long as I can.
+You can help to keep it up to date if you like ;)
 
 
 <img src="https://raw.githubusercontent.com/SirLordPouya/AndroidAppUpdater/master/Screenshot_1.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/AndroidAppUpdater/master/Screenshot_2.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/AndroidAppUpdater/master/Screenshot_3.png" width="250">
 
-## Releases
 
-#### Current release: [![](https://jitpack.io/v/SirLordPouya/AndroidAppUpdater.svg)](https://jitpack.io/#SirLordPouya/AndroidAppUpdater)
+## Description
 
+### How app works
 
-## Usage
+This application is designed to find singers and their top albums. I used the api from last.fm website (you can find the details in api secion). There are 4 main pages :
 
-### Stores
+1. Saved albums : shows albums saved by user. works also in offline mode
+2. Search artist
+3. Top albums : shows top albums of the selected artist.
+4. Album details : shows details of the selected album
 
-you can show users as many stores as you need, to download your application from there. to make a new store :
-
-```java
-    val list = ArrayList<UpdaterStoreList>()
-
-    list.add(UpdaterStoreList(Store.DIRECT_URL, "Store Title", R.mipmap.ic_launcher , "https://url/app.apk", BuildConfig.APPLICATION_ID))
-```
-
-parameters of UpdaterStoreList, as the order you see in above line :
-
-1.  Store type
-2.  Store title that user sees
-3.  Icon of store that user sees
-4.  An url to show the user if the store is not installed in user's device
-5.  Package name of your application
 
 ##### or you can omit adding some properties in Kotlin
 
@@ -49,102 +36,11 @@ parameters of UpdaterStoreList, as the order you see in above line :
     list.add(UpdaterStoreList(Store.GOOGLE_PLAY, "Download From Google Play", packageName = BuildConfig.APPLICATION_ID))
 ```
 
-### Available stores
-this library currently supports only these markets :
-
-[Google Play](https://play.google.com)
-
-[CafeBazaar](https://cafebazaar.ir)
-
-[IranApps](https://iranapps.ir)
-
-[Myket](https://myket.ir/)
-
-To Select an Store you should use :
-
-```java
-    Store.GOOGLE_PLAY
-    Store.CAFE_BAZAAR
-    Store.MYKET
-    Store.IRAN_APPS
-```
-
-### Direct Download
-
-you can also make as many direct APK download links as you need.
-Users can download that APK directly on their phone, and after downloading finishes, the install page will be shown to the user.
-
-##### Remember to get WRITE_EXTERNAL_STORAGE permission in runtime (the library tries to get it if you forget ;) )
-
-```
-    list.add(UpdaterStoreList(Store.DIRECT_URL, "Direct Download",R.mipmap.ic_launcher , "https://cafebazaar.ir/download/bazaar.apk", BuildConfig.APPLICATION_ID))
-```
-
-### To Show UpdateDialog
-
-```java
-    AppUpdaterDialog.getInstance("New Update!!!!", "Lots of new features!! upgrade yo the new version.", list, true, font).show(supportFragmentManager, "TAG")
-```
-parameters as the order you see in above line :
-
-1.  Update dialog title
-2.  Update dialog description
-3.  List of stores you created in last step
-4.  Is it a force update? (should dialog be cancelable or not)
-5.  Typeface to customize font style
-
-### To change library's texts
-
-In strings file, add these lines :
-
-```xml
-    <string name="please_wait">Please wait</string>
-    <string name="downloading_new_version">Downloading new version...</string>
-    <string name="download_notification_title">Downloading...</string>
-    <string name="download_notification_description">Downloading new version</string>
-    <string name="please_install">Please install</string>
-    <string name="or">or</string>
-    <string name="download_from_store">Download from store</string>
-```
-
-### To use default icons
-
-I have added default icons of Iranian stores in the app.
-if you like to use them, you can find them like :
-
-```java
-    R.drawable.appupdater_ic_google_play
-    R.drawable.appupdater_ic_bazar
-    R.drawable.appupdater_ic_myket
-    R.drawable.appupdater_ic_iran_apps
-```
-
-
-## Download
-
-#### Adding the dependency
-
-Add this to your root *build.gradle* file:
-
-```groovy
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-
-Now add the dependency to your app build.gradle file:
-
-```groovy
-    implementation 'com.github.SirLordPouya:AndroidAppUpdater:3.0.0'
-```
 
 ## License
 
 ```
-LoadingFragment is released under the Apache License 2.0. See LICENSE for details.
+MusicManager is released under the Apache License 2.0. See LICENSE for details.
 
 Copyright (c) 2018 Pouya Heydari
 
