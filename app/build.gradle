@@ -42,7 +42,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "ir.heydarii.musicmanager"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode generateVersionCode()
         versionName generateVersionName()

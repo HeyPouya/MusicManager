@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.search_artist_fragment.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+
 
 class SearchArtistFragment : BaseFragment() {
     companion object {
@@ -170,6 +172,5 @@ class SearchArtistFragment : BaseFragment() {
         empty.visibility = View.VISIBLE
         recycler.visibility = View.GONE
     }
-
 
 }

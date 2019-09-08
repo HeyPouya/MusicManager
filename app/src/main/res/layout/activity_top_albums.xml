@@ -10,7 +10,7 @@
         android:layout_height="@dimen/top_albums_cover_image_height"
         android:contentDescription="@string/cover"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_cover"
+        android:src="@drawable/img_top_albums_cover"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

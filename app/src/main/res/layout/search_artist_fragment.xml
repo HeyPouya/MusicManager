@@ -49,8 +49,8 @@
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:lines="1"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp" />
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
 
             <ProgressBar
                 android:id="@+id/progress"
@@ -64,8 +64,8 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:contentDescription="@string/search"
                 android:padding="4dp"
                 app:srcCompat="@drawable/ic_search" />
