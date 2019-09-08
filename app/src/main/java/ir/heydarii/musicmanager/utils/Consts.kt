@@ -16,5 +16,8 @@ class Consts {
         const val ALBUM_DB_NAME = "Albums.db"
         const val ARTIST_ID = "ArtistId"
         const val CURRENT_FRAGMENT = "CurrentFragment"
+        const val GITHUB_URL = "https://github.com/SirLordPouya/MusicManager"
+        const val PERSONAL_WEBSITE_URL = "https://heydarii.ir"
+        const val LINKEDIN_URL = "https://linkedin.com/in/pouyaheydari/"
     }
 }

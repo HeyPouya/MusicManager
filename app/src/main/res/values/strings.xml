@@ -6,7 +6,7 @@
     <string name="top">Top</string>
     <string name="about">about</string>
     <string name="copy_right">Developed By Pouya Heydari</string>
-    <string name="technologies_description">Technologies : RxJava - MVVM - Architecture components(LiveData,ViewModel,Room) - Dagger2 - Retrofit</string>
+    <string name="technologies_description">RxJava\nMVVM\nArchitecture components\n(LiveData,ViewModel,Room)\nDagger2\nRetrofit</string>
     <string name="tracks">Tracks</string>
     <string name="please_enter_artist_name">Please enter an artist\'s name</string>
     <string name="a_notifier_is_not_defined_in_the_when_block">A notifier is not defined in the when block!</string>
@@ -19,4 +19,13 @@
     <string name="top_albums">Top Albums</string>
     <string name="find_artist">Find Artist</string>
     <string name="saved_albums">Saved Albums</string>
+    <string name="technologies">Technologies</string>
+    <string name="logo">Logo</string>
+    <string name="contact">contact</string>
+    <string name="contact_me">Contact Me</string>
+    <string name="pouya_heydari">Pouya Heydari</string>
+    <string name="github">github</string>
+    <string name="linkedin">linkedin</string>
+    <string name="website">website</string>
+    <string name="app_description">This sample app tries to demonstrate how to implement latest technologies in Android Applications.  for more information kindly visit the github page.</string>
 </resources>
