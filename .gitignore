@@ -13,3 +13,4 @@
 .externalNativeBuild
 /signature
 /app/release
+/app/google-services.json
