@@ -22,26 +22,26 @@ You can help to keep it up to date if you like ;)
 
 ### How app works
 
-This application is designed to find singers and their top albums. I used the api from last.fm website (you can find the details in api secion). There are 4 main pages :
+This application is designed to find singers and their top albums. I used the api from last.fm website (you can find the details in api section). There are 4 main pages :
 
-1. Saved albums : shows albums saved by user. works also in offline mode
-2. Search artist
-3. Top albums : shows top albums of the selected artist.
-4. Album details : shows details of the selected album
+1.  Saved albums : shows albums saved by user. works also in offline mode
+2.  Search artist
+3.  Top albums : shows top albums of the selected artist.
+4.  Album details : shows details of the selected album
 
 ### Technologies and Architecture
 
 Technologies that have been used in this projects are :
 
-1. MVVM
-2. Room
-3. ViewModel
-4. ViewModelFactory
-5. DI via Dagger2
-6. Retrofit
-7. RxJava
-8. Kotlin
-9. LiveData
+*   MVVM
+*   Room
+*   ViewModel
+*   ViewModelFactory
+*   DI via Dagger2
+*   Retrofit
+*   RxJava
+*   Kotlin
+*   LiveData
 
 ### API
 
