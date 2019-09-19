@@ -7,7 +7,7 @@ An Android application to learn latest technologies in android world!
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/67a4e8c3a6c240eea8bab676e83c1dbc)](https://www.codacy.com/app/SirLordPouya/MusicManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SirLordPouya/MusicManager&amp;utm_campaign=Badge_Grade)
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/SirLordPouya/AndroidAppUpdater/master/icon.png" width="250">
+<img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/appicon.png" width="250">
 </p>
 
 MusicManager is an Android application for those who want to get familiar with the latest technologies in Android World.
@@ -15,7 +15,7 @@ I will keep this project up to date as long as I can.
 You can help to keep it up to date if you like ;)
 
 
-<img src="https://raw.githubusercontent.com/SirLordPouya/AndroidAppUpdater/master/Screenshot_1.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/AndroidAppUpdater/master/Screenshot_2.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/AndroidAppUpdater/master/Screenshot_3.png" width="250">
+<img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_2.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_3.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_4.png" width="250">
 
 
 ## Description
