@@ -29,7 +29,7 @@ This application is designed to find singers and their top albums. I used the ap
 3. Top albums : shows top albums of the selected artist.
 4. Album details : shows details of the selected album
 
-### Technologies and Arcchitecture
+### Technologies and Architecture
 
 Technologies that have been used in this projects are :
 
