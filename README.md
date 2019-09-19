@@ -1,7 +1,6 @@
 # MusicManager
 An Android application to learn latest technologies in android world!
 
-
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 [![Build Status](https://travis-ci.org/SirLordPouya/MusicManager.svg?branch=master)](https://travis-ci.org/SirLordPouya/MusicManager)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/67a4e8c3a6c240eea8bab676e83c1dbc)](https://www.codacy.com/app/SirLordPouya/MusicManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SirLordPouya/MusicManager&amp;utm_campaign=Badge_Grade)
@@ -14,9 +13,7 @@ MusicManager is an Android application for those who want to get familiar with t
 I will keep this project up to date as long as I can.
 You can help to keep it up to date if you like ;)
 
-
 <img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_2.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_3.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_4.png" width="250">
-
 
 ## Description
 
@@ -49,10 +46,8 @@ All the api's has provided by the last.fm website. for more information please v
 
 ## License
 
-```
-MusicManager is released under the Apache License 2.0. See LICENSE for details.
+MusicManager is released under the Apache License 2.0. See [LICENSE](https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/LICENSE.md) for details.
 
 Copyright (c) 2019 Pouya Heydari
 
-```
-#### <div>This App icon and style has designed by <a href="https://dribbble.com/Amir-G" title="Amir Gerdakane">Amir Gerdakane</a>
+### <div>This App icon and style has designed by <a href="https://dribbble.com/Amir-G" title="Amir Gerdakane">Amir Gerdakane</a>
