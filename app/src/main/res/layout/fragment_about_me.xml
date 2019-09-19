@@ -177,7 +177,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="32dp"
             android:contentDescription="@string/website"
-            android:src="@drawable/ic_language_black_24dp"
+            android:src="@drawable/ic_world"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imgLinkedin"
