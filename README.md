@@ -29,20 +29,30 @@ This application is designed to find singers and their top albums. I used the ap
 3. Top albums : shows top albums of the selected artist.
 4. Album details : shows details of the selected album
 
+### Technologies and Arcchitecture
 
-##### or you can omit adding some properties in Kotlin
+Technologies that have been used in this projects are :
 
-```java
-    list.add(UpdaterStoreList(Store.GOOGLE_PLAY, "Download From Google Play", packageName = BuildConfig.APPLICATION_ID))
-```
+1. MVVM
+2. Room
+3. ViewModel
+4. ViewModelFactory
+5. DI via Dagger2
+6. Retrofit
+7. RxJava
+8. Kotlin
+9. LiveData
 
+### API
+
+All the api's has provided by the last.fm website. for more information please visite their website.
 
 ## License
 
 ```
 MusicManager is released under the Apache License 2.0. See LICENSE for details.
 
-Copyright (c) 2018 Pouya Heydari
+Copyright (c) 2019 Pouya Heydari
 
 ```
-#### <div>Library's icon and style has designed by <a href="https://dribbble.com/Amir-G" title="Amir Gerdakane">Amir Gerdakane</a>
+#### <div>This App icon and style has designed by <a href="https://dribbble.com/Amir-G" title="Amir Gerdakane">Amir Gerdakane</a>
