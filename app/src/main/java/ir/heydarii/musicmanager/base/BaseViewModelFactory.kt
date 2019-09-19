@@ -9,6 +9,9 @@ import ir.heydarii.musicmanager.features.searchartist.SearchArtistViewModel
 import ir.heydarii.musicmanager.features.topalbums.TopAlbumsViewModel
 import javax.inject.Inject
 
+/**
+ * ViewModelFactory to provide view models and pass the repository to them
+ */
 class BaseViewModelFactory @Inject constructor() :
     ViewModelProvider.Factory {
 

@@ -1,6 +1,6 @@
 package ir.heydarii.musicmanager.utils
 
-/*
+/**
  * All the const that we used in the project will be stored here
  */
 class Consts {

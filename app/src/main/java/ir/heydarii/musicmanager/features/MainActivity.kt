@@ -12,11 +12,13 @@ import ir.heydarii.musicmanager.utils.Consts.Companion.CURRENT_FRAGMENT
 import ir.heydarii.musicmanager.utils.FragmentUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-/*
-The main activity that shows 3 main fragments
-1. SavedAlbums
-2. SearchArtist
-3. About
+/**
+ *
+ * The main activity that shows 3 main fragments
+ * 1. SavedAlbums
+ * 2. SearchArtist
+ * 3. About
+ *
  */
 class MainActivity : BaseActivity() {
 

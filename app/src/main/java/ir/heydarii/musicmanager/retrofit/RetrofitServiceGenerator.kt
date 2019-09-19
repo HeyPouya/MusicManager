@@ -6,8 +6,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
-/*
-This class makes the Retrofit client
+/**
+ *
+ * This class makes the Retrofit client
  */
 class RetrofitServiceGenerator @Inject constructor(
         private val converter: GsonConverterFactory,

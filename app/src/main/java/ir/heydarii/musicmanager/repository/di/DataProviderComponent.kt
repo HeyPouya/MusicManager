@@ -6,8 +6,9 @@ import ir.heydarii.musicmanager.base.di.DataProvidersComponent
 import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
 import ir.heydarii.musicmanager.repository.networkinteractor.NetworkInteractor
 
-/*
-This class provides network and database classes for the repository class
+/**
+ *
+ * This class provides network and database classes for the repository class
  */
 @CustomScope
 @Component(dependencies = [DataProvidersComponent::class])

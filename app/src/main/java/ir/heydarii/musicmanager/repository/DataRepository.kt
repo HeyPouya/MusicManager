@@ -13,7 +13,7 @@ import ir.heydarii.musicmanager.repository.di.DaggerDataProviderComponent
 import ir.heydarii.musicmanager.repository.networkinteractor.NetworkInteractor
 import javax.inject.Inject
 
-/*
+/**
  * All Observables are gathered here together
  * Network and Database
  */

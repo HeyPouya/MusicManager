@@ -2,8 +2,9 @@ package ir.heydarii.musicmanager.pojos
 
 import com.google.gson.annotations.SerializedName
 
-/*
-Response of album details
+/**
+ *
+ * Response of album details
  */
 data class AlbumDetailsResponseModel(
     val album: AlbumDetails

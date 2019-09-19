@@ -6,8 +6,9 @@ import androidx.room.TypeConverters
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
 
-/*
-Provides Room database
+/**
+ *
+ * Provides Room database
  */
 @Database(entities = [AlbumDatabaseEntity::class], version = 1, exportSchema = false)
 @TypeConverters(StringListDataConverter::class)

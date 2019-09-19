@@ -4,8 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-/*
-We save the albums data via this object in the database
+/**
+ *
+ * We save the albums data via this object in the database
  */
 @Entity(tableName = "albums")
 data class AlbumDatabaseEntity(

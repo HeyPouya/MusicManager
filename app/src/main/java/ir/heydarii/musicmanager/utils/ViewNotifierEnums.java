@@ -1,7 +1,8 @@
 package ir.heydarii.musicmanager.utils;
 
-/*
-A class for communication of view and viewModel
+/**
+ *
+ * A class for communication of view and viewModel
  */
 public enum ViewNotifierEnums {
     SHOW_LOADING,

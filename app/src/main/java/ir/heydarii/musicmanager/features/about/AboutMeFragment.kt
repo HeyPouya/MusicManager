@@ -12,7 +12,7 @@ import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.utils.Consts
 import kotlinx.android.synthetic.main.fragment_about_me.view.*
 
-/*
+/**
  * A fragment only to show some about me info
  */
 class AboutMeFragment : BaseFragment() {

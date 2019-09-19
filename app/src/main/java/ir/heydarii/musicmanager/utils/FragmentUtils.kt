@@ -3,7 +3,7 @@ package ir.heydarii.musicmanager.utils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 
-/*
+/**
  * This class is provided to help doing some complex tasks with fragments
  * And prevent our views to be messy
  */

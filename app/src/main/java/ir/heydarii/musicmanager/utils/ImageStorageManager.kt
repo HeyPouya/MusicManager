@@ -5,8 +5,9 @@ import android.graphics.Bitmap
 import java.io.File
 import javax.inject.Inject
 
-/*
-Provides functions to save or delete images from the device
+/**
+ *
+ * Provides functions to save or delete images from the device
  */
 class ImageStorageManager @Inject constructor() {
 
