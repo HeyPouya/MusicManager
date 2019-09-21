@@ -4,8 +4,9 @@ import dagger.Component
 import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.repository.DataRepository
 
-/*
-A dagger component to provide repository for the project
+/**
+ *
+ * A dagger component to provide repository for the project
  */
 @Component
 interface DataRepositoryComponent {

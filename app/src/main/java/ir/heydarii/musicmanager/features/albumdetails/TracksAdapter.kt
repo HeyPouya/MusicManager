@@ -21,8 +21,8 @@ class TracksAdapter(val list: List<String>) : RecyclerView.Adapter<TracksAdapter
 
 
     class TracksViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(track: String, position: Int) {
 
+        fun bind(track: String, position: Int) {
             view.txtTrackNumber.text = position.toString()
             view.txtTrackName.text = track
         }

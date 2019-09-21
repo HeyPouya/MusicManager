@@ -87,7 +87,7 @@ class DataRepository @Inject constructor() {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun doestAlbumExists(artistName: String, albumName: String): Single<Boolean> {
+    fun doesAlbumExists(artistName: String, albumName: String): Single<Boolean> {
         return database.doesAlbumExists(artistName, albumName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
-import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
@@ -108,7 +107,7 @@ class AlbumDetailsViewModel(private val dataRepository: DataRepository) : BaseVi
      */
     private fun checkAlbumExistenceInDb(artistName: String, albumName: String) {
         composite.add(
-            dataRepository.doestAlbumExists(artistName, albumName)
+            dataRepository.doesAlbumExists(artistName, albumName)
                 .subscribe({
                     doesAlbumExistsInDb.value = it
                     isAlbumSaved = it
