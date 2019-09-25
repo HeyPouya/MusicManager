@@ -8,6 +8,8 @@ apply plugin: 'kotlin-kapt'
 
 //apply plugin: 'io.fabric'
 
+//apply plugin: 'com.google.firebase.firebase-perf'
+
 
 ext {
     //Important library versions :
@@ -15,7 +17,7 @@ ext {
     lifecycle_version = "2.1.0"
     appcompat_version = "1.1.0"
     support_version = "1.0.0"
-    retrofit_version = "2.6.1"
+    retrofit_version = '2.6.2'
     dagger_version = '2.24'
     room_version = "2.1.0"
 
@@ -93,7 +95,7 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
 
     //Rx
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_Version"
@@ -124,6 +126,8 @@ dependencies {
 //    //Firebase
 //    implementation 'com.google.firebase:firebase-analytics:17.2.0'
 //    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+//    implementation 'com.google.firebase:firebase-perf:19.0.0'
+
 
 
 }

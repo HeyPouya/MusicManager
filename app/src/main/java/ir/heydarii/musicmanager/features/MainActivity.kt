@@ -22,9 +22,9 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class MainActivity : BaseActivity() {
 
-    private lateinit var searchFragment: SearchArtistFragment
-    private lateinit var aboutMeFragment: AboutMeFragment
-    private lateinit var savedAlbumsFragment: SavedAlbumsFragment
+    private var searchFragment: SearchArtistFragment? = null
+    private var aboutMeFragment: AboutMeFragment? = null
+    private var savedAlbumsFragment: SavedAlbumsFragment? = null
     private var currentFragment: Fragment? = null
 
 
@@ -47,9 +47,9 @@ class MainActivity : BaseActivity() {
      * Adds all fragments to the container once the user opens the app
      */
     private fun addFragmentsToLayout() {
-        FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, savedAlbumsFragment)
-        FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, searchFragment)
-        FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, aboutMeFragment)
+        savedAlbumsFragment?.let { FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, it) }
+        searchFragment?.let { FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, it) }
+        aboutMeFragment?.let { FragmentUtils.addAndHideFragments(supportFragmentManager, R.id.container, it) }
 
         displayFirstTab()
     }
@@ -59,7 +59,7 @@ class MainActivity : BaseActivity() {
      */
     private fun displayFirstTab() {
         Handler().postDelayed({ displayFragments(savedAlbumsFragment) }
-            , 200)
+                , 200)
     }
 
     /**
@@ -67,11 +67,11 @@ class MainActivity : BaseActivity() {
      */
     private fun retainFragments(fragment: String?) {
         searchFragment =
-            supportFragmentManager.findFragmentByTag(SearchArtistFragment::class.java.simpleName) as SearchArtistFragment
+                supportFragmentManager.findFragmentByTag(SearchArtistFragment::class.java.simpleName) as? SearchArtistFragment
         aboutMeFragment =
-            supportFragmentManager.findFragmentByTag(AboutMeFragment::class.java.simpleName) as AboutMeFragment
+                supportFragmentManager.findFragmentByTag(AboutMeFragment::class.java.simpleName) as? AboutMeFragment
         savedAlbumsFragment =
-            supportFragmentManager.findFragmentByTag(SavedAlbumsFragment::class.java.simpleName) as SavedAlbumsFragment
+                supportFragmentManager.findFragmentByTag(SavedAlbumsFragment::class.java.simpleName) as? SavedAlbumsFragment
 
         when (fragment) {
             SearchArtistFragment::class.java.simpleName -> currentFragment = searchFragment
@@ -116,17 +116,18 @@ class MainActivity : BaseActivity() {
     /**
      * Displays the requested fragment and hides other fragments
      */
-    private fun displayFragments(clickedFragment: Fragment) {
+    private fun displayFragments(clickedFragment: Fragment?) {
         val manager = supportFragmentManager.beginTransaction()
 
-        if (currentFragment == clickedFragment)
-            return
-        else if (clickedFragment.isAdded && currentFragment == null) {
-            manager.show(clickedFragment)
-        } else if (clickedFragment.isAdded && currentFragment != null) {
-            manager.hide(currentFragment!!)
-            manager.show(clickedFragment)
-        }
+        if (clickedFragment != null)
+            if (currentFragment == clickedFragment)
+                return
+            else if (clickedFragment.isAdded && currentFragment == null) {
+                manager.show(clickedFragment)
+            } else if (clickedFragment.isAdded && currentFragment != null) {
+                manager.hide(currentFragment!!)
+                manager.show(clickedFragment)
+            }
 
         manager.commit()
         currentFragment = clickedFragment
