@@ -44,6 +44,10 @@ Technologies that have been used in this projects are :
 
 All the api's has provided by the last.fm website. for more information please visit their website.
 
+### Downloading application
+
+To see the application itself, Please download it from [google play](https://play.google.com/store/apps/details?id=ir.heydarii.musicmanager).
+
 ## License
 
 MusicManager is released under the Apache License 2.0. See [LICENSE](https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/LICENSE.md) for details.
