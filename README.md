@@ -31,7 +31,7 @@ This application is designed to find singers and their top albums. I used the ap
 Technologies that have been used in this projects are :
 
 *   MVVM
-*   Dark Mode
+*   Room
 *   ViewModel
 *   ViewModelFactory
 *   DI via Dagger2
@@ -42,7 +42,7 @@ Technologies that have been used in this projects are :
 
 ### API
 
-All the api's has provided by the swapi.co website. for more information please visit their website.
+All the api's has provided by the last.fm website. for more information please visit their website.
 
 ### Downloading application
 
@@ -50,7 +50,7 @@ To see the application itself, Please download it from [google play](https://pla
 
 ## License
 
-MusicManager is released under the Apache License 2.0. See [LICENSE](https://github.com/SirLordPouya/StarWars/blob/master/LICENSE) for details.
+MusicManager is released under the Apache License 2.0. See [LICENSE](https://github.com/SirLordPouya/MusicManager/blob/master/LICENSE.md) for details.
 
 Copyright (c) 2019 Pouya Heydari
 
