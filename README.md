@@ -46,7 +46,7 @@ All the api's has provided by the last.fm website. for more information please v
 
 ### Downloading application
 
-To see the application itself, Please download it from [google play](https://play.google.com/store/apps/details?id=ir.heydarii.musicmanager).
+To see the application itself, Please download it from [google play](https://play.google.com/store/apps/details?id=ir.heydarii.musicmanager)
 
 ## License
 
