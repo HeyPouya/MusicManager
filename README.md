@@ -54,4 +54,4 @@ MusicManager is released under the Apache License 2.0. See [LICENSE](https://git
 
 Copyright (c) 2019 Pouya Heydari
 
-### <div>This App icon and style has designed by <a href="https://dribbble.com/Amir-G" title="Amir Gerdakane">Amir Gerdakane</a>
+### <div>This App icon and style is designed by <a href="https://dribbble.com/Amirgk" title="Amir Gerdakane">Amir Gerdakane</a>
