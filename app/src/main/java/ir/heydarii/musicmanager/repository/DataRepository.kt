@@ -68,7 +68,7 @@ class DataRepository @Inject constructor() {
                         tracks.add(it.name)
                     }
 
-                    val image = it.album.image.last().text ?: ""
+                    val image = it.album.image.last()?.text ?: ""
                     AlbumDatabaseEntity(null, it.album.name, it.album.artist, image, tracks)
                 }
                 .subscribeOn(Schedulers.io())

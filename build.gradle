@@ -1,5 +1,25 @@
+
+ext {
+    //Important library versions :
+    rxjava_Version = "2.2.12"
+    lifecycle_version = "2.1.0"
+    appcompat_version = "1.1.0"
+    support_version = "1.0.0"
+    retrofit_version = '2.6.2'
+    dagger_version = '2.25.2'
+    room_version = '2.2.1'
+    nav_version = "2.1.0"
+    
+    //Application versioning
+    versionMajor = 1
+    versionMinor = 1
+    versionPatch = 1
+    versionClassifier = "BETA"
+    isBeta = false
+}
+
 buildscript {
-    ext.kotlin_version = '1.3.50'
+    ext.kotlin_version = '1.3.60'
     repositories {
         google()
         jcenter()
@@ -9,7 +29,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:3.5.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
 //        classpath 'com.google.gms:google-services:4.3.2'

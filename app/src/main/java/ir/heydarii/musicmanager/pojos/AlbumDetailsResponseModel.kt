@@ -12,7 +12,7 @@ data class AlbumDetailsResponseModel(
 
 data class AlbumDetails(
     val artist: String,
-    val image: List<Image>,
+    val image: List<Image?>,
     val listeners: String,
     val mbid: String,
     val name: String,

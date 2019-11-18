@@ -11,33 +11,17 @@ apply plugin: 'kotlin-kapt'
 //apply plugin: 'com.google.firebase.firebase-perf'
 
 
-ext {
-    //Important library versions :
-    rxjava_Version = "2.2.12"
-    lifecycle_version = "2.1.0"
-    appcompat_version = "1.1.0"
-    support_version = "1.0.0"
-    retrofit_version = '2.6.2'
-    dagger_version = '2.24'
-    room_version = "2.1.0"
 
-    //Application versioning
-    versionMajor = 1
-    versionMinor = 1
-    versionPatch = 1
-    versionClassifier = "BETA"
-    isBeta = false
-}
 
 private Integer generateVersionCode() {
-    return ext.versionMajor * 100 + ext.versionMinor * 10 + ext.versionPatch
+    return versionMajor * 100 + versionMinor * 10 + versionPatch
 }
 
 private String generateVersionName() {
-    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    String versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
 
-    if (ext.isBeta) {
-        versionName += "-" + ext.versionClassifier
+    if (isBeta) {
+        versionName += "-" + versionClassifier
     }
     return versionName
 
@@ -53,7 +37,12 @@ android {
         versionName generateVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.incremental":"true"]
+            }
+        }
     }
     buildTypes {
         release {
@@ -94,8 +83,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
 
     //Rx
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_Version"
@@ -116,12 +105,17 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     //lottie
-    implementation 'com.airbnb.android:lottie:3.0.7'
+    implementation 'com.airbnb.android:lottie:3.2.0'
 
     //Room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
+
+    //Navigation component
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
 
     //Firebase
 //    implementation 'com.google.firebase:firebase-analytics:17.2.0'
