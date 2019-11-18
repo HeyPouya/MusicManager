@@ -46,12 +46,12 @@ All the api's has provided by the last.fm website. for more information please v
 
 ### Downloading application
 
-To see the application itself, Please download it from [google play](https://play.google.com/store/apps/details?id=ir.heydarii.musicmanager).
+To see the application itself, Please download it from [google play](https://play.google.com/store/apps/details?id=ir.heydarii.musicmanager)
 
 ## License
 
-MusicManager is released under the Apache License 2.0. See [LICENSE](https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/LICENSE.md) for details.
+MusicManager is released under the Apache License 2.0. See [LICENSE](https://github.com/SirLordPouya/MusicManager/blob/master/LICENSE.md) for details.
 
 Copyright (c) 2019 Pouya Heydari
 
-### <div>This App icon and style has designed by <a href="https://dribbble.com/Amir-G" title="Amir Gerdakane">Amir Gerdakane</a>
+### <div>This App icon and style is designed by <a href="https://dribbble.com/Amirgk" title="Amir Gerdakane">Amir Gerdakane</a>
