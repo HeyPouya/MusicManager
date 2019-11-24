@@ -105,7 +105,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     //lottie
-    implementation 'com.airbnb.android:lottie:3.2.0'
+    implementation 'com.airbnb.android:lottie:3.2.2'
 
     //Room
     implementation "androidx.room:room-runtime:$room_version"

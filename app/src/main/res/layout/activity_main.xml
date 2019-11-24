@@ -6,9 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".features.MainActivity">
 
-    <FrameLayout
+    <fragment
         android:id="@+id/container"
         android:layout_width="0dp"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_nav_component"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +22,7 @@
         android:id="@+id/bottomNav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#F3F0F0"
+        android:background="@color/bottomNavWhite"
         app:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

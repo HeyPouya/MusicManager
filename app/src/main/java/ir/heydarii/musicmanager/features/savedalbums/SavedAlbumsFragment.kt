@@ -23,22 +23,10 @@ import kotlinx.android.synthetic.main.toolbar_layout.*
 class SavedAlbumsFragment : BaseFragment() {
 
     val list = ArrayList<AlbumDatabaseEntity>()
-
-    /**
-     * New instance function
-     */
-    companion object {
-        fun newInstance() = SavedAlbumsFragment()
-    }
-
     private lateinit var viewModel: SavedAlbumsViewModel
     private lateinit var adapter: SavedAlbumsAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.saved_albums_fragment, container, false)
     }
 
@@ -47,7 +35,7 @@ class SavedAlbumsFragment : BaseFragment() {
 
         val viewModelFactory = BaseViewModelFactory()
         viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(SavedAlbumsViewModel::class.java)
+                ViewModelProviders.of(activity!!, viewModelFactory).get(SavedAlbumsViewModel::class.java)
 
         initToolbar()
 
@@ -119,11 +107,7 @@ class SavedAlbumsFragment : BaseFragment() {
      */
     private fun showTryAgain() {
         if (view != null)
-            Snackbar.make(
-                view!!,
-                getString(R.string.please_try_again),
-                Snackbar.LENGTH_INDEFINITE
-            ).setAction(getString(R.string.try_again)) {
+            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {
                 viewModel.getAllAlbums()
             }.show()
     }

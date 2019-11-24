@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#990b0b4c</color>
     <color name="colorAccent">#D81B60</color>
     <color name="lightGray">#D3D1D2</color>
+    <color name="bottomNavWhite">#F3F0F0</color>
 </resources>

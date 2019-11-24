@@ -17,11 +17,15 @@ class SearchArtistViewModel(private val dataRepository: DataRepository) : BaseVi
     private var page = 1
     private var shouldLoadMore = true
     private var list = arrayListOf<Artist>()
+    private var artistName = ""
 
     /**
      * Fetches all artists with the name that user enters
      */
     fun onUserSearchedArtist(artistName: String, apiKey: String, isLoadMore: Boolean) {
+
+        if (artistName.isNotEmpty())
+            this.artistName = artistName
 
         prepareDataToSearch(isLoadMore)
 
@@ -32,7 +36,7 @@ class SearchArtistViewModel(private val dataRepository: DataRepository) : BaseVi
             composite.clear()
 
         composite.add(
-            dataRepository.getArtistName(artistName, page, apiKey)
+            dataRepository.getArtistName(this.artistName, page, apiKey)
                 .subscribe({
 
                     if (it.results.artistmatches.artist.isEmpty())

@@ -24,33 +24,34 @@ import kotlinx.android.synthetic.main.toolbar_layout.*
 
 
 class SearchArtistFragment : BaseFragment() {
-    companion object {
-        fun newInstance() = SearchArtistFragment()
-    }
 
     private lateinit var viewModel: SearchArtistViewModel
     private lateinit var adapter: SearchArtistAdapter
+    private val artists = arrayListOf<Artist>()
+
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.search_artist_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val viewModelFactory = BaseViewModelFactory()
+
         viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(SearchArtistViewModel::class.java)
+                ViewModelProviders.of(activity!!, viewModelFactory).get(SearchArtistViewModel::class.java)
 
         initToolbar()
 
         init()  //add setOnClickListener and observe observables
         setUpRecyclerView()
         showEmptyState()
+
     }
 
     private fun initToolbar() {
@@ -62,9 +63,11 @@ class SearchArtistFragment : BaseFragment() {
      * Sets up the recycler for the first time
      */
     private fun setUpRecyclerView() {
-        adapter = SearchArtistAdapter(emptyList()) { artistName ->
+
+        adapter = SearchArtistAdapter(artists) { artistName ->
             startTopAlbumsView(artistName)
         }
+
         recycler.adapter = adapter
         val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recycler.layoutManager = layoutManager
@@ -76,11 +79,7 @@ class SearchArtistFragment : BaseFragment() {
                 val total = layoutManager.itemCount
                 if (total > 0)
                     if (total - 1 == lastItem)
-                        viewModel.onUserSearchedArtist(
-                            edtSearch.text.toString(),
-                            Consts.API_KEY,
-                            true
-                        )
+                        viewModel.onUserSearchedArtist(edtSearch.text.toString(), Consts.API_KEY, true)
             }
         })
 
@@ -122,13 +121,7 @@ class SearchArtistFragment : BaseFragment() {
      */
     private fun showTryAgain() {
         if (view != null)
-            Snackbar.make(
-                view!!,
-                getString(R.string.please_try_again),
-                Snackbar.LENGTH_LONG
-            ).setAction(getString(R.string.try_again)) {
-                searchArtist()
-            }.show()
+            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_LONG).setAction(getString(R.string.try_again)) { searchArtist() }.show()
     }
 
 
@@ -136,11 +129,7 @@ class SearchArtistFragment : BaseFragment() {
         if (edtSearch.text.toString().isNotEmpty())
             viewModel.onUserSearchedArtist(edtSearch.text.toString(), Consts.API_KEY, false)
         else
-            Toast.makeText(
-                context,
-                getString(R.string.please_enter_artist_name),
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(context, getString(R.string.please_enter_artist_name), Toast.LENGTH_LONG).show()
     }
 
 
@@ -149,7 +138,8 @@ class SearchArtistFragment : BaseFragment() {
      */
     private fun showRecycler(artistResponseModel: List<Artist>) {
         hideEmptyState()
-        adapter.list = artistResponseModel
+        artists.clear()
+        artists.addAll(artistResponseModel)
         adapter.notifyDataSetChanged()
     }
 
