@@ -1,12 +1,12 @@
 package ir.heydarii.musicmanager.features.savedalbums
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -14,9 +14,7 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
-import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
-import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.saved_albums_fragment.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
@@ -68,12 +66,8 @@ class SavedAlbumsFragment : BaseFragment() {
     }
 
     private fun savedAlbumsClickListener(artistName: String, albumName: String) {
-        val intent = Intent(context, AlbumDetailsActivity::class.java)
-        intent.putExtra(Consts.IS_OFFLINE, true)
-        intent.putExtra(Consts.ARTIST_NAME, artistName)
-        intent.putExtra(Consts.ALBUM_NAME, albumName)
-        startActivity(intent)
-
+        val showDetailsViewAction = SavedAlbumsFragmentDirections.showAlbumDetailsActions(artistName, albumName, true)
+        Navigation.findNavController(rootView).navigate(showDetailsViewAction)
     }
 
     private fun showRecycler(savedAlbums: List<AlbumDatabaseEntity>) {

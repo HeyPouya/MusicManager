@@ -14,7 +14,11 @@
         android:id="@+id/savedAlbumsFragment"
         android:name="ir.heydarii.musicmanager.features.savedalbums.SavedAlbumsFragment"
         android:label="saved_albums_fragment"
-        tools:layout="@layout/saved_albums_fragment" />
+        tools:layout="@layout/saved_albums_fragment" >
+        <action
+            android:id="@+id/show_album_details_actions"
+            app:destination="@id/albumDetailsActivity" />
+    </fragment>
     <fragment
         android:id="@+id/searchArtistFragment"
         android:name="ir.heydarii.musicmanager.features.searchartist.SearchArtistFragment"
@@ -32,5 +36,24 @@
             android:name="artistName"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/show_album_details_actions"
+            app:destination="@id/albumDetailsActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumDetailsActivity"
+        android:name="ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsFragment"
+        android:label="activity_album_details"
+        tools:layout="@layout/activity_album_details" >
+        <argument
+            android:name="artistName"
+            app:argType="string" />
+        <argument
+            android:name="albumName"
+            app:argType="string" />
+        <argument
+            android:name="isOffline"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

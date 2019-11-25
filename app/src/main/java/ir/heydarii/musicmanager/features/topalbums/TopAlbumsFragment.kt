@@ -1,12 +1,12 @@
 package ir.heydarii.musicmanager.features.topalbums
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -14,11 +14,8 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
-import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.utils.Consts
-import ir.heydarii.musicmanager.utils.Consts.Companion.ALBUM_NAME
-import ir.heydarii.musicmanager.utils.Consts.Companion.ARTIST_NAME
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.activity_top_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
@@ -106,8 +103,7 @@ class TopAlbumsFragment : BaseFragment() {
     }
 
     private fun showTryAgain() {
-        Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
-                .setAction(getString(R.string.try_again)) {
+        Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {
                     showData(null)
                 }.show()
     }
@@ -140,10 +136,8 @@ class TopAlbumsFragment : BaseFragment() {
     }
 
     private fun showAlbumDetailsView(artistName: String, albumName: String) {
-        val intent = Intent(activity!!, AlbumDetailsActivity::class.java)
-        intent.putExtra(ARTIST_NAME, artistName)
-        intent.putExtra(ALBUM_NAME, albumName)
-        startActivity(intent)
+        val showDetailsAction = TopAlbumsFragmentDirections.showAlbumDetailsActions(artistName, albumName)
+        Navigation.findNavController(rootView).navigate(showDetailsAction)
     }
 
 }
