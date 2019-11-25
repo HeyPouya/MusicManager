@@ -24,7 +24,9 @@ import kotlinx.android.synthetic.main.album_details_main_layout.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.io.File
 
-
+/**
+ * Shows details of an album containing the name and tracks
+ */
 class AlbumDetailsFragment : BaseFragment() {
 
     private lateinit var viewModel: AlbumDetailsViewModel
