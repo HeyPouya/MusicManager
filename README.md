@@ -39,6 +39,9 @@ Technologies that have been used in this projects are :
 *   RxJava
 *   Kotlin
 *   LiveData
+*   Navigation Component
+*   Single Activity
+*   Safe Args
 
 ### API
 
