@@ -1,6 +1,5 @@
 package ir.heydarii.musicmanager.features.searchartist
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.BaseViewModelFactory
-import ir.heydarii.musicmanager.features.topalbums.TopAlbumsFragment
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
@@ -31,14 +29,16 @@ class SearchArtistFragment : BaseFragment() {
     private val artists = arrayListOf<Artist>()
 
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    /**
+     * inflating its layout
+     */
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.search_artist_fragment, container, false)
     }
 
+    /**
+     * all codes are here
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -60,9 +60,6 @@ class SearchArtistFragment : BaseFragment() {
         txtTitle.text = getString(R.string.find_artist)
     }
 
-    /**
-     * Sets up the recycler for the first time
-     */
     private fun setUpRecyclerView() {
 
         adapter = SearchArtistAdapter(artists) { artistName ->
@@ -117,9 +114,6 @@ class SearchArtistFragment : BaseFragment() {
 
     }
 
-    /**
-     * Shows try again button whenever an error accrues while receiving the albums data
-     */
     private fun showTryAgain() {
         if (view != null)
             Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_LONG).setAction(getString(R.string.try_again)) { searchArtist() }.show()
@@ -133,10 +127,6 @@ class SearchArtistFragment : BaseFragment() {
             Toast.makeText(context, getString(R.string.please_enter_artist_name), Toast.LENGTH_LONG).show()
     }
 
-
-    /**
-     * SetsUp the recyclerView
-     */
     private fun showRecycler(artistResponseModel: List<Artist>) {
         hideEmptyState()
         artists.clear()
@@ -144,9 +134,6 @@ class SearchArtistFragment : BaseFragment() {
         adapter.notifyDataSetChanged()
     }
 
-    /**
-     * navigates to the view that shows the top albums of the selected artist
-     */
     private fun startTopAlbumsView(artistName: String) {
         val showTopAlbumsAction = SearchArtistFragmentDirections.showTopAlbumsAction(artistName)
         Navigation.findNavController(btnSearch).navigate(showTopAlbumsAction)

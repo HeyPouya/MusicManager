@@ -22,6 +22,9 @@ import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.activity_top_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
+/**
+ * Shows top albums of an artist
+ */
 class TopAlbumsFragment : BaseFragment() {
 
     lateinit var viewModel: TopAlbumsViewModel
@@ -29,22 +32,24 @@ class TopAlbumsFragment : BaseFragment() {
     private val albumDataList = ArrayList<Album>()
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    /**
+     * Inflating the view
+     */
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.activity_top_albums, container, false)
     }
 
 
+    /**
+     * All codes are here
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val viewModelFactory = BaseViewModelFactory()
 
         viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
+                ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
 
         initToolbar()
 
@@ -98,20 +103,13 @@ class TopAlbumsFragment : BaseFragment() {
         })
     }
 
-    /**
-     * Shows try again button whenever an error accrues while receiving the top albums data
-     */
     private fun showTryAgain() {
         Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
-            .setAction(getString(R.string.try_again)) {
-                showData(null)
-            }.show()
+                .setAction(getString(R.string.try_again)) {
+                    showData(null)
+                }.show()
     }
 
-    /**
-     * Checks if the developer has passed data via intent or not
-     * and requests ViewModel to fetch the data
-     */
     private fun showData(savedInstanceState: Bundle?) {
 
         val artistName = arguments?.let {
@@ -129,25 +127,16 @@ class TopAlbumsFragment : BaseFragment() {
 
     }
 
-    /**
-     * Displays the artistName on top of the page
-     */
     private fun showArtistName(artistName: String) {
         txtName.text = artistName
     }
 
-    /**
-     * Displays the topAlbums
-     */
     private fun showList(albumsData: List<Album>) {
         albumDataList.clear()
         albumDataList.addAll(albumsData)
         adapter.notifyDataSetChanged()
     }
 
-    /**
-     * Navigates to  album details view
-     */
     private fun showAlbumDetailsView(artistName: String, albumName: String) {
         val intent = Intent(activity!!, AlbumDetailsActivity::class.java)
         intent.putExtra(ARTIST_NAME, artistName)

@@ -4,7 +4,7 @@ ext {
     rxjava_Version = "2.2.12"
     lifecycle_version = "2.1.0"
     appcompat_version = "1.1.0"
-    support_version = "1.0.0"
+    support_version = '1.0.0'
     retrofit_version = '2.6.2'
     dagger_version = '2.25.2'
     room_version = '2.2.2'
