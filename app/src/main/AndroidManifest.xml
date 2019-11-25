@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".features.albumdetails.AlbumDetailsActivity" />
-        <activity android:name=".features.topalbums.TopAlbumsActivity" />
         <activity android:name=".features.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

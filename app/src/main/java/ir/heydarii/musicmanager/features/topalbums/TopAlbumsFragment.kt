@@ -2,14 +2,16 @@ package ir.heydarii.musicmanager.features.topalbums
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
-import ir.heydarii.musicmanager.base.BaseActivity
+import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
 import ir.heydarii.musicmanager.pojos.Album
@@ -20,15 +22,24 @@ import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.activity_top_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
-class TopAlbumsActivity : BaseActivity() {
+class TopAlbumsFragment : BaseFragment() {
 
     lateinit var viewModel: TopAlbumsViewModel
     private lateinit var adapter: TopAlbumsAdapter
     private val albumDataList = ArrayList<Album>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_top_albums)
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.activity_top_albums, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val viewModelFactory = BaseViewModelFactory()
 
@@ -62,7 +73,7 @@ class TopAlbumsActivity : BaseActivity() {
         txtTitle.text = getString(R.string.top_albums)
 
         imgBack.setOnClickListener {
-            finish()
+            activity!!.onBackPressed()
         }
     }
 
@@ -72,7 +83,7 @@ class TopAlbumsActivity : BaseActivity() {
             showAlbumDetailsView(artistName, albumName)
         }
         recycler.adapter = adapter
-        val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         recycler.layoutManager = layoutManager
 
         recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -91,12 +102,7 @@ class TopAlbumsActivity : BaseActivity() {
      * Shows try again button whenever an error accrues while receiving the top albums data
      */
     private fun showTryAgain() {
-        val parentLayout = findViewById<View>(android.R.id.content)
-        Snackbar.make(
-            parentLayout,
-            getString(R.string.please_try_again),
-            Snackbar.LENGTH_INDEFINITE
-        )
+        Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
             .setAction(getString(R.string.try_again)) {
                 showData(null)
             }.show()
@@ -108,7 +114,9 @@ class TopAlbumsActivity : BaseActivity() {
      */
     private fun showData(savedInstanceState: Bundle?) {
 
-        val artistName = intent.getStringExtra(ARTIST_NAME)
+        val artistName = arguments?.let {
+            TopAlbumsFragmentArgs.fromBundle(it).artistName
+        }
 
         if (!artistName.isNullOrEmpty()) {
             showArtistName(artistName)
@@ -141,7 +149,7 @@ class TopAlbumsActivity : BaseActivity() {
      * Navigates to  album details view
      */
     private fun showAlbumDetailsView(artistName: String, albumName: String) {
-        val intent = Intent(this, AlbumDetailsActivity::class.java)
+        val intent = Intent(activity!!, AlbumDetailsActivity::class.java)
         intent.putExtra(ARTIST_NAME, artistName)
         intent.putExtra(ALBUM_NAME, albumName)
         startActivity(intent)

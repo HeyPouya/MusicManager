@@ -9,13 +9,14 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.BaseViewModelFactory
-import ir.heydarii.musicmanager.features.topalbums.TopAlbumsActivity
+import ir.heydarii.musicmanager.features.topalbums.TopAlbumsFragment
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
@@ -147,9 +148,8 @@ class SearchArtistFragment : BaseFragment() {
      * navigates to the view that shows the top albums of the selected artist
      */
     private fun startTopAlbumsView(artistName: String) {
-        val intent = Intent(activity, TopAlbumsActivity::class.java)
-        intent.putExtra(Consts.ARTIST_NAME, artistName)
-        startActivity(intent)
+        val showTopAlbumsAction = SearchArtistFragmentDirections.showTopAlbumsAction(artistName)
+        Navigation.findNavController(btnSearch).navigate(showTopAlbumsAction)
     }
 
     private fun hideEmptyState() {
