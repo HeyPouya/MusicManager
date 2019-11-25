@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseActivity
 import ir.heydarii.musicmanager.base.BaseViewModelFactory
+import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.features.albumdetails.di.DaggerImageStorageComponent
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Consts
@@ -28,18 +29,17 @@ import java.io.File
 class AlbumDetailsActivity : BaseActivity() {
 
     private lateinit var viewModel: AlbumDetailsViewModel
-
     private var albumName = ""
-
     private val imageStorageManager = DaggerImageStorageComponent.create()
+    private val repository = DaggerDataRepositoryComponent.create().getDataRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_album_details)
 
-        val viewModelFactory = BaseViewModelFactory()
+        val viewModelFactory = BaseViewModelFactory(repository)
         viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(AlbumDetailsViewModel::class.java)
+                ViewModelProviders.of(this, viewModelFactory).get(AlbumDetailsViewModel::class.java)
 
         initToolbar()
 
@@ -113,51 +113,36 @@ class AlbumDetailsActivity : BaseActivity() {
         })
     }
 
-    /**
-     * Shows an error when something wrong happens while user is trying to save or remove some data from db
-     */
     private fun showDbError() {
         val parentLayout = findViewById<View>(android.R.id.content)
-        Snackbar.make(parentLayout, getString(R.string.album_not_saved), Snackbar.LENGTH_LONG)
-            .setAction(getString(R.string.try_again)) {
-                val path = saveImage()
-                viewModel.onClickedOnSaveButton(path)
-            }.show()
+        Snackbar.make(parentLayout, getString(R.string.album_not_saved), Snackbar.LENGTH_LONG).setAction(getString(R.string.try_again)) {
+                    val path = saveImage()
+                    viewModel.onClickedOnSaveButton(path)
+                }.show()
     }
 
-    /**
-     * Shows an error whenever the album data is not available and user tries to save it
-     * into the db. this is an IllegalState and in future can be replaced with
-     * an exception
-     */
     private fun showDataNotAvailable() {
         val parentLayout = findViewById<View>(android.R.id.content)
         Snackbar.make(
-            parentLayout,
-            getString(R.string.album_is_not_available),
-            Snackbar.LENGTH_LONG
+                parentLayout,
+                getString(R.string.album_is_not_available),
+                Snackbar.LENGTH_LONG
         ).show()
 
     }
 
-    /**
-     * Shows try again button whenever an error accrues while receiving the albums data
-     */
     private fun showTryAgain() {
         val parentLayout = findViewById<View>(android.R.id.content)
         Snackbar.make(
-            parentLayout,
-            getString(R.string.please_try_again),
-            Snackbar.LENGTH_INDEFINITE
+                parentLayout,
+                getString(R.string.please_try_again),
+                Snackbar.LENGTH_INDEFINITE
         )
-            .setAction(getString(R.string.try_again)) {
-                showData()
-            }.show()
+                .setAction(getString(R.string.try_again)) {
+                    showData()
+                }.show()
     }
 
-    /**
-     * Disables the save button so the database have some time to perform the requested action
-     */
     private fun disableSaveButtonForASecond() {
         btnSave.isEnabled = false
         Handler().postDelayed({
@@ -169,14 +154,11 @@ class AlbumDetailsActivity : BaseActivity() {
         btnSave.playAnimation()
     }
 
-    /**
-     * Sets Albums general data in the view
-     */
     private fun setImagesTexts(album: AlbumDatabaseEntity) {
         if (album.image.isNotEmpty())
             if (album.image.startsWith("http"))
                 Picasso.get().load(album.image).placeholder(R.drawable.ic_album_placeholder).into(
-                    imgAlbum
+                        imgAlbum
                 )
             else {
                 val file = File(album.image)
@@ -186,9 +168,6 @@ class AlbumDetailsActivity : BaseActivity() {
         txtArtistName.text = album.artistName
     }
 
-    /**
-     * Gets intents and asks viewModel to fetch the data
-     */
     private fun showData() {
         val isOffline = intent.getBooleanExtra(IS_OFFLINE, false)
         val artistName = intent.getStringExtra(Consts.ARTIST_NAME)
@@ -216,12 +195,12 @@ class AlbumDetailsActivity : BaseActivity() {
 
     private fun saveImage(): String {
         return imageStorageManager.getImageStorageManager()
-            .saveToInternalStorage(applicationContext, imgAlbum.drawable.toBitmap(), albumName)
+                .saveToInternalStorage(applicationContext, imgAlbum.drawable.toBitmap(), albumName)
     }
 
     private fun removeImage(path: String) {
         imageStorageManager.getImageStorageManager()
-            .deleteImageFromInternalStorage(path)
+                .deleteImageFromInternalStorage(path)
     }
 
 }

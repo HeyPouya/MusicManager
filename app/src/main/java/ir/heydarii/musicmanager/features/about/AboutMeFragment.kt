@@ -17,11 +17,16 @@ import kotlinx.android.synthetic.main.fragment_about_me.*
  */
 class AboutMeFragment : BaseFragment(), View.OnClickListener {
 
+    /**
+     * inflates the layout
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_about_me, container, false)
     }
 
+    /**
+     * sets up click listeners
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -30,6 +35,9 @@ class AboutMeFragment : BaseFragment(), View.OnClickListener {
         imgWebsite.setOnClickListener(this)
     }
 
+    /**
+     * performes clicks on social buttons
+     */
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.imgGithub -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Consts.GITHUB_URL)))

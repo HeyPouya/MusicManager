@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
-import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
+/**
+ * ViewModel for SavedAlbums view
+ */
 class SavedAlbumsViewModel(private val dataRepository: DataRepository) : BaseViewModel() {
 
     private val composite = CompositeDisposable()

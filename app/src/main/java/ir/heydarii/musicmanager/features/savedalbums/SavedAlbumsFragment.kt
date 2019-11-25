@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.BaseViewModelFactory
+import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsActivity
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Consts
@@ -20,20 +21,30 @@ import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.saved_albums_fragment.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
+/**
+ * Shows albums that user has saved offline in the phone
+ */
 class SavedAlbumsFragment : BaseFragment() {
 
-    val list = ArrayList<AlbumDatabaseEntity>()
+    private val list = ArrayList<AlbumDatabaseEntity>()
     private lateinit var viewModel: SavedAlbumsViewModel
     private lateinit var adapter: SavedAlbumsAdapter
+    private val repository = DaggerDataRepositoryComponent.create().getDataRepository()
 
+    /**
+     * Inflates layout for this fragment
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.saved_albums_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    /**
+     * Codes of this fragment is here
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val viewModelFactory = BaseViewModelFactory()
+        val viewModelFactory = BaseViewModelFactory(repository)
         viewModel =
                 ViewModelProviders.of(activity!!, viewModelFactory).get(SavedAlbumsViewModel::class.java)
 
@@ -48,9 +59,6 @@ class SavedAlbumsFragment : BaseFragment() {
     }
 
 
-    /**
-     * Sets up the recycler for the first time
-     */
     private fun setUpRecycler() {
         adapter = SavedAlbumsAdapter(list) { artistName: String, albumName: String ->
             savedAlbumsClickListener(artistName, albumName)
@@ -59,9 +67,6 @@ class SavedAlbumsFragment : BaseFragment() {
         recycler.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
     }
 
-    /**
-     * Handles the click event on items
-     */
     private fun savedAlbumsClickListener(artistName: String, albumName: String) {
         val intent = Intent(context, AlbumDetailsActivity::class.java)
         intent.putExtra(Consts.IS_OFFLINE, true)
@@ -71,9 +76,6 @@ class SavedAlbumsFragment : BaseFragment() {
 
     }
 
-    /**
-     * Updates the recycler's list and shows it
-     */
     private fun showRecycler(savedAlbums: List<AlbumDatabaseEntity>) {
         list.clear()
         list.addAll(savedAlbums)
@@ -102,9 +104,6 @@ class SavedAlbumsFragment : BaseFragment() {
         })
     }
 
-    /**
-     * Shows try again if something wrong happens while fetching data from the database
-     */
     private fun showTryAgain() {
         if (view != null)
             Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {

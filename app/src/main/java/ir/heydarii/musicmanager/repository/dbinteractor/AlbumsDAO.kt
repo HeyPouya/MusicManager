@@ -9,7 +9,6 @@ import io.reactivex.Single
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 
 /**
- *
  * All Room queries are in this class
  */
 @Dao

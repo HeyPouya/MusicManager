@@ -9,23 +9,42 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.Artist
 import kotlinx.android.synthetic.main.search_layout_item.view.*
 
-class SearchArtistAdapter(var list: List<Artist>, private val clickListener: (String) -> Unit) :
+/**
+ * shows artist in search artist view
+ */
+class SearchArtistAdapter(private var list: List<Artist>, private val clickListener: (String) -> Unit) :
         RecyclerView.Adapter<SearchArtistAdapter.SearchArtistViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
+    /**
+     * inflates the layout for the recyclerView
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
         return SearchArtistViewHolder(view, clickListener)
     }
 
+    /**
+     * Returns list size
+     */
     override fun getItemCount() = list.size
 
+    /**
+     * sends object to bind method in ViewHolder
+     */
     override fun onBindViewHolder(holder: SearchArtistViewHolder, position: Int) {
         holder.bind(list[position])
     }
 
 
+    /**
+     * ViewHolder for recyclerView
+     */
     class SearchArtistViewHolder(private val view: View, val clickListener: (String) -> Unit) :
             RecyclerView.ViewHolder(view) {
+
+        /**
+         * Sets texts and clickListener for the items
+         */
         fun bind(artist: Artist) {
             view.txtName.text = artist.name
 

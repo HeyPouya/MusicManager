@@ -18,6 +18,9 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class MainActivity : BaseActivity() {
 
+    /**
+     * finding the navController
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,9 +30,6 @@ class MainActivity : BaseActivity() {
         setUpBottomNav(nabController)
     }
 
-    /**
-     * SetonItemListener fot bottomNavigation menu
-     */
     private fun setUpBottomNav(navController: NavController) {
         bottomNav.setupWithNavController(navController)
     }

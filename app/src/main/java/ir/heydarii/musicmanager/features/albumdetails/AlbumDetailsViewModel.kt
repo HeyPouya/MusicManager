@@ -9,8 +9,10 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
+/**
+ * ViewModel for AlbumDetails view
+ */
 class AlbumDetailsViewModel(private val dataRepository: DataRepository) : BaseViewModel() {
-
 
     private val composite = CompositeDisposable()
     private val albumDetailsResponse = MutableLiveData<AlbumDatabaseEntity>()
@@ -48,9 +50,6 @@ class AlbumDetailsViewModel(private val dataRepository: DataRepository) : BaseVi
         )
     }
 
-    /**
-     * Saves an album into the database
-     */
     private fun saveAlbum(imagePath: String) {
         if (albumData != null) {
             albumData?.image = imagePath
@@ -78,9 +77,6 @@ class AlbumDetailsViewModel(private val dataRepository: DataRepository) : BaseVi
         }
     }
 
-    /**
-     * Removes the current album from the database if already exists
-     */
     private fun removeAlbum() {
         if (albumData != null)
             composite.add(
@@ -102,9 +98,6 @@ class AlbumDetailsViewModel(private val dataRepository: DataRepository) : BaseVi
      */
     fun getAlbumsResponse(): LiveData<AlbumDatabaseEntity> = albumDetailsResponse
 
-    /**
-     * Checks if the current album exists in db or not
-     */
     private fun checkAlbumExistenceInDb(artistName: String, albumName: String) {
         composite.add(
             dataRepository.doesAlbumExists(artistName, albumName)
@@ -118,9 +111,6 @@ class AlbumDetailsViewModel(private val dataRepository: DataRepository) : BaseVi
         )
     }
 
-    /**
-     * Returns an ImmutableLiveData instance of doesAlbumExistsInDb
-     */
     fun getAlbumExistenceResponse(): LiveData<Boolean> {
         return doesAlbumExistsInDb
     }

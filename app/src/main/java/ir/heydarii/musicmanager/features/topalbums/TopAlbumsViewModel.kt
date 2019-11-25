@@ -9,6 +9,9 @@ import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
+/**
+ * ViewModel for TopAlbums of an Artist view
+ */
 class TopAlbumsViewModel(private val dataRepository: DataRepository) : BaseViewModel() {
 
     private val topAlbumsData = MutableLiveData<List<Album>>()
