@@ -103,7 +103,7 @@ class TopAlbumsFragment : BaseFragment() {
     }
 
     private fun showTryAgain() {
-        Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {
+        Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.please_try_again)) {
                     showData(null)
                 }.show()
     }

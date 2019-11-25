@@ -100,7 +100,7 @@ class SavedAlbumsFragment : BaseFragment() {
 
     private fun showTryAgain() {
         if (view != null)
-            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.try_again)) {
+            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.please_try_again)) {
                 viewModel.getAllAlbums()
             }.show()
     }

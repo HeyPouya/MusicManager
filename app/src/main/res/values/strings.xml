@@ -1,17 +1,16 @@
 <resources>
     <string name="app_name">Music Manager</string>
-    <string name="please_search_an_artist_name">Please search an artist name</string>
+    <string name="please_search_an_artist_name">Artist name</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="top">Top</string>
     <string name="about">about</string>
     <string name="copy_right">Developed By Pouya Heydari</string>
-    <string name="technologies_description">RxJava\nMVVM\nArchitecture components\n(LiveData,ViewModel,Room)\nDagger2\nRetrofit</string>
+    <string name="technologies_description">RxJava\nMVVM\nArchitecture components\n(LiveData,ViewModel,Room)\nDagger2\nRetrofit\nNavigation Component\nSingle Activity\nSafe Args</string>
     <string name="tracks">Tracks</string>
     <string name="please_enter_artist_name">Please enter an artist\'s name</string>
     <string name="a_notifier_is_not_defined_in_the_when_block">A notifier is not defined in the when block!</string>
     <string name="please_try_again">Please try again</string>
-    <string name="try_again">Try Again</string>
     <string name="album_is_not_available">Album is not available</string>
     <string name="album_not_saved">Album not saved</string>
     <string name="back">back</string>

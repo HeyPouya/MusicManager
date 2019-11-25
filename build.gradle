@@ -10,9 +10,9 @@ ext {
     room_version = '2.2.2'
 
     //Application versioning
-    versionMajor = 1
-    versionMinor = 1
-    versionPatch = 1
+    versionMajor = 2
+    versionMinor = 0
+    versionPatch = 0
     versionClassifier = "BETA"
     isBeta = false
 }
@@ -33,7 +33,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
-//        classpath 'com.google.gms:google-services:4.3.2'
+//        classpath 'com.google.gms:google-services:4.3.3'
 //        classpath 'io.fabric.tools:gradle:1.31.0'  // Crashlytics plugin
 //        classpath 'com.google.firebase:perf-plugin:1.3.1'  // Performance Monitoring plugin
 

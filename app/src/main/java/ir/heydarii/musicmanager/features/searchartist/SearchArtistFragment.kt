@@ -120,7 +120,7 @@ class SearchArtistFragment : BaseFragment() {
 
     private fun showTryAgain() {
         if (view != null)
-            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_LONG).setAction(getString(R.string.try_again)) { searchArtist() }.show()
+            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_LONG).setAction(getString(R.string.please_try_again)) { searchArtist() }.show()
     }
 
 
