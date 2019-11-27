@@ -14,6 +14,8 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
+import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsAdapter
+import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsDiffUtils
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
@@ -27,7 +29,6 @@ class TopAlbumsFragment : BaseFragment() {
 
     lateinit var viewModel: TopAlbumsViewModel
     private lateinit var adapter: TopAlbumsAdapter
-    private val albumDataList = ArrayList<Album>()
     private val repository = DaggerDataRepositoryComponent.create().getDataRepository()
 
 
@@ -58,7 +59,7 @@ class TopAlbumsFragment : BaseFragment() {
 
         //subscribes to get the albums data
         viewModel.getTopAlbumsLiveData().observe(this, Observer {
-            showList(it)
+            showList(it.toMutableList())
         })
 
         //subscribes to show or hide loading
@@ -83,7 +84,7 @@ class TopAlbumsFragment : BaseFragment() {
 
     private fun setUpRecycler() {
 
-        adapter = TopAlbumsAdapter(albumDataList) { artistName, albumName ->
+        adapter = TopAlbumsAdapter(TopAlbumsDiffUtils()) { artistName, albumName ->
             showAlbumDetailsView(artistName, albumName)
         }
         recycler.adapter = adapter
@@ -104,8 +105,8 @@ class TopAlbumsFragment : BaseFragment() {
 
     private fun showTryAgain() {
         Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.please_try_again)) {
-                    showData(null)
-                }.show()
+            showData(null)
+        }.show()
     }
 
     private fun showData(savedInstanceState: Bundle?) {
@@ -130,9 +131,7 @@ class TopAlbumsFragment : BaseFragment() {
     }
 
     private fun showList(albumsData: List<Album>) {
-        albumDataList.clear()
-        albumDataList.addAll(albumsData)
-        adapter.notifyDataSetChanged()
+        adapter.submitList(albumsData)
     }
 
     private fun showAlbumDetailsView(artistName: String, albumName: String) {

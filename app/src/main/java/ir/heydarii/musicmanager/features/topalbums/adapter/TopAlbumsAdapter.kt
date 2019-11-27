@@ -1,8 +1,9 @@
-package ir.heydarii.musicmanager.features.topalbums
+package ir.heydarii.musicmanager.features.topalbums.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
@@ -12,8 +13,8 @@ import kotlinx.android.synthetic.main.search_layout_item.view.*
 /**
  * Adapter for TopAlbums of an Artist view
  */
-class TopAlbumsAdapter(private var list: List<Album>, private val clickListener: (String, String) -> Unit) :
-        RecyclerView.Adapter<TopAlbumsAdapter.SearchArtistViewHolder>() {
+class TopAlbumsAdapter(topAlbumsDiffUtils: TopAlbumsDiffUtils, private val clickListener: (String, String) -> Unit) :
+        ListAdapter<Album, TopAlbumsAdapter.SearchArtistViewHolder>(topAlbumsDiffUtils) {
 
     /**
      * Inflates layout for the recycler view
@@ -25,15 +26,10 @@ class TopAlbumsAdapter(private var list: List<Album>, private val clickListener:
     }
 
     /**
-     * returns list size
-     */
-    override fun getItemCount() = list.size
-
-    /**
      * sends object to the bind method of ViewHolder
      */
     override fun onBindViewHolder(holder: SearchArtistViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(getItem(position))
     }
 
 
