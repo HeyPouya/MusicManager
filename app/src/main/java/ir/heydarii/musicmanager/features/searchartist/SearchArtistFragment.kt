@@ -16,6 +16,8 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
+import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistAdapter
+import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistDiffCallback
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
@@ -29,7 +31,6 @@ class SearchArtistFragment : BaseFragment() {
 
     private lateinit var viewModel: SearchArtistViewModel
     private lateinit var adapter: SearchArtistAdapter
-    private val artists = arrayListOf<Artist>()
     private val repository = DaggerDataRepositoryComponent.create().getDataRepository()
 
 
@@ -66,7 +67,7 @@ class SearchArtistFragment : BaseFragment() {
 
     private fun setUpRecyclerView() {
 
-        adapter = SearchArtistAdapter(artists) { artistName ->
+        adapter = SearchArtistAdapter(SearchArtistDiffCallback()) { artistName ->
             startTopAlbumsView(artistName)
         }
 
@@ -103,7 +104,7 @@ class SearchArtistFragment : BaseFragment() {
 
         //subscribes to viewModel to get artist response
         viewModel.getArtistResponse().observe(this, Observer {
-            showRecycler(it)
+            showRecycler(it.toMutableList())
         })
 
         //subscribes to react to loading and errors
@@ -131,11 +132,9 @@ class SearchArtistFragment : BaseFragment() {
             Toast.makeText(context, getString(R.string.please_enter_artist_name), Toast.LENGTH_LONG).show()
     }
 
-    private fun showRecycler(artistResponseModel: List<Artist>) {
+    private fun showRecycler(artistResponse: List<Artist>) {
         hideEmptyState()
-        artists.clear()
-        artists.addAll(artistResponseModel)
-        adapter.notifyDataSetChanged()
+        adapter.submitList(artistResponse)
     }
 
     private fun startTopAlbumsView(artistName: String) {
