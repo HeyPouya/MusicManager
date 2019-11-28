@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/rootView"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".features.savedalbums.SavedAlbumsFragment">
 
@@ -34,11 +34,15 @@
         android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/main_curved_image_margin_top"
+        android:clipToPadding="false"
         android:minWidth="@dimen/saved_items_recycler_min_width"
+        android:paddingTop="32dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgCover"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_max="@dimen/saved_items_recycler_max_width" />
 
     <com.airbnb.lottie.LottieAnimationView
