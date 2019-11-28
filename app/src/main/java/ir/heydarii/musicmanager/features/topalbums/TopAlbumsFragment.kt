@@ -19,7 +19,7 @@ import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsDiffUtils
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import kotlinx.android.synthetic.main.activity_top_albums.*
+import kotlinx.android.synthetic.main.fragment_top_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 /**
@@ -36,7 +36,7 @@ class TopAlbumsFragment : BaseFragment() {
      * Inflating the view
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.activity_top_albums, container, false)
+        return inflater.inflate(R.layout.fragment_top_albums, container, false)
     }
 
 

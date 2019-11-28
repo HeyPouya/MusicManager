@@ -16,7 +16,7 @@ import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import kotlinx.android.synthetic.main.saved_albums_fragment.*
+import kotlinx.android.synthetic.main.fragment_saved_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 /**
@@ -33,7 +33,7 @@ class SavedAlbumsFragment : BaseFragment() {
      * Inflates layout for this fragment
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.saved_albums_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_saved_albums, container, false)
     }
 
     /**

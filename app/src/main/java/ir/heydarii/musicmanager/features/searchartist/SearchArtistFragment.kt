@@ -21,7 +21,7 @@ import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistDiffCa
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import kotlinx.android.synthetic.main.search_artist_fragment.*
+import kotlinx.android.synthetic.main.fragment_search_artist.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 /**
@@ -38,7 +38,7 @@ class SearchArtistFragment : BaseFragment() {
      * inflating its layout
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.search_artist_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_search_artist, container, false)
     }
 
     /**

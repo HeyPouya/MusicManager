@@ -1,4 +1,3 @@
-
 ext {
     //Important library versions :
     rxjava_Version = "2.2.12"

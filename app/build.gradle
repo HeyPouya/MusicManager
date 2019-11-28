@@ -13,7 +13,6 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 //apply plugin: 'com.google.firebase.firebase-perf'
 
 
-
 private Integer generateVersionCode() {
     return versionMajor * 100 + versionMinor * 10 + versionPatch
 }

@@ -19,7 +19,7 @@ import ir.heydarii.musicmanager.features.albumdetails.di.DaggerImageStorageCompo
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Consts
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import kotlinx.android.synthetic.main.activity_album_details.*
+import kotlinx.android.synthetic.main.fragment_album_details.*
 import kotlinx.android.synthetic.main.album_details_main_layout.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.io.File
@@ -36,7 +36,7 @@ class AlbumDetailsFragment : BaseFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.activity_album_details, container, false)
+        return inflater.inflate(R.layout.fragment_album_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
