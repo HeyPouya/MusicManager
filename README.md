@@ -42,6 +42,8 @@ Technologies that have been used in this projects are :
 *   Navigation Component
 *   Single Activity
 *   Safe Args
+*   DiffUtils
+*   ListAdapter
 
 ### API
 
