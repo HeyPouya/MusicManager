@@ -9,7 +9,7 @@ ext {
     room_version = '2.2.2'
 
     //Application versioning
-    versionMajor = 2
+    versionMajor = 3
     versionMinor = 0
     versionPatch = 0
     versionClassifier = "BETA"
