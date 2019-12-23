@@ -8,6 +8,9 @@ import ir.heydarii.musicmanager.features.savedalbums.SavedAlbumsFragment
 import ir.heydarii.musicmanager.features.searchartist.SearchArtistFragment
 import ir.heydarii.musicmanager.features.topalbums.TopAlbumsFragment
 
+/**
+ * All fragments are gathered here to let Dagger inject them
+ */
 @Module
 abstract class FragmentBuilderModule {
 

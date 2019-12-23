@@ -9,18 +9,27 @@ import ir.heydarii.musicmanager.base.BaseApplication
 import javax.inject.Singleton
 
 /**
- * A dagger component to provide repository for the project
+ * Main dagger component to provide dependencies for app
  */
 @Singleton
 @Component(modules = [AndroidSupportInjectionModule::class, ActivityBuilderModule::class, RetrofitModule::class, RoomModule::class, ViewModelFactoryProvider::class])
 interface AppComponent : AndroidInjector<BaseApplication> {
 
+    /**
+     * Builder to bind application to modules
+     */
     @Component.Builder
     interface Builder {
 
+        /**
+         * Gets application instance
+         */
         @BindsInstance
         fun application(application: Application): Builder
 
+        /**
+         * Builds the component
+         */
         fun build(): AppComponent
     }
 }

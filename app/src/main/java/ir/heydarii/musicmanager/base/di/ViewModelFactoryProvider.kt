@@ -5,6 +5,9 @@ import dagger.Binds
 import dagger.Module
 import ir.heydarii.musicmanager.base.ViewModelFactory
 
+/**
+ * Provides ViewModelFactory
+ */
 @Module
 abstract class ViewModelFactoryProvider {
 

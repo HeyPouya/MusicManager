@@ -9,6 +9,9 @@ import ir.heydarii.musicmanager.features.savedalbums.SavedAlbumsViewModel
 import ir.heydarii.musicmanager.features.searchartist.SearchArtistViewModel
 import ir.heydarii.musicmanager.features.topalbums.TopAlbumsViewModel
 
+/**
+ * Provides ViewModels to let Dagger inject them
+ */
 @Module
 abstract class ViewModelProviderModule {
 
