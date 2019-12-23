@@ -9,7 +9,6 @@ import ir.heydarii.musicmanager.utils.AppDatabase
 import javax.inject.Singleton
 
 /**
- *
  * A module to provide all dependencies for room
  */
 @Module

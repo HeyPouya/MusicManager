@@ -9,12 +9,10 @@ import ir.heydarii.musicmanager.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
- *
  * The main activity that shows 3 main fragments
  * 1. SavedAlbums
  * 2. SearchArtist
  * 3. About
- *
  */
 class MainActivity : BaseActivity() {
 

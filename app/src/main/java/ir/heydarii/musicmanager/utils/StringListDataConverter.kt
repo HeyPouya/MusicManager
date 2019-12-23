@@ -5,7 +5,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 /**
- *
  * A class to convert list of strings to json to save them in the database
  * and change the json to list of strings to show them to the user.
  */

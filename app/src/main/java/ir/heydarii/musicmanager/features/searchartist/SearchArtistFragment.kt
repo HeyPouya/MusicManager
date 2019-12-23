@@ -19,7 +19,7 @@ import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistAdapter
 import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistDiffCallback
 import ir.heydarii.musicmanager.pojos.Artist
-import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.fragment_search_artist.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
@@ -82,7 +82,7 @@ class SearchArtistFragment : BaseFragment() {
                 val total = layoutManager.itemCount
                 if (total > 0)
                     if (total - 1 == lastItem)
-                        viewModel.onUserSearchedArtist(edtSearch.text.toString(), Consts.API_KEY, true)
+                        viewModel.onUserSearchedArtist(edtSearch.text.toString(), Constants.API_KEY, true)
             }
         })
 
@@ -127,7 +127,7 @@ class SearchArtistFragment : BaseFragment() {
 
     private fun searchArtist() {
         if (edtSearch.text.toString().isNotEmpty())
-            viewModel.onUserSearchedArtist(edtSearch.text.toString(), Consts.API_KEY, false)
+            viewModel.onUserSearchedArtist(edtSearch.text.toString(), Constants.API_KEY, false)
         else
             Toast.makeText(context, getString(R.string.please_enter_artist_name), Toast.LENGTH_LONG).show()
     }

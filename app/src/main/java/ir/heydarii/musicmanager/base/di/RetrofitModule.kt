@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import ir.heydarii.musicmanager.retrofit.RetrofitMainInterface
 import ir.heydarii.musicmanager.retrofit.RetrofitServiceGenerator
-import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,7 +14,6 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 /**
- *
  * A module to provide all needed dependencies for retrofit
  */
 @Module
@@ -61,7 +60,7 @@ class RetrofitModule {
     @Provides
     @Named("baseURL")
     fun provideBaseURL(): String {
-        return Consts.BASE_URL
+        return Constants.BASE_URL
     }
 
     @Singleton

@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.Constants
 import kotlinx.android.synthetic.main.fragment_about_me.*
 
 /**
@@ -36,13 +36,13 @@ class AboutMeFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * performes clicks on social buttons
+     * performs clicks on social buttons
      */
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.imgGithub -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Consts.GITHUB_URL)))
-            R.id.imgLinkedin -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Consts.LINKEDIN_URL)))
-            R.id.imgWebsite -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Consts.PERSONAL_WEBSITE_URL)))
+            R.id.imgGithub -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.GITHUB_URL)))
+            R.id.imgLinkedin -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.LINKED_IN_URL)))
+            R.id.imgWebsite -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.PERSONAL_WEBSITE_URL)))
         }
     }
 

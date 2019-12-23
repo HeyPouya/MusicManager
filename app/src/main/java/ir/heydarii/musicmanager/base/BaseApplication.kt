@@ -9,7 +9,6 @@ import ir.heydarii.musicmanager.base.di.RoomModule
 
 
 /**
- *
  * Base application class to provide a singleton object of DataProviders
  */
 class BaseApplication : Application() {

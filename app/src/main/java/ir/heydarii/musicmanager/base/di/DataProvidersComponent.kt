@@ -8,7 +8,6 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 /**
- *
  * A dagger component to provide retrofit and room
  */
 @Singleton

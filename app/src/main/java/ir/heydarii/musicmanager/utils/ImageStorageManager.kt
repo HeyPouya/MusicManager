@@ -6,7 +6,6 @@ import java.io.File
 import javax.inject.Inject
 
 /**
- *
  * Provides functions to save or delete images from the device
  */
 class ImageStorageManager @Inject constructor() {

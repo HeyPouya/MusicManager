@@ -17,7 +17,7 @@ import ir.heydarii.musicmanager.base.BaseViewModelFactory
 import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.features.albumdetails.di.DaggerImageStorageComponent
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
-import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.fragment_album_details.*
 import kotlinx.android.synthetic.main.album_details_main_layout.*
@@ -169,7 +169,7 @@ class AlbumDetailsFragment : BaseFragment() {
         check(receivedData != null)
 
         albumName = receivedData.albumName
-        viewModel.getAlbum(receivedData.artistName, receivedData.albumName, Consts.API_KEY, receivedData.isOffline)
+        viewModel.getAlbum(receivedData.artistName, receivedData.albumName, Constants.API_KEY, receivedData.isOffline)
 
     }
 

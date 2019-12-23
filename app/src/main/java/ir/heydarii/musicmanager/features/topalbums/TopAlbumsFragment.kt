@@ -17,7 +17,7 @@ import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
 import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsAdapter
 import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsDiffUtils
 import ir.heydarii.musicmanager.pojos.Album
-import ir.heydarii.musicmanager.utils.Consts
+import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.fragment_top_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
@@ -98,7 +98,7 @@ class TopAlbumsFragment : BaseFragment() {
                 val total = layoutManager.itemCount
                 if (total > 0)
                     if (total - 1 == lastItem)
-                        viewModel.onTopAlbumsRequested(apiKey = Consts.API_KEY)
+                        viewModel.onTopAlbumsRequested(apiKey = Constants.API_KEY)
             }
         })
     }
@@ -120,7 +120,7 @@ class TopAlbumsFragment : BaseFragment() {
 
             //don't request again to get data after rotation
             if (savedInstanceState == null)
-                viewModel.onTopAlbumsRequested(artistName, Consts.API_KEY)
+                viewModel.onTopAlbumsRequested(artistName, Constants.API_KEY)
         } else
             throw IllegalStateException("You have to pass the artist Name")
 

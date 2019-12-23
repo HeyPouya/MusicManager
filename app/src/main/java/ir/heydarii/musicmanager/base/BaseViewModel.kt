@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 
 /**
- *
  * All ViewModels inherit this class, so we can do some common jobs in them
  */
 open class BaseViewModel : ViewModel() {

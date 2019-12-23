@@ -3,7 +3,6 @@ package ir.heydarii.musicmanager.pojos
 import com.google.gson.annotations.SerializedName
 
 /**
- *
  * Response of artist's tops albums
  */
 data class ArtistTopAlbumsResponseModel(
