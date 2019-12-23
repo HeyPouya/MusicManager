@@ -15,10 +15,8 @@ interface RetrofitMainInterface {
     @GET("?method=artist.search&format=json")
     fun findArtist(@Query("artist") artist: String, @Query("api_key") apiKey: String, @Query("page") pageNumber: Int): Single<ArtistResponseModel>
 
-
     @GET("?method=artist.gettopalbums&format=json")
     fun getTopAlbumsByArtist(@Query("artist") artist: String, @Query("api_key") apiKey: String, @Query("page") pageNumber: Int): Single<ArtistTopAlbumsResponseModel>
-
 
     @GET("?method=album.getinfo&format=json")
     fun getAlbumDetails(@Query("artist") artist: String, @Query("api_key") apiKey: String, @Query("album") albumName: String): Single<AlbumDetailsResponseModel>

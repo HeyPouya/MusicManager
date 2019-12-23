@@ -8,11 +8,12 @@ import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import javax.inject.Inject
 
 /**
  * ViewModel for TopAlbums of an Artist view
  */
-class TopAlbumsViewModel(private val dataRepository: DataRepository) : BaseViewModel() {
+class TopAlbumsViewModel @Inject constructor(val dataRepository: DataRepository) : BaseViewModel() {
 
     private val topAlbumsData = MutableLiveData<List<Album>>()
     private val composite = CompositeDisposable()
@@ -33,22 +34,22 @@ class TopAlbumsViewModel(private val dataRepository: DataRepository) : BaseViewM
             viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 
             composite.add(
-                dataRepository.getTopAlbumsByArtist(artistName, page, apiKey)
-                    .subscribe({
+                    dataRepository.getTopAlbumsByArtist(artistName, page, apiKey)
+                            .subscribe({
 
-                        if (it.topalbums.album.isEmpty())
-                            shouldLoadMore = false
+                                if (it.topalbums.album.isEmpty())
+                                    shouldLoadMore = false
 
-                        page++
-                        list.addAll(it.topalbums.album)
-                        viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                        topAlbumsData.value = list
+                                page++
+                                list.addAll(it.topalbums.album)
+                                viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                                topAlbumsData.value = list
 
-                    }, {
-                        viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                        viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
-                        Logger.d(it)
-                    })
+                            }, {
+                                viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                                viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
+                                Logger.d(it)
+                            })
             )
         }
     }

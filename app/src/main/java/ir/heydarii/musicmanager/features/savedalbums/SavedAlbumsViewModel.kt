@@ -8,11 +8,12 @@ import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import javax.inject.Inject
 
 /**
  * ViewModel for SavedAlbums view
  */
-class SavedAlbumsViewModel(private val dataRepository: DataRepository) : BaseViewModel() {
+class SavedAlbumsViewModel @Inject constructor(val dataRepository: DataRepository) : BaseViewModel() {
 
     private val composite = CompositeDisposable()
     private val albumsList = MutableLiveData<List<AlbumDatabaseEntity>>()

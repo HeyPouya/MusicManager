@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * All the network Observables are here
  */
-class NetworkInteractor @Inject constructor(private val retrofitInterface: RetrofitMainInterface) {
+class NetworkRepository @Inject constructor(val retrofitInterface: RetrofitMainInterface) {
 
 
     fun getArtistsName(artistName: String, page: Int, apiKey: String): Single<ArtistResponseModel> {

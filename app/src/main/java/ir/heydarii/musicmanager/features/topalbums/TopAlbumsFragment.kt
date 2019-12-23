@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.base.BaseViewModelFactory
-import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
+import ir.heydarii.musicmanager.base.ViewModelFactory
 import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsAdapter
 import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsDiffUtils
 import ir.heydarii.musicmanager.pojos.Album
@@ -21,6 +20,7 @@ import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.fragment_top_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import javax.inject.Inject
 
 /**
  * Shows top albums of an artist
@@ -29,8 +29,8 @@ class TopAlbumsFragment : BaseFragment() {
 
     lateinit var viewModel: TopAlbumsViewModel
     private lateinit var adapter: TopAlbumsAdapter
-    private val repository = DaggerDataRepositoryComponent.create().getDataRepository()
-
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     /**
      * Inflating the view
@@ -45,8 +45,6 @@ class TopAlbumsFragment : BaseFragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val viewModelFactory = BaseViewModelFactory(repository)
 
         viewModel =
                 ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)

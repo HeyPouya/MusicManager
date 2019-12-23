@@ -8,11 +8,12 @@ import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import javax.inject.Inject
 
 /**
  * ViewModel for the search artist view
  */
-class SearchArtistViewModel(private val dataRepository: DataRepository) : BaseViewModel() {
+class SearchArtistViewModel @Inject constructor(val dataRepository: DataRepository) : BaseViewModel() {
 
     private val composite = CompositeDisposable()
     private val artistResponse = MutableLiveData<List<Artist>>()

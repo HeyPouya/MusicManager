@@ -3,11 +3,11 @@ package ir.heydarii.musicmanager.base.di
 import dagger.Module
 import dagger.Provides
 import ir.heydarii.musicmanager.retrofit.RetrofitMainInterface
-import ir.heydarii.musicmanager.retrofit.RetrofitServiceGenerator
 import ir.heydarii.musicmanager.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
@@ -19,16 +19,15 @@ import javax.inject.Singleton
 @Module
 class RetrofitModule {
 
-
     @Singleton
     @Provides
-    fun provideRetrofit(
-            converter: GsonConverterFactory,
-            httpClient: OkHttpClient.Builder,
-            @Named("baseURL") baseURL: String
-    ): Retrofit {
-        val retrofitClass = RetrofitServiceGenerator(converter, httpClient, baseURL)
-        return retrofitClass.getClient()
+    fun provideRetrofit(converter: GsonConverterFactory, httpClient: OkHttpClient.Builder, @Named("baseURL") baseURL: String): Retrofit {
+        return Retrofit.Builder()
+                .baseUrl(baseURL)
+                .addConverterFactory(converter)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(httpClient.build())
+                .build()
     }
 
     @Singleton

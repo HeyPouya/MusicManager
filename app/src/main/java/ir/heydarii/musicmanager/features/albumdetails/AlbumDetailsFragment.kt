@@ -13,16 +13,16 @@ import com.orhanobut.logger.Logger
 import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.base.BaseViewModelFactory
-import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
-import ir.heydarii.musicmanager.features.albumdetails.di.DaggerImageStorageComponent
+import ir.heydarii.musicmanager.base.ViewModelFactory
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Constants
+import ir.heydarii.musicmanager.utils.ImageStorageManager
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import kotlinx.android.synthetic.main.fragment_album_details.*
 import kotlinx.android.synthetic.main.album_details_main_layout.*
+import kotlinx.android.synthetic.main.fragment_album_details.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.io.File
+import javax.inject.Inject
 
 /**
  * Shows details of an album containing the name and tracks
@@ -31,8 +31,10 @@ class AlbumDetailsFragment : BaseFragment() {
 
     private lateinit var viewModel: AlbumDetailsViewModel
     private var albumName = ""
-    private val imageStorageManager = DaggerImageStorageComponent.create()
-    private val repository = DaggerDataRepositoryComponent.create().getDataRepository()
+    @Inject
+    lateinit var imageStorageManager: ImageStorageManager
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -41,8 +43,6 @@ class AlbumDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val viewModelFactory = BaseViewModelFactory(repository)
         viewModel =
                 ViewModelProviders.of(this, viewModelFactory).get(AlbumDetailsViewModel::class.java)
 
@@ -189,13 +189,11 @@ class AlbumDetailsFragment : BaseFragment() {
     }
 
     private fun saveImage(): String {
-        return imageStorageManager.getImageStorageManager()
-                .saveToInternalStorage(activity!!.applicationContext, imgAlbum.drawable.toBitmap(), albumName)
+        return imageStorageManager.saveToInternalStorage(activity!!.applicationContext, imgAlbum.drawable.toBitmap(), albumName)
     }
 
     private fun removeImage(path: String) {
-        imageStorageManager.getImageStorageManager()
-                .deleteImageFromInternalStorage(path)
+        imageStorageManager.deleteImageFromInternalStorage(path)
     }
 
 }

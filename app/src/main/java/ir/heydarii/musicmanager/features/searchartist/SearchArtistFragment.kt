@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.base.BaseViewModelFactory
-import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
+import ir.heydarii.musicmanager.base.ViewModelFactory
 import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistAdapter
 import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistDiffCallback
 import ir.heydarii.musicmanager.pojos.Artist
@@ -23,6 +22,7 @@ import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.fragment_search_artist.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import javax.inject.Inject
 
 /**
  * User can search an Artist in this view
@@ -31,7 +31,8 @@ class SearchArtistFragment : BaseFragment() {
 
     private lateinit var viewModel: SearchArtistViewModel
     private lateinit var adapter: SearchArtistAdapter
-    private val repository = DaggerDataRepositoryComponent.create().getDataRepository()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
 
     /**
@@ -46,8 +47,6 @@ class SearchArtistFragment : BaseFragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val viewModelFactory = BaseViewModelFactory(repository)
 
         viewModel =
                 ViewModelProviders.of(activity!!, viewModelFactory).get(SearchArtistViewModel::class.java)

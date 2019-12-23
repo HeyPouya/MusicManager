@@ -10,7 +10,6 @@ import ir.heydarii.musicmanager.utils.ViewNotifierEnums
  */
 open class BaseViewModel : ViewModel() {
 
-
     // a mutable live data to interact with view
     protected val viewNotifier = MutableLiveData<ViewNotifierEnums>()
 

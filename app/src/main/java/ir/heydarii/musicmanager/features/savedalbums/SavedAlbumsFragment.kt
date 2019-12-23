@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.base.BaseViewModelFactory
-import ir.heydarii.musicmanager.base.di.DaggerDataRepositoryComponent
+import ir.heydarii.musicmanager.base.ViewModelFactory
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.fragment_saved_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import javax.inject.Inject
 
 /**
  * Shows albums that user has saved offline in the phone
@@ -27,7 +27,8 @@ class SavedAlbumsFragment : BaseFragment() {
     private val list = ArrayList<AlbumDatabaseEntity>()
     private lateinit var viewModel: SavedAlbumsViewModel
     private lateinit var adapter: SavedAlbumsAdapter
-    private val repository = DaggerDataRepositoryComponent.create().getDataRepository()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     /**
      * Inflates layout for this fragment
@@ -42,7 +43,6 @@ class SavedAlbumsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModelFactory = BaseViewModelFactory(repository)
         viewModel =
                 ViewModelProviders.of(activity!!, viewModelFactory).get(SavedAlbumsViewModel::class.java)
 
