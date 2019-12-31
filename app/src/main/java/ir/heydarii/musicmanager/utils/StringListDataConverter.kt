@@ -34,5 +34,4 @@ class StringListDataConverter {
         val type = object : TypeToken<List<String>>() {}.type
         return gson.fromJson<List<String>>(stringsToBeListed, type)
     }
-
 }

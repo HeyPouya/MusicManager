@@ -44,7 +44,6 @@ class TopAlbumsViewModel @Inject constructor(val dataRepository: DataRepository)
                                 list.addAll(it.topalbums.album)
                                 viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                                 topAlbumsData.value = list
-
                             }, {
                                 viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                                 viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
@@ -58,7 +57,6 @@ class TopAlbumsViewModel @Inject constructor(val dataRepository: DataRepository)
      * Serving LiveData instead of MutableLiveData for activity
      */
     fun getTopAlbumsLiveData(): LiveData<List<Album>> = topAlbumsData
-
 
     /**
      * Disposing all disposables after the ViewModel dies

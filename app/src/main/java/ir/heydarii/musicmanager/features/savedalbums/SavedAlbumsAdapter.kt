@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.orhanobut.logger.Logger
 import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
-import kotlinx.android.synthetic.main.search_layout_item.view.*
 import java.io.File
+import kotlinx.android.synthetic.main.search_layout_item.view.*
 
 /**
  * Adapter for recycler view to show saved albums
@@ -38,7 +37,6 @@ class SavedAlbumsAdapter(private var list: List<AlbumDatabaseEntity>, private va
         holder.bind(list[position])
     }
 
-
     /**
      * ViewHolder for saved items
      */
@@ -62,7 +60,5 @@ class SavedAlbumsAdapter(private var list: List<AlbumDatabaseEntity>, private va
                 clickListener(album.artistName, album.albumName)
             }
         }
-
-
     }
 }

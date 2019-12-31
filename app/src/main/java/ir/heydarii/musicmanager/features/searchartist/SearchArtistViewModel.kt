@@ -37,7 +37,6 @@ class SearchArtistViewModel @Inject constructor(val dataRepository: DataReposito
 
         viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 
-
         composite.add(
                 dataRepository.getArtistName(this.artistName, page, apiKey)
                         .subscribe({

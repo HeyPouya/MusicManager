@@ -1,6 +1,5 @@
 package ir.heydarii.musicmanager.features.about
 
-
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -45,5 +44,4 @@ class AboutMeFragment : BaseFragment(), View.OnClickListener {
             R.id.imgWebsite -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.PERSONAL_WEBSITE_URL)))
         }
     }
-
 }

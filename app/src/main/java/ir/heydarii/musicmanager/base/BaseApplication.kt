@@ -5,7 +5,6 @@ import com.orhanobut.logger.Logger
 import dagger.android.support.DaggerApplication
 import ir.heydarii.musicmanager.base.di.DaggerAppComponent
 
-
 /**
  * Base application class to provide a singleton object of DataProviders
  */

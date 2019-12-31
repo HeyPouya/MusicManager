@@ -17,5 +17,4 @@ open class BaseViewModel : ViewModel() {
      * Provides a LiveData for View to subscribe on this and get updated
      */
     fun getViewNotifier(): LiveData<ViewNotifierEnums> = viewNotifier
-
 }

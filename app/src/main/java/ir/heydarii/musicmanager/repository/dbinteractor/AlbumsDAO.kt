@@ -20,7 +20,6 @@ interface AlbumsDAO {
     @Query("SELECT * FROM albums")
     fun getAllAlbums(): Single<List<AlbumDatabaseEntity>>
 
-
     @Query("SELECT * FROM albums WHERE artist_name = :artistName and album_name = :albumName LIMIT 1")
     fun getSpecificAlbum(artistName: String, albumName: String): Single<AlbumDatabaseEntity>
 

@@ -12,11 +12,9 @@ import javax.inject.Inject
  */
 class NetworkRepository @Inject constructor(val retrofitInterface: RetrofitMainInterface) {
 
-
     fun getArtistsName(artistName: String, page: Int, apiKey: String): Single<ArtistResponseModel> {
         return retrofitInterface.findArtist(artistName, apiKey, page)
     }
-
 
     fun getTopAlbumsByArtist(artistName: String, page: Int, apiKey: String): Single<ArtistTopAlbumsResponseModel> {
         return retrofitInterface.getTopAlbumsByArtist(artistName, apiKey, page)
@@ -24,6 +22,5 @@ class NetworkRepository @Inject constructor(val retrofitInterface: RetrofitMainI
 
     fun getAlbumDetails(artistName: String, albumName: String, apiKey: String): Single<AlbumDetailsResponseModel> {
         return retrofitInterface.getAlbumDetails(artistName, apiKey, albumName)
-
     }
 }

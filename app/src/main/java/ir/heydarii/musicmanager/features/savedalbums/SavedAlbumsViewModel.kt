@@ -18,7 +18,6 @@ class SavedAlbumsViewModel @Inject constructor(val dataRepository: DataRepositor
     private val composite = CompositeDisposable()
     private val albumsList = MutableLiveData<List<AlbumDatabaseEntity>>()
 
-
     /**
      * Fetches all albums from database
      */
@@ -43,7 +42,6 @@ class SavedAlbumsViewModel @Inject constructor(val dataRepository: DataRepositor
     fun getAlbumList(): LiveData<List<AlbumDatabaseEntity>> {
         return albumsList
     }
-
 
     /**
      * disposing the disposables

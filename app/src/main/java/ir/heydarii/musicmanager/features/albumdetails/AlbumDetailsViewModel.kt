@@ -21,7 +21,6 @@ class AlbumDetailsViewModel @Inject constructor(val dataRepository: DataReposito
     private val doesAlbumExistsInDb = MutableLiveData<Boolean>()
     private var isAlbumSaved = false
 
-
     /**
      * Gets the album data
      */
@@ -123,5 +122,4 @@ class AlbumDetailsViewModel @Inject constructor(val dataRepository: DataReposito
         composite.dispose()
         super.onCleared()
     }
-
 }

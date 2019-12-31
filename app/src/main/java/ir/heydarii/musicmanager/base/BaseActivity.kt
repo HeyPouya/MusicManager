@@ -1,6 +1,5 @@
 package ir.heydarii.musicmanager.base
 
-import androidx.appcompat.app.AppCompatActivity
 import dagger.android.support.DaggerAppCompatActivity
 
 /**

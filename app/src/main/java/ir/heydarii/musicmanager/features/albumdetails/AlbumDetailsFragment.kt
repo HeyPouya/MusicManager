@@ -18,11 +18,11 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ImageStorageManager
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import java.io.File
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.album_details_main_layout.*
 import kotlinx.android.synthetic.main.fragment_album_details.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
-import java.io.File
-import javax.inject.Inject
 
 /**
  * Shows details of an album containing the name and tracks
@@ -35,7 +35,6 @@ class AlbumDetailsFragment : BaseFragment() {
     lateinit var imageStorageManager: ImageStorageManager
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_album_details, container, false)
@@ -52,7 +51,7 @@ class AlbumDetailsFragment : BaseFragment() {
 
         subscribeToViewModel()
 
-        //click listener for btnSave
+        // click listener for btnSave
         btnSave.setOnClickListener {
             val path = saveImage()
             disableSaveButtonForASecond()
@@ -69,7 +68,7 @@ class AlbumDetailsFragment : BaseFragment() {
 
     private fun subscribeToViewModel() {
 
-        //observes the viewModel to understand the state of btnSave for the first time activity starts
+        // observes the viewModel to understand the state of btnSave for the first time activity starts
         viewModel.getAlbumExistenceResponse().observe(this, Observer {
             when (it) {
                 true -> btnSave.progress = 1f
@@ -77,16 +76,14 @@ class AlbumDetailsFragment : BaseFragment() {
             }
         })
 
-        //subscribes to show the album data
+        // subscribes to show the album data
         viewModel.getAlbumsResponse().observe(this, Observer {
             setImagesTexts(it)
 
             showTrackList(it.tracks)
-
         })
 
-
-        //subscribes to react to loading and errors
+        // subscribes to react to loading and errors
         viewModel.getViewNotifier().observe(this, Observer {
             when (it) {
                 ViewNotifierEnums.SHOW_LOADING -> {
@@ -111,7 +108,6 @@ class AlbumDetailsFragment : BaseFragment() {
                 ViewNotifierEnums.ERROR_REMOVING_DATA, ViewNotifierEnums.ERROR_SAVING_DATA -> showDbError()
 
                 else -> throw IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
-
             }
         })
     }
@@ -125,7 +121,6 @@ class AlbumDetailsFragment : BaseFragment() {
 
     private fun showDataNotAvailable() {
         Snackbar.make(rootView, getString(R.string.album_is_not_available), Snackbar.LENGTH_LONG).show()
-
     }
 
     private fun showTryAgain() {
@@ -170,9 +165,7 @@ class AlbumDetailsFragment : BaseFragment() {
 
         albumName = receivedData.albumName
         viewModel.getAlbum(receivedData.artistName, receivedData.albumName, Constants.API_KEY, receivedData.isOffline)
-
     }
-
 
     private fun showTrackList(tracks: List<String>) {
         recycler.adapter = TracksAdapter(tracks)
@@ -195,5 +188,4 @@ class AlbumDetailsFragment : BaseFragment() {
     private fun removeImage(path: String) {
         imageStorageManager.deleteImageFromInternalStorage(path)
     }
-
 }

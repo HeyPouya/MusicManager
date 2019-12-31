@@ -18,9 +18,9 @@ import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsDiffUtils
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_top_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
-import javax.inject.Inject
 
 /**
  * Shows top albums of an artist
@@ -35,10 +35,13 @@ class TopAlbumsFragment : BaseFragment() {
     /**
      * Inflating the view
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_top_albums, container, false)
     }
-
 
     /**
      * All codes are here
@@ -47,7 +50,7 @@ class TopAlbumsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel =
-                ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
+            ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
 
         initToolbar()
 
@@ -55,19 +58,18 @@ class TopAlbumsFragment : BaseFragment() {
 
         showData(savedInstanceState)
 
-        //subscribes to get the albums data
+        // subscribes to get the albums data
         viewModel.getTopAlbumsLiveData().observe(this, Observer {
             showList(it.toMutableList())
         })
 
-        //subscribes to show or hide loading
+        // subscribes to show or hide loading
         viewModel.getViewNotifier().observe(this, Observer {
             when (it) {
                 ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
                 ViewNotifierEnums.HIDE_LOADING -> progress.visibility = View.INVISIBLE
                 ViewNotifierEnums.ERROR_GETTING_DATA -> showTryAgain()
                 else -> throw java.lang.IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
-
             }
         })
     }
@@ -94,17 +96,17 @@ class TopAlbumsFragment : BaseFragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 val lastItem = layoutManager.findLastVisibleItemPosition()
                 val total = layoutManager.itemCount
-                if (total > 0)
-                    if (total - 1 == lastItem)
-                        viewModel.onTopAlbumsRequested(apiKey = Constants.API_KEY)
+                if (total > 0 && total - 1 == lastItem)
+                    viewModel.onTopAlbumsRequested(apiKey = Constants.API_KEY)
             }
         })
     }
 
     private fun showTryAgain() {
-        Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.please_try_again)) {
-            showData(null)
-        }.show()
+        Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(R.string.please_try_again)) {
+                showData(null)
+            }.show()
     }
 
     private fun showData(savedInstanceState: Bundle?) {
@@ -116,12 +118,11 @@ class TopAlbumsFragment : BaseFragment() {
         if (!artistName.isNullOrEmpty()) {
             showArtistName(artistName)
 
-            //don't request again to get data after rotation
+            // don't request again to get data after rotation
             if (savedInstanceState == null)
                 viewModel.onTopAlbumsRequested(artistName, Constants.API_KEY)
         } else
             throw IllegalStateException("You have to pass the artist Name")
-
     }
 
     private fun showArtistName(artistName: String) {
@@ -133,8 +134,8 @@ class TopAlbumsFragment : BaseFragment() {
     }
 
     private fun showAlbumDetailsView(artistName: String, albumName: String) {
-        val showDetailsAction = TopAlbumsFragmentDirections.showAlbumDetailsActions(artistName, albumName)
+        val showDetailsAction =
+            TopAlbumsFragmentDirections.showAlbumDetailsActions(artistName, albumName)
         Navigation.findNavController(rootView).navigate(showDetailsAction)
     }
-
 }

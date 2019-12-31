@@ -20,9 +20,9 @@ import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistDiffCa
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_search_artist.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
-import javax.inject.Inject
 
 /**
  * User can search an Artist in this view
@@ -34,11 +34,14 @@ class SearchArtistFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-
     /**
      * inflating its layout
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_search_artist, container, false)
     }
 
@@ -49,14 +52,14 @@ class SearchArtistFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel =
-                ViewModelProviders.of(activity!!, viewModelFactory).get(SearchArtistViewModel::class.java)
+            ViewModelProviders.of(activity!!, viewModelFactory)
+                .get(SearchArtistViewModel::class.java)
 
         initToolbar()
 
-        init()  //add setOnClickListener and observe observables
+        init() // add setOnClickListener and observe observables
         setUpRecyclerView()
         showEmptyState()
-
     }
 
     private fun initToolbar() {
@@ -79,12 +82,14 @@ class SearchArtistFragment : BaseFragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 val lastItem = layoutManager.findLastVisibleItemPosition()
                 val total = layoutManager.itemCount
-                if (total > 0)
-                    if (total - 1 == lastItem)
-                        viewModel.onUserSearchedArtist(edtSearch.text.toString(), Constants.API_KEY, true)
+                if (total > 0 && total - 1 == lastItem)
+                    viewModel.onUserSearchedArtist(
+                        edtSearch.text.toString(),
+                        Constants.API_KEY,
+                        true
+                    )
             }
         })
-
     }
 
     private fun init() {
@@ -101,12 +106,12 @@ class SearchArtistFragment : BaseFragment() {
             searchArtist()
         }
 
-        //subscribes to viewModel to get artist response
+        // subscribes to viewModel to get artist response
         viewModel.getArtistResponse().observe(this, Observer {
             showRecycler(it.toMutableList())
         })
 
-        //subscribes to react to loading and errors
+        // subscribes to react to loading and errors
         viewModel.getViewNotifier().observe(this, Observer {
             when (it) {
                 ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
@@ -115,20 +120,26 @@ class SearchArtistFragment : BaseFragment() {
                 else -> throw IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
             }
         })
-
     }
 
     private fun showTryAgain() {
         if (view != null)
-            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_LONG).setAction(getString(R.string.please_try_again)) { searchArtist() }.show()
+            Snackbar.make(
+                view!!,
+                getString(R.string.please_try_again),
+                Snackbar.LENGTH_LONG
+            ).setAction(getString(R.string.please_try_again)) { searchArtist() }.show()
     }
-
 
     private fun searchArtist() {
         if (edtSearch.text.toString().isNotEmpty())
             viewModel.onUserSearchedArtist(edtSearch.text.toString(), Constants.API_KEY, false)
         else
-            Toast.makeText(context, getString(R.string.please_enter_artist_name), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                getString(R.string.please_enter_artist_name),
+                Toast.LENGTH_LONG
+            ).show()
     }
 
     private fun showRecycler(artistResponse: List<Artist>) {
@@ -150,5 +161,4 @@ class SearchArtistFragment : BaseFragment() {
         empty.visibility = View.VISIBLE
         recycler.visibility = View.GONE
     }
-
 }

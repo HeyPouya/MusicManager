@@ -32,7 +32,6 @@ class TopAlbumsAdapter(topAlbumsDiffUtils: TopAlbumsDiffUtils, private val click
         holder.bind(getItem(position))
     }
 
-
     /**
      * ViewHolder for recycler view
      */
@@ -53,7 +52,5 @@ class TopAlbumsAdapter(topAlbumsDiffUtils: TopAlbumsDiffUtils, private val click
                 clickListener(album.artist.name, album.name)
             }
         }
-
-
     }
 }

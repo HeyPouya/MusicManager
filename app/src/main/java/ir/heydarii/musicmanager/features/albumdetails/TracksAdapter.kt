@@ -32,7 +32,6 @@ class TracksAdapter(val list: List<String>) : RecyclerView.Adapter<TracksAdapter
         holder.bind(list[position], position)
     }
 
-
     /**
      * ViewHolder class
      */

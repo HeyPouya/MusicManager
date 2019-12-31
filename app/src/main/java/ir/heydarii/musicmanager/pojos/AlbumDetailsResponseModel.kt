@@ -22,7 +22,6 @@ data class AlbumDetails(
     val wiki: Wiki
 )
 
-
 data class Wiki(
     val content: String,
     val published: String,

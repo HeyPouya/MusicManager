@@ -34,6 +34,4 @@ abstract class ViewModelProviderModule {
     @IntoMap
     @ViewModelKey(TopAlbumsViewModel::class)
     abstract fun TopAlbumsViewModelProvider(viewModel: TopAlbumsViewModel): ViewModel
-
-
 }

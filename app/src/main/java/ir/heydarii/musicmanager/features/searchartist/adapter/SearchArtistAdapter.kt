@@ -35,7 +35,6 @@ class SearchArtistAdapter(
         holder.bind(getItem(position))
     }
 
-
     /**
      * ViewHolder for recyclerView
      */
@@ -58,7 +57,5 @@ class SearchArtistAdapter(
                 clickListener(artist.name)
             }
         }
-
-
     }
 }

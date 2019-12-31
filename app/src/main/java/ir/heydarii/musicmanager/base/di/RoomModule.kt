@@ -25,5 +25,4 @@ class RoomModule {
     fun provideAlbumsDAO(appDatabase: AppDatabase): AlbumsDAO {
         return appDatabase.albumsDAO()
     }
-
 }

@@ -29,7 +29,6 @@ class DataRepository @Inject constructor(val network: NetworkRepository, val dat
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-
     fun getAlbumDetails(artistName: String, albumName: String, apiKey: String, offline: Boolean): Single<AlbumDatabaseEntity> {
 
         if (offline)

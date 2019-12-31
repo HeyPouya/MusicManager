@@ -11,7 +11,6 @@ class SearchArtistDiffCallback : DiffUtil.ItemCallback<Artist>() {
     override fun areItemsTheSame(oldItem: Artist, newItem: Artist) =
             oldItem.name == newItem.name && oldItem.url == newItem.url
 
-
     override fun areContentsTheSame(oldItem: Artist, newItem: Artist) =
             oldItem.name == newItem.name && oldItem.url == newItem.url
 }
