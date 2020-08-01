@@ -18,11 +18,11 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ImageStorageManager
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import java.io.File
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.album_details_main_layout.*
 import kotlinx.android.synthetic.main.fragment_album_details.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
-import java.io.File
-import javax.inject.Inject
 
 /**
  * Shows details of an album containing the name and tracks

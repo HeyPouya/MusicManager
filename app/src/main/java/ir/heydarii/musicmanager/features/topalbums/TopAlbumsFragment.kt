@@ -18,9 +18,9 @@ import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsDiffUtils
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_top_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
-import javax.inject.Inject
 
 /**
  * Shows top albums of an artist

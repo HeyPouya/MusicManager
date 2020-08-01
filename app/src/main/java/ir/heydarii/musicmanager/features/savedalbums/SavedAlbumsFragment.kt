@@ -15,9 +15,9 @@ import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.ViewModelFactory
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_saved_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
-import javax.inject.Inject
 
 /**
  * Shows albums that user has saved offline in the phone

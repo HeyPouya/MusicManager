@@ -20,9 +20,9 @@ import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistDiffCa
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_search_artist.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
-import javax.inject.Inject
 
 /**
  * User can search an Artist in this view
