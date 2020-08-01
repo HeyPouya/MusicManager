@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +18,9 @@ import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsDiffUtils
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_top_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import javax.inject.Inject
 
 /**
  * Shows top albums of an artist
@@ -29,6 +29,7 @@ class TopAlbumsFragment : BaseFragment() {
 
     lateinit var viewModel: TopAlbumsViewModel
     private lateinit var adapter: TopAlbumsAdapter
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -50,7 +51,7 @@ class TopAlbumsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory).get(TopAlbumsViewModel::class.java)
 
         initToolbar()
 

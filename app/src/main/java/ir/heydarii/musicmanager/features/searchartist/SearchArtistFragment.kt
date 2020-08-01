@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,9 +20,9 @@ import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistDiffCa
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_search_artist.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import javax.inject.Inject
 
 /**
  * User can search an Artist in this view
@@ -31,6 +31,7 @@ class SearchArtistFragment : BaseFragment() {
 
     private lateinit var viewModel: SearchArtistViewModel
     private lateinit var adapter: SearchArtistAdapter
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -52,7 +53,7 @@ class SearchArtistFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel =
-            ViewModelProviders.of(activity!!, viewModelFactory)
+            ViewModelProvider(requireActivity(), viewModelFactory)
                 .get(SearchArtistViewModel::class.java)
 
         initToolbar()

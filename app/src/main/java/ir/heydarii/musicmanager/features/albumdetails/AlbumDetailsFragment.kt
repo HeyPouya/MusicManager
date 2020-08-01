@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.orhanobut.logger.Logger
 import com.squareup.picasso.Picasso
@@ -18,11 +18,11 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ImageStorageManager
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import java.io.File
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.album_details_main_layout.*
 import kotlinx.android.synthetic.main.fragment_album_details.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import java.io.File
+import javax.inject.Inject
 
 /**
  * Shows details of an album containing the name and tracks
@@ -31,19 +31,25 @@ class AlbumDetailsFragment : BaseFragment() {
 
     private lateinit var viewModel: AlbumDetailsViewModel
     private var albumName = ""
+
     @Inject
     lateinit var imageStorageManager: ImageStorageManager
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_album_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel =
-                ViewModelProviders.of(this, viewModelFactory).get(AlbumDetailsViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory).get(AlbumDetailsViewModel::class.java)
 
         initToolbar()
 
@@ -113,21 +119,23 @@ class AlbumDetailsFragment : BaseFragment() {
     }
 
     private fun showDbError() {
-        Snackbar.make(rootView, getString(R.string.album_not_saved), Snackbar.LENGTH_LONG).setAction(getString(R.string.please_try_again)) {
-            val path = saveImage()
-            viewModel.onClickedOnSaveButton(path)
-        }.show()
+        Snackbar.make(rootView, getString(R.string.album_not_saved), Snackbar.LENGTH_LONG)
+            .setAction(getString(R.string.please_try_again)) {
+                val path = saveImage()
+                viewModel.onClickedOnSaveButton(path)
+            }.show()
     }
 
     private fun showDataNotAvailable() {
-        Snackbar.make(rootView, getString(R.string.album_is_not_available), Snackbar.LENGTH_LONG).show()
+        Snackbar.make(rootView, getString(R.string.album_is_not_available), Snackbar.LENGTH_LONG)
+            .show()
     }
 
     private fun showTryAgain() {
         Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
-                .setAction(getString(R.string.please_try_again)) {
-                    showData()
-                }.show()
+            .setAction(getString(R.string.please_try_again)) {
+                showData()
+            }.show()
     }
 
     private fun disableSaveButtonForASecond() {
@@ -145,7 +153,7 @@ class AlbumDetailsFragment : BaseFragment() {
         if (album.image.isNotEmpty())
             if (album.image.startsWith("http"))
                 Picasso.get().load(album.image).placeholder(R.drawable.ic_album_placeholder).into(
-                        imgAlbum
+                    imgAlbum
                 )
             else {
                 val file = File(album.image)
@@ -164,7 +172,12 @@ class AlbumDetailsFragment : BaseFragment() {
         check(receivedData != null)
 
         albumName = receivedData.albumName
-        viewModel.getAlbum(receivedData.artistName, receivedData.albumName, Constants.API_KEY, receivedData.isOffline)
+        viewModel.getAlbum(
+            receivedData.artistName,
+            receivedData.albumName,
+            Constants.API_KEY,
+            receivedData.isOffline
+        )
     }
 
     private fun showTrackList(tracks: List<String>) {
@@ -182,7 +195,11 @@ class AlbumDetailsFragment : BaseFragment() {
     }
 
     private fun saveImage(): String {
-        return imageStorageManager.saveToInternalStorage(activity!!.applicationContext, imgAlbum.drawable.toBitmap(), albumName)
+        return imageStorageManager.saveToInternalStorage(
+            activity!!.applicationContext,
+            imgAlbum.drawable.toBitmap(),
+            albumName
+        )
     }
 
     private fun removeImage(path: String) {

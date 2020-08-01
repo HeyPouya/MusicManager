@@ -1,12 +1,12 @@
 ext {
     //Important library versions :
-    rxjava_Version = "2.2.12"
-    lifecycle_version = "2.1.0"
-    appcompat_version = "1.1.0"
-    support_version = '1.0.0'
-    retrofit_version = '2.7.0'
-    dagger_version = '2.25.4'
-    room_version = '2.2.3'
+    rxjava_Version = "2.2.13"
+    lifecycle_version = '2.2.0'
+    appcompat_version = '1.3.1'
+    support_version = '1.1.0'
+    retrofit_version = '2.9.0'
+    dagger_version = '2.28.3'
+    room_version = '2.2.5'
 
     //Application versioning
     versionMajor = 4
@@ -37,8 +37,8 @@ ktlint {
 }
 
 buildscript {
-    ext.kotlin_version = '1.3.61'
-    ext.nav_version = "2.1.0"
+    ext.kotlin_version = '1.3.72'
+    ext.nav_version = '2.3.0'
     ext.ktlint_version = '9.1.1'
     repositories {
         google()
@@ -52,7 +52,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +15,9 @@ import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.ViewModelFactory
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_saved_albums.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import javax.inject.Inject
 
 /**
  * Shows albums that user has saved offline in the phone
@@ -27,13 +27,18 @@ class SavedAlbumsFragment : BaseFragment() {
     private val list = ArrayList<AlbumDatabaseEntity>()
     private lateinit var viewModel: SavedAlbumsViewModel
     private lateinit var adapter: SavedAlbumsAdapter
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     /**
      * Inflates layout for this fragment
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_saved_albums, container, false)
     }
 
@@ -44,7 +49,8 @@ class SavedAlbumsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel =
-                ViewModelProviders.of(activity!!, viewModelFactory).get(SavedAlbumsViewModel::class.java)
+            ViewModelProvider(requireActivity(), viewModelFactory)
+                .get(SavedAlbumsViewModel::class.java)
 
         initToolbar()
 
@@ -65,7 +71,8 @@ class SavedAlbumsFragment : BaseFragment() {
     }
 
     private fun savedAlbumsClickListener(artistName: String, albumName: String) {
-        val showDetailsViewAction = SavedAlbumsFragmentDirections.showAlbumDetailsActions(artistName, albumName, true)
+        val showDetailsViewAction =
+            SavedAlbumsFragmentDirections.showAlbumDetailsActions(artistName, albumName, true)
         Navigation.findNavController(rootView).navigate(showDetailsViewAction)
     }
 
@@ -99,9 +106,10 @@ class SavedAlbumsFragment : BaseFragment() {
 
     private fun showTryAgain() {
         if (view != null)
-            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.please_try_again)) {
-                viewModel.getAllAlbums()
-            }.show()
+            Snackbar.make(view!!, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(R.string.please_try_again)) {
+                    viewModel.getAllAlbums()
+                }.show()
     }
 
     private fun hideEmptyState() {
