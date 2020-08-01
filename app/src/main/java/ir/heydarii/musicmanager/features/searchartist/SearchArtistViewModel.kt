@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * ViewModel for the search artist view
  */
-class SearchArtistViewModel @Inject constructor(val dataRepository: DataRepository) : BaseViewModel() {
+class SearchArtistViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
 
     private val composite = CompositeDisposable()
     private val artistResponse = MutableLiveData<List<Artist>>()

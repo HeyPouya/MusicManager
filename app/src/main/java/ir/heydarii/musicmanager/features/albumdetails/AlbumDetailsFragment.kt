@@ -75,7 +75,7 @@ class AlbumDetailsFragment : BaseFragment() {
     private fun subscribeToViewModel() {
 
         // observes the viewModel to understand the state of btnSave for the first time activity starts
-        viewModel.getAlbumExistenceResponse().observe(this, Observer {
+        viewModel.getAlbumExistenceResponse().observe(viewLifecycleOwner, Observer {
             when (it) {
                 true -> btnSave.progress = 1f
                 false -> btnSave.progress = 0f
@@ -83,14 +83,14 @@ class AlbumDetailsFragment : BaseFragment() {
         })
 
         // subscribes to show the album data
-        viewModel.getAlbumsResponse().observe(this, Observer {
+        viewModel.getAlbumsResponse().observe(viewLifecycleOwner, Observer {
             setImagesTexts(it)
 
             showTrackList(it.tracks)
         })
 
         // subscribes to react to loading and errors
-        viewModel.getViewNotifier().observe(this, Observer {
+        viewModel.getViewNotifier().observe(viewLifecycleOwner, Observer {
             when (it) {
                 ViewNotifierEnums.SHOW_LOADING -> {
                     Logger.d(progress.isShown)
@@ -196,7 +196,7 @@ class AlbumDetailsFragment : BaseFragment() {
 
     private fun saveImage(): String {
         return imageStorageManager.saveToInternalStorage(
-            activity!!.applicationContext,
+            requireActivity().applicationContext,
             imgAlbum.drawable.toBitmap(),
             albumName
         )

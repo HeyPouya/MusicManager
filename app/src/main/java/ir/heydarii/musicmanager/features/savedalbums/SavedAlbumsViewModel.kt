@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * ViewModel for SavedAlbums view
  */
-class SavedAlbumsViewModel @Inject constructor(val dataRepository: DataRepository) : BaseViewModel() {
+class SavedAlbumsViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
 
     private val composite = CompositeDisposable()
     private val albumsList = MutableLiveData<List<AlbumDatabaseEntity>>()

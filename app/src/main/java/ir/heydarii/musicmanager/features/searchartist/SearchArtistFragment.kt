@@ -108,12 +108,12 @@ class SearchArtistFragment : BaseFragment() {
         }
 
         // subscribes to viewModel to get artist response
-        viewModel.getArtistResponse().observe(this, Observer {
+        viewModel.getArtistResponse().observe(viewLifecycleOwner, Observer {
             showRecycler(it.toMutableList())
         })
 
         // subscribes to react to loading and errors
-        viewModel.getViewNotifier().observe(this, Observer {
+        viewModel.getViewNotifier().observe(viewLifecycleOwner, Observer {
             when (it) {
                 ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
                 ViewNotifierEnums.HIDE_LOADING -> progress.visibility = View.INVISIBLE
@@ -126,7 +126,7 @@ class SearchArtistFragment : BaseFragment() {
     private fun showTryAgain() {
         if (view != null)
             Snackbar.make(
-                view!!,
+                requireView(),
                 getString(R.string.please_try_again),
                 Snackbar.LENGTH_LONG
             ).setAction(getString(R.string.please_try_again)) { searchArtist() }.show()

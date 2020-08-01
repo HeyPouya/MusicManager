@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * ViewModel for AlbumDetails view
  */
-class AlbumDetailsViewModel @Inject constructor(val dataRepository: DataRepository) : BaseViewModel() {
+class AlbumDetailsViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
 
     private val composite = CompositeDisposable()
     private val albumDetailsResponse = MutableLiveData<AlbumDatabaseEntity>()

@@ -60,12 +60,12 @@ class TopAlbumsFragment : BaseFragment() {
         showData(savedInstanceState)
 
         // subscribes to get the albums data
-        viewModel.getTopAlbumsLiveData().observe(this, Observer {
+        viewModel.getTopAlbumsLiveData().observe(viewLifecycleOwner, Observer {
             showList(it.toMutableList())
         })
 
         // subscribes to show or hide loading
-        viewModel.getViewNotifier().observe(this, Observer {
+        viewModel.getViewNotifier().observe(viewLifecycleOwner, Observer {
             when (it) {
                 ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
                 ViewNotifierEnums.HIDE_LOADING -> progress.visibility = View.INVISIBLE
@@ -79,7 +79,7 @@ class TopAlbumsFragment : BaseFragment() {
         txtTitle.text = getString(R.string.top_albums)
 
         imgBack.setOnClickListener {
-            activity!!.onBackPressed()
+            requireActivity().onBackPressed()
         }
     }
 
