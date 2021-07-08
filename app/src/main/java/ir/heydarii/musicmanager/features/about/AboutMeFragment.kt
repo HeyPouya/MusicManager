@@ -12,7 +12,7 @@ import ir.heydarii.musicmanager.databinding.FragmentAboutMeBinding
 import ir.heydarii.musicmanager.utils.Constants
 
 /**
- * A fragment only to show some about me info
+ * Shows some about me info
  */
 @AndroidEntryPoint
 class AboutMeFragment : BaseFragment<FragmentAboutMeBinding, BaseViewModel>(),
@@ -20,22 +20,17 @@ class AboutMeFragment : BaseFragment<FragmentAboutMeBinding, BaseViewModel>(),
 
     override var layout = R.layout.fragment_about_me
 
-    /**
-     * sets up click listeners
-     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.imgGithub.setOnClickListener(this)
-        binding.imgLinkedin.setOnClickListener(this)
-        binding.imgWebsite.setOnClickListener(this)
+        with(binding) {
+            imgGithub.setOnClickListener(this@AboutMeFragment)
+            imgLinkedin.setOnClickListener(this@AboutMeFragment)
+            imgWebsite.setOnClickListener(this@AboutMeFragment)
+        }
     }
 
-    /**
-     * performs clicks on social buttons
-     */
-    override fun onClick(v: View?) {
-        when (v?.id) {
+    override fun onClick(v: View) {
+        when (v.id) {
             R.id.imgGithub ->
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.GITHUB_URL)))
             R.id.imgLinkedin ->

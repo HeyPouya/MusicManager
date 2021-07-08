@@ -1,16 +1,15 @@
 <resources>
     <string name="app_name">Music Manager</string>
     <string name="please_search_an_artist_name">Artist name</string>
-    <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="top">Top</string>
     <string name="about">About</string>
     <string name="copy_right">Developed By Pouya Heydari</string>
-    <string name="technologies_description">RxJava\nMVVM\nArchitecture components\n(LiveData,ViewModel,Room)\nDagger2\nRetrofit\nNavigation Component\nSingle Activity\nSafe Args</string>
+    <string name="technologies_description">Kotlin Coroutines\nMVVM\nLiveData\nViewModel\nRoom\nHilt\nRetrofit\nNavigation\nSingle Activity\nSafe Args\nBinding\nDark/Light Mode</string>
     <string name="tracks">Tracks</string>
     <string name="please_enter_artist_name">Please enter an artist\'s name</string>
     <string name="a_notifier_is_not_defined_in_the_when_block">A notifier is not defined in the when block!</string>
-    <string name="please_try_again">Please try again</string>
+    <string name="please_try_again">Try again</string>
     <string name="album_is_not_available">Album is not available</string>
     <string name="album_not_saved">Album not saved</string>
     <string name="back">back</string>
@@ -26,6 +25,6 @@
     <string name="github">github</string>
     <string name="linkedin">linkedin</string>
     <string name="website">website</string>
-    <string name="app_description">This sample app tries to demonstrate how to implement latest technologies in Android Applications.  for more information kindly visit the github page.</string>
+    <string name="app_description">This application demonstrates how to implement latest technologies in Android. For more information kindly visit the Github page.</string>
     <string name="saved">Saved</string>
 </resources>
