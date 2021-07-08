@@ -1,15 +1,15 @@
-package ir.heydarii.musicmanager.features.searchartist.adapter
+package ir.heydarii.musicmanager.features.searchartist
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
+import ir.heydarii.musicmanager.databinding.SearchLayoutItemBinding
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.extensions.loadUrl
-import kotlinx.android.synthetic.main.search_layout_item.view.*
 
 /**
  * shows artist in search artist view
@@ -17,16 +17,19 @@ import kotlinx.android.synthetic.main.search_layout_item.view.*
 class SearchArtistAdapter(
     searchArtistDiffCallback: SearchArtistDiffCallback,
     private val clickListener: (String) -> Unit
-) :
-    ListAdapter<Artist, SearchArtistAdapter.SearchArtistViewHolder>(searchArtistDiffCallback) {
+) : ListAdapter<Artist, SearchArtistAdapter.SearchArtistViewHolder>(searchArtistDiffCallback) {
 
     /**
      * inflates the layout for the recyclerView
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
-        return SearchArtistViewHolder(view, clickListener)
+        val binding = DataBindingUtil.inflate<SearchLayoutItemBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.search_layout_item,
+            parent,
+            false
+        )
+        return SearchArtistViewHolder(binding)
     }
 
     /**
@@ -39,20 +42,20 @@ class SearchArtistAdapter(
     /**
      * ViewHolder for recyclerView
      */
-    class SearchArtistViewHolder(private val view: View, val clickListener: (String) -> Unit) :
-        RecyclerView.ViewHolder(view) {
+    inner class SearchArtistViewHolder(private val binding: SearchLayoutItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Sets texts and clickListener for the items
          */
-        fun bind(artist: Artist) {
-            view.txtName.text = artist.name
+        fun bind(artist: Artist) = with(binding) {
+            txtName.text = artist.name
 
             // Last image has always the best quality
             if (artist.image.last().text.isNotEmpty())
-                view.imgArtist.loadUrl(artist.image.last().text, R.drawable.ic_album_placeholder)
+                imgArtist.loadUrl(artist.image.last().text, R.drawable.ic_album_placeholder)
 
-            view.setOnClickListener {
+            root.setOnClickListener {
                 clickListener(artist.name)
             }
         }

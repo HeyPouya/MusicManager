@@ -7,13 +7,14 @@ import ir.heydarii.musicmanager.pojos.TrackEntity
 import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
 
 /**
- * Provides Room database
+ * Provides access to [RoomDatabase]
  */
 @Database(entities = [AlbumEntity::class, TrackEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     /**
-     * provides DAO for the Room database
+     * Room handles this function
+     * @return An instance of [AlbumsDAO]
      */
     abstract fun albumsDAO(): AlbumsDAO
 }

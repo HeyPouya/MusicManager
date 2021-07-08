@@ -1,13 +1,13 @@
 package ir.heydarii.musicmanager.features.savedalbums
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
+import ir.heydarii.musicmanager.databinding.SavedLayoutItemBinding
 import ir.heydarii.musicmanager.pojos.AlbumTracks
 import ir.heydarii.musicmanager.utils.extensions.loadFile
-import kotlinx.android.synthetic.main.search_layout_item.view.*
 import java.io.File
 
 /**
@@ -24,9 +24,13 @@ class SavedAlbumsAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.saved_layout_item, parent, false)
-        return SearchArtistViewHolder(view, clickListener)
+        val binding = DataBindingUtil.inflate<SavedLayoutItemBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.saved_layout_item,
+            parent,
+            false
+        )
+        return SearchArtistViewHolder(binding)
     }
 
     /**
@@ -44,26 +48,23 @@ class SavedAlbumsAdapter(
     /**
      * ViewHolder for saved items
      */
-    class SearchArtistViewHolder(
-        private val view: View,
-        var clickListener: (String, String) -> Unit
-    ) :
-        RecyclerView.ViewHolder(view) {
+    inner class SearchArtistViewHolder(private val binding: SavedLayoutItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Sets texts and click listeners for items
          */
-        fun bind(album: AlbumTracks) {
-            view.txtName.text = album.album.albumName
+        fun bind(album: AlbumTracks) = with(binding) {
+            txtName.text = album.album.albumName
 
             // Last image has always the best quality
             if (!album.album.image.isNullOrEmpty()) {
                 val file = File(album.album.image)
                 if (file.exists())
-                    view.imgArtist.loadFile(file, R.drawable.ic_album_placeholder)
+                    imgArtist.loadFile(file, R.drawable.ic_album_placeholder)
             }
 
-            view.setOnClickListener {
+            root.setOnClickListener {
                 clickListener(album.album.artistName, album.album.albumName)
             }
         }

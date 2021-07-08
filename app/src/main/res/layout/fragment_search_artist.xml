@@ -1,99 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".features.searchartist.SearchArtistFragment">
+<layout>
 
-    <ImageView
-        android:id="@+id/imgCover"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/top_albums_cover_image_height"
-        android:contentDescription="@string/cover"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_cover"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        tools:context=".features.searchartist.SearchArtistFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="@dimen/top_albums_search_card_margin_top"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_max="@dimen/search_card_max_width">
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imgCover"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/top_albums_cover_image_height"
+            android:contentDescription="@string/cover"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/edtSearch"
-                android:layout_width="0dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/top_albums_search_card_margin_top"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/search_card_max_width">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="@string/please_search_an_artist_name"
-                android:imeOptions="actionSearch"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:lines="1"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp" />
+                android:orientation="horizontal">
 
-            <ProgressBar
-                android:id="@+id/progress"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:visibility="invisible" />
+                <EditText
+                    android:id="@+id/edtSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/please_search_an_artist_name"
+                    android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:lines="1"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp" />
 
-            <ImageView
-                android:id="@+id/btnSearch"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/search"
-                android:padding="4dp"
-                app:srcCompat="@drawable/ic_search"
-                app:tint="?attr/colorOnPrimary" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:visibility="invisible" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:clipToPadding="false"
-        android:paddingTop="32dp"
-        android:paddingBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgCover" />
+                <ImageView
+                    android:id="@+id/btnSearch"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/search"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/ic_search"
+                    app:tint="?attr/colorOnPrimary" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/empty"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="empty_up.json"
-        app:lottie_loop="true" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:clipToPadding="false"
+            android:paddingTop="32dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgCover" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/empty"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="empty_up.json"
+            app:lottie_loop="true" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,26 +1,31 @@
 package ir.heydarii.musicmanager.features.albumdetails
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
+import ir.heydarii.musicmanager.databinding.TracksLayoutItemBinding
 import ir.heydarii.musicmanager.pojos.TrackEntity
-import kotlinx.android.synthetic.main.tracks_layout_item.view.*
 
 /**
  * Adapter to show tracks of songs
  */
 class TracksAdapter(val list: List<TrackEntity>) :
     RecyclerView.Adapter<TracksAdapter.TracksViewHolder>() {
+
+    /**
+     * inflates views for recycler view
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksViewHolder {
 
-        /**
-         * inflates views for recycler view
-         */
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.tracks_layout_item, parent, false)
-        return TracksViewHolder(view)
+        val binding = DataBindingUtil.inflate<TracksLayoutItemBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.tracks_layout_item,
+            parent,
+            false
+        )
+        return TracksViewHolder(binding)
     }
 
     /**
@@ -38,14 +43,15 @@ class TracksAdapter(val list: List<TrackEntity>) :
     /**
      * ViewHolder class
      */
-    class TracksViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class TracksViewHolder(private val binding: TracksLayoutItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Sets texts in views
          */
-        fun bind(track: TrackEntity, position: Int) {
-            view.txtTrackNumber.text = position.toString()
-            view.txtTrackName.text = track.name
+        fun bind(track: TrackEntity, position: Int) = with(binding) {
+            txtTrackNumber.text = position.toString()
+            txtTrackName.text = track.name
         }
     }
 }

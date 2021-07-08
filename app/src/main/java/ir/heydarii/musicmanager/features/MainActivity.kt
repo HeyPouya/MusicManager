@@ -18,9 +18,6 @@ import ir.heydarii.musicmanager.databinding.ActivityMainBinding
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    /**
-     * finding the navController
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

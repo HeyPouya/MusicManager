@@ -1,52 +1,35 @@
 package ir.heydarii.musicmanager.features.topalbums
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsAdapter
-import ir.heydarii.musicmanager.features.topalbums.adapter.TopAlbumsDiffUtils
+import ir.heydarii.musicmanager.databinding.FragmentTopAlbumsBinding
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_top_albums.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 
 /**
  * Shows top albums of an artist
  */
 @AndroidEntryPoint
-class TopAlbumsFragment : BaseFragment() {
+class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding, TopAlbumsViewModel>() {
 
-    private val viewModel: TopAlbumsViewModel by viewModels()
+    override var layout = R.layout.fragment_top_albums
     private lateinit var adapter: TopAlbumsAdapter
-
-    /**
-     * Inflating the view
-     */
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_top_albums, container, false)
-    }
 
     /**
      * All codes are here
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setVM(viewModels())
         super.onViewCreated(view, savedInstanceState)
 
         initToolbar()
@@ -63,8 +46,8 @@ class TopAlbumsFragment : BaseFragment() {
         // subscribes to show or hide loading
         viewModel.getViewNotifier().observe(viewLifecycleOwner, Observer {
             when (it) {
-                ViewNotifierEnums.SHOW_LOADING -> progress.visibility = View.VISIBLE
-                ViewNotifierEnums.HIDE_LOADING -> progress.visibility = View.INVISIBLE
+                ViewNotifierEnums.SHOW_LOADING -> binding.progress.visibility = View.VISIBLE
+                ViewNotifierEnums.HIDE_LOADING -> binding.progress.visibility = View.INVISIBLE
                 ViewNotifierEnums.ERROR_GETTING_DATA -> showTryAgain()
                 else -> throw java.lang.IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
             }
@@ -72,9 +55,9 @@ class TopAlbumsFragment : BaseFragment() {
     }
 
     private fun initToolbar() {
-        txtTitle.text = getString(R.string.top_albums)
+        binding.toolbar.txtTitle.text = getString(R.string.top_albums)
 
-        imgBack.setOnClickListener {
+        binding.toolbar.imgBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
     }
@@ -84,11 +67,11 @@ class TopAlbumsFragment : BaseFragment() {
         adapter = TopAlbumsAdapter(TopAlbumsDiffUtils()) { artistName, albumName ->
             showAlbumDetailsView(artistName, albumName)
         }
-        recycler.adapter = adapter
+        binding.recycler.adapter = adapter
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        recycler.layoutManager = layoutManager
+        binding.recycler.layoutManager = layoutManager
 
-        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val lastItem = layoutManager.findLastVisibleItemPosition()
@@ -100,7 +83,11 @@ class TopAlbumsFragment : BaseFragment() {
     }
 
     private fun showTryAgain() {
-        Snackbar.make(rootView, getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(
+            binding.rootView,
+            getString(R.string.please_try_again),
+            Snackbar.LENGTH_INDEFINITE
+        )
             .setAction(getString(R.string.please_try_again)) {
                 showData(null)
             }.show()
@@ -123,7 +110,7 @@ class TopAlbumsFragment : BaseFragment() {
     }
 
     private fun showArtistName(artistName: String) {
-        txtName.text = artistName
+        binding.txtName.text = artistName
     }
 
     private fun showList(albumsData: List<Album>) {
@@ -133,6 +120,6 @@ class TopAlbumsFragment : BaseFragment() {
     private fun showAlbumDetailsView(artistName: String, albumName: String) {
         val showDetailsAction =
             TopAlbumsFragmentDirections.showAlbumDetailsActions(artistName, albumName)
-        Navigation.findNavController(rootView).navigate(showDetailsAction)
+        findNavController().navigate(showDetailsAction)
     }
 }

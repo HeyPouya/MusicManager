@@ -3,7 +3,6 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    id("kotlin-android-extensions")
     id("androidx.navigation.safeargs.kotlin")
 }
 
@@ -21,13 +20,16 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                argument("room.incremental", "true")
+                arguments += mapOf(
+                    "room.incremental" to "true",
+                )
             }
         }
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )

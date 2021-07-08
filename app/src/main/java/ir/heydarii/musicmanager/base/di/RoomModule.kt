@@ -6,9 +6,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
 import ir.heydarii.musicmanager.base.AppDatabase
+import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
 import javax.inject.Singleton
+
+private const val DATABASE_NAME = "albums.db"
 
 /**
  * Provides room database
@@ -19,10 +21,10 @@ class RoomModule {
 
     @Singleton
     @Provides
-    fun database(application: Application): AppDatabase = Room.databaseBuilder(
+    fun provideDatabase(application: Application): AppDatabase = Room.databaseBuilder(
         application.applicationContext,
         AppDatabase::class.java,
-        "Albums.db"
+        DATABASE_NAME
     ).build()
 
     @Singleton
