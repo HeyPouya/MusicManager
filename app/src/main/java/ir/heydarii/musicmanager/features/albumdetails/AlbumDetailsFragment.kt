@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
-import com.orhanobut.logger.Logger
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
@@ -19,11 +17,11 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ImageStorageManager
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import java.io.File
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.album_details_main_layout.*
 import kotlinx.android.synthetic.main.fragment_album_details.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import java.io.File
+import javax.inject.Inject
 
 /**
  * Shows details of an album containing the name and tracks
@@ -91,12 +89,10 @@ class AlbumDetailsFragment : BaseFragment() {
         viewModel.getViewNotifier().observe(viewLifecycleOwner, Observer {
             when (it) {
                 ViewNotifierEnums.SHOW_LOADING -> {
-                    Logger.d(progress.isShown)
                     if (progress.visibility != View.VISIBLE)
                         progress.visibility = View.VISIBLE
                 }
                 ViewNotifierEnums.HIDE_LOADING -> {
-                    Logger.d(progress.isShown)
                     if (progress.visibility == View.VISIBLE)
                         progress.visibility = View.GONE
                 }

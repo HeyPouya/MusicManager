@@ -2,7 +2,6 @@ package ir.heydarii.musicmanager.features.topalbums
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
@@ -15,7 +14,8 @@ import javax.inject.Inject
  * ViewModel for TopAlbums of an Artist view
  */
 @HiltViewModel
-class TopAlbumsViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
+class TopAlbumsViewModel @Inject constructor(private val dataRepository: DataRepository) :
+    BaseViewModel() {
 
     private val topAlbumsData = MutableLiveData<List<Album>>()
     private val composite = CompositeDisposable()
@@ -36,21 +36,20 @@ class TopAlbumsViewModel @Inject constructor(private val dataRepository: DataRep
             viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 
             composite.add(
-                    dataRepository.getTopAlbumsByArtist(artistName, page, apiKey)
-                            .subscribe({
+                dataRepository.getTopAlbumsByArtist(artistName, page, apiKey)
+                    .subscribe({
 
-                                if (it.topalbums.album.isEmpty())
-                                    shouldLoadMore = false
+                        if (it.topalbums.album.isEmpty())
+                            shouldLoadMore = false
 
-                                page++
-                                list.addAll(it.topalbums.album)
-                                viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                                topAlbumsData.value = list
-                            }, {
-                                viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                                viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
-                                Logger.d(it)
-                            })
+                        page++
+                        list.addAll(it.topalbums.album)
+                        viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                        topAlbumsData.value = list
+                    }, {
+                        viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                        viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
+                    })
             )
         }
     }

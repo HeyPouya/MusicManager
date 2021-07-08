@@ -2,7 +2,6 @@ package ir.heydarii.musicmanager.features.searchartist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
@@ -15,7 +14,8 @@ import javax.inject.Inject
  * ViewModel for the search artist view
  */
 @HiltViewModel
-class SearchArtistViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
+class SearchArtistViewModel @Inject constructor(private val dataRepository: DataRepository) :
+    BaseViewModel() {
 
     private val composite = CompositeDisposable()
     private val artistResponse = MutableLiveData<List<Artist>>()
@@ -40,23 +40,22 @@ class SearchArtistViewModel @Inject constructor(private val dataRepository: Data
         viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 
         composite.add(
-                dataRepository.getArtistName(this.artistName, page, apiKey)
-                        .subscribe({
-                            isLoading = false
+            dataRepository.getArtistName(this.artistName, page, apiKey)
+                .subscribe({
+                    isLoading = false
 
-                            if (it.results.artistmatches.artist.isEmpty())
-                                shouldLoadMore = false
+                    if (it.results.artistmatches.artist.isEmpty())
+                        shouldLoadMore = false
 
-                            list.addAll(it.results.artistmatches.artist)
-                            artistResponse.value = list
-                            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                        }, {
+                    list.addAll(it.results.artistmatches.artist)
+                    artistResponse.value = list
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                }, {
 
-                            isLoading = false
-                            Logger.d(it.message)
-                            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                            viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
-                        })
+                    isLoading = false
+                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
+                })
         )
     }
 

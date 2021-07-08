@@ -73,9 +73,6 @@ dependencies {
     //LiveData and ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.extra["lifecycle_version"]}")
 
-    //Logger
-    implementation("com.orhanobut:logger:2.2.0")
-
     //Picasso
     implementation("com.squareup.picasso:picasso:2.71828")
 

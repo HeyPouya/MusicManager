@@ -2,7 +2,6 @@ package ir.heydarii.musicmanager.features.savedalbums
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
@@ -15,7 +14,8 @@ import javax.inject.Inject
  * ViewModel for SavedAlbums view
  */
 @HiltViewModel
-class SavedAlbumsViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
+class SavedAlbumsViewModel @Inject constructor(private val dataRepository: DataRepository) :
+    BaseViewModel() {
 
     private val composite = CompositeDisposable()
     private val albumsList = MutableLiveData<List<AlbumDatabaseEntity>>()
@@ -25,16 +25,15 @@ class SavedAlbumsViewModel @Inject constructor(private val dataRepository: DataR
      */
     fun getAllAlbums() {
         composite.add(
-                dataRepository.getAllSavedAlbums()
-                        .subscribe({
-                            if (it.isEmpty())
-                                viewNotifier.value = ViewNotifierEnums.EMPTY_STATE
-                            else
-                                albumsList.value = it
-                        }, {
-                            Logger.d(it)
-                            viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
-                        })
+            dataRepository.getAllSavedAlbums()
+                .subscribe({
+                    if (it.isEmpty())
+                        viewNotifier.value = ViewNotifierEnums.EMPTY_STATE
+                    else
+                        albumsList.value = it
+                }, {
+                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
+                })
         )
     }
 
