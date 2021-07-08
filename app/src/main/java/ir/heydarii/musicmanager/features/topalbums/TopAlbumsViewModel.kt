@@ -47,6 +47,7 @@ class TopAlbumsViewModel @Inject constructor(private val dataRepository: DataRep
                         viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                         topAlbumsData.value = list
                     }, {
+                        it.printStackTrace()
                         viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
                         viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
                     })

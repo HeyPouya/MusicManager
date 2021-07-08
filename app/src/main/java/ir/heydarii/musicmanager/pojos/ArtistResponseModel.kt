@@ -1,38 +1,45 @@
 package ir.heydarii.musicmanager.pojos
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /**
  * Response of artist search
  */
+
+@JsonClass(generateAdapter = true)
 data class ArtistResponseModel(
     val results: Results
 )
 
+@JsonClass(generateAdapter = true)
 data class Results(
     val artistmatches: Artistmatches,
-    @SerializedName("opensearch:Query")
+    @Json(name = "opensearch:Query")
     val Query: OpensearchQuery,
-    @SerializedName("opensearch:itemsPerPage")
+    @Json(name = "opensearch:itemsPerPage")
     val itemsPerPage: String,
-    @SerializedName("opensearch:startIndex")
+    @Json(name = "opensearch:startIndex")
     val startIndex: String,
-    @SerializedName("opensearch:totalResults")
+    @Json(name = "opensearch:totalResults")
     val totalResults: String
 )
 
+@JsonClass(generateAdapter = true)
 data class OpensearchQuery(
-    @SerializedName("#text")
+    @Json(name = "#text")
     val text: String,
     val role: String,
     val searchTerms: String,
     val startPage: String
 )
 
+@JsonClass(generateAdapter = true)
 data class Artistmatches(
     val artist: List<Artist>
 )
 
+@JsonClass(generateAdapter = true)
 data class Artist(
     val image: List<Image>,
     val listeners: String,
@@ -42,8 +49,9 @@ data class Artist(
     val url: String
 )
 
+@JsonClass(generateAdapter = true)
 data class Image(
-    @SerializedName("#text")
+    @Json(name = "#text")
     val text: String,
     val size: String
 )

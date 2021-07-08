@@ -6,19 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
+import ir.heydarii.musicmanager.pojos.AlbumTracks
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.android.synthetic.main.fragment_saved_albums.*
-import javax.inject.Inject
 
 /**
  * Shows albums that user has saved offline in the phone
@@ -26,7 +23,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SavedAlbumsFragment : BaseFragment() {
 
-    private val list = ArrayList<AlbumDatabaseEntity>()
+    private val list = ArrayList<AlbumTracks>()
     private val viewModel: SavedAlbumsViewModel by viewModels()
     private lateinit var adapter: SavedAlbumsAdapter
 
@@ -64,7 +61,7 @@ class SavedAlbumsFragment : BaseFragment() {
         Navigation.findNavController(rootView).navigate(showDetailsViewAction)
     }
 
-    private fun showRecycler(savedAlbums: List<AlbumDatabaseEntity>) {
+    private fun showRecycler(savedAlbums: List<AlbumTracks>) {
         list.clear()
         list.addAll(savedAlbums)
         adapter.notifyDataSetChanged()

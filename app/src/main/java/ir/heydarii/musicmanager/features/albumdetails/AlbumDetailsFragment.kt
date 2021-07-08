@@ -12,7 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
+import ir.heydarii.musicmanager.pojos.AlbumEntity
+import ir.heydarii.musicmanager.pojos.TrackEntity
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ImageStorageManager
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
@@ -81,7 +82,7 @@ class AlbumDetailsFragment : BaseFragment() {
 
         // subscribes to show the album data
         viewModel.getAlbumsResponse().observe(viewLifecycleOwner, Observer {
-            setImagesTexts(it)
+            setImagesTexts(it.album)
 
             showTrackList(it.tracks)
         })
@@ -144,7 +145,7 @@ class AlbumDetailsFragment : BaseFragment() {
         btnSave.playAnimation()
     }
 
-    private fun setImagesTexts(album: AlbumDatabaseEntity) {
+    private fun setImagesTexts(album: AlbumEntity) {
         if (album.image.isNotEmpty())
             if (album.image.startsWith("http"))
                 imgAlbum.loadUrl(album.image, R.drawable.ic_album_placeholder)
@@ -173,7 +174,7 @@ class AlbumDetailsFragment : BaseFragment() {
         )
     }
 
-    private fun showTrackList(tracks: List<String>) {
+    private fun showTrackList(tracks: List<TrackEntity>) {
         recycler.adapter = TracksAdapter(tracks)
     }
 

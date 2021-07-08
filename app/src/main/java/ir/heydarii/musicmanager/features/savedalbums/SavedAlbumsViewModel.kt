@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
-import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
+import ir.heydarii.musicmanager.pojos.AlbumEntity
+import ir.heydarii.musicmanager.pojos.AlbumTracks
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class SavedAlbumsViewModel @Inject constructor(private val dataRepository: DataR
     BaseViewModel() {
 
     private val composite = CompositeDisposable()
-    private val albumsList = MutableLiveData<List<AlbumDatabaseEntity>>()
+    private val albumsList = MutableLiveData<List<AlbumTracks>>()
 
     /**
      * Fetches all albums from database
@@ -40,7 +41,7 @@ class SavedAlbumsViewModel @Inject constructor(private val dataRepository: DataR
     /**
      * returns an immutable instance of live data
      */
-    fun getAlbumList(): LiveData<List<AlbumDatabaseEntity>> {
+    fun getAlbumList(): LiveData<List<AlbumTracks>> {
         return albumsList
     }
 

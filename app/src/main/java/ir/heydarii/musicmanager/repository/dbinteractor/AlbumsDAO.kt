@@ -1,12 +1,11 @@
 package ir.heydarii.musicmanager.repository.dbinteractor
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Single
-import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
+import ir.heydarii.musicmanager.pojos.AlbumEntity
+import ir.heydarii.musicmanager.pojos.AlbumTracks
+import ir.heydarii.musicmanager.pojos.TrackEntity
 
 /**
  * All Room queries are in this class
@@ -15,17 +14,22 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 interface AlbumsDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveAlbum(albumDatabaseEntity: AlbumDatabaseEntity): Completable
+    fun saveAlbum(albumEntity: AlbumEntity): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveTracks(vararg tracks: TrackEntity): Completable
+
+    @Transaction
     @Query("SELECT * FROM albums")
-    fun getAllAlbums(): Single<List<AlbumDatabaseEntity>>
+    fun getAllAlbums(): Single<List<AlbumTracks>>
 
-    @Query("SELECT * FROM albums WHERE artist_name = :artistName and album_name = :albumName LIMIT 1")
-    fun getSpecificAlbum(artistName: String, albumName: String): Single<AlbumDatabaseEntity>
+    @Transaction
+    @Query("SELECT * FROM albums WHERE artistName = :artistName and albumName = :albumName LIMIT 1")
+    fun getSpecificAlbum(artistName: String, albumName: String): Single<AlbumTracks>
 
-    @Query("SELECT COUNT(*)>0 from albums WHERE artist_name =:artistName and album_name =:albumName")
+    @Query("SELECT COUNT(*)>0 from albums WHERE artistName =:artistName and albumName =:albumName")
     fun doesAlbumExists(artistName: String, albumName: String): Single<Boolean>
 
-    @Query("DELETE from albums where artist_name = :artistName and album_name =:albumName")
+    @Query("DELETE from albums where artistName = :artistName and albumName =:albumName")
     fun removeAlbum(artistName: String, albumName: String): Completable
 }

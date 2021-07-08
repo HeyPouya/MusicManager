@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
-import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
+import ir.heydarii.musicmanager.pojos.AlbumTracks
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import javax.inject.Inject
@@ -18,8 +18,8 @@ class AlbumDetailsViewModel @Inject constructor(private val dataRepository: Data
     BaseViewModel() {
 
     private val composite = CompositeDisposable()
-    private val albumDetailsResponse = MutableLiveData<AlbumDatabaseEntity>()
-    private var albumData: AlbumDatabaseEntity? = null
+    private val albumDetailsResponse = MutableLiveData<AlbumTracks>()
+    private var albumData: AlbumTracks? = null
     private val doesAlbumExistsInDb = MutableLiveData<Boolean>()
     private var isAlbumSaved = false
 
@@ -53,7 +53,7 @@ class AlbumDetailsViewModel @Inject constructor(private val dataRepository: Data
 
     private fun saveAlbum(imagePath: String) {
         if (albumData != null) {
-            albumData?.image = imagePath
+            albumData?.album?.image = imagePath
             composite.add(
                 dataRepository.saveAlbum(albumData!!)
                     .subscribe({
@@ -80,7 +80,7 @@ class AlbumDetailsViewModel @Inject constructor(private val dataRepository: Data
     private fun removeAlbum() {
         if (albumData != null)
             composite.add(
-                dataRepository.removeAlbum(albumData!!.artistName, albumData!!.albumName)
+                dataRepository.removeAlbum(albumData!!.album.artistName, albumData!!.album.albumName)
                     .subscribe({
                         viewNotifier.value = ViewNotifierEnums.REMOVED_FROM_DB
                         isAlbumSaved = false
@@ -95,7 +95,7 @@ class AlbumDetailsViewModel @Inject constructor(private val dataRepository: Data
     /**
      * Returns an ImmutableLiveData instance of albumDetailsResponse
      */
-    fun getAlbumsResponse(): LiveData<AlbumDatabaseEntity> = albumDetailsResponse
+    fun getAlbumsResponse(): LiveData<AlbumTracks> = albumDetailsResponse
 
     private fun checkAlbumExistenceInDb(artistName: String, albumName: String) {
         composite.add(

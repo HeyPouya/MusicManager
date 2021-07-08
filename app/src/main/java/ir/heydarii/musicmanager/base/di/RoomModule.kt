@@ -11,7 +11,7 @@ import ir.heydarii.musicmanager.utils.AppDatabase
 import javax.inject.Singleton
 
 /**
- * A module to provide all dependencies for room
+ * Provides room database
  */
 @InstallIn(SingletonComponent::class)
 @Module
@@ -19,17 +19,13 @@ class RoomModule {
 
     @Singleton
     @Provides
-    fun database(application: Application): AppDatabase {
-        return Room.databaseBuilder(
-            application.applicationContext,
-            AppDatabase::class.java,
-            "Albums.db"
-        ).build()
-    }
+    fun database(application: Application): AppDatabase = Room.databaseBuilder(
+        application.applicationContext,
+        AppDatabase::class.java,
+        "Albums.db"
+    ).build()
 
     @Singleton
     @Provides
-    fun provideAlbumsDAO(appDatabase: AppDatabase): AlbumsDAO {
-        return appDatabase.albumsDAO()
-    }
+    fun provideAlbumsDAO(appDatabase: AppDatabase): AlbumsDAO = appDatabase.albumsDAO()
 }

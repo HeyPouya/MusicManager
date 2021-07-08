@@ -2,15 +2,14 @@ package ir.heydarii.musicmanager.utils
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
+import ir.heydarii.musicmanager.pojos.AlbumEntity
+import ir.heydarii.musicmanager.pojos.TrackEntity
 import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
 
 /**
  * Provides Room database
  */
-@Database(entities = [AlbumDatabaseEntity::class], version = 1, exportSchema = false)
-@TypeConverters(StringListDataConverter::class)
+@Database(entities = [AlbumEntity::class, TrackEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     /**
