@@ -3,7 +3,9 @@ package ir.heydarii.musicmanager.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import javax.inject.Inject
 
 /**
  * All ViewModels inherit this class, so we can do some common jobs in them

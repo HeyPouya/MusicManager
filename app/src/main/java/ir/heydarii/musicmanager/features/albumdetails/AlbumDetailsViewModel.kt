@@ -3,6 +3,7 @@ package ir.heydarii.musicmanager.features.albumdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
@@ -13,6 +14,7 @@ import javax.inject.Inject
 /**
  * ViewModel for AlbumDetails view
  */
+@HiltViewModel
 class AlbumDetailsViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
 
     private val composite = CompositeDisposable()

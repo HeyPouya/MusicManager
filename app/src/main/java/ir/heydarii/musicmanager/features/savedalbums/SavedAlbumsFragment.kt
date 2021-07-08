@@ -4,32 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.base.ViewModelFactory
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_saved_albums.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
+import javax.inject.Inject
 
 /**
  * Shows albums that user has saved offline in the phone
  */
+@AndroidEntryPoint
 class SavedAlbumsFragment : BaseFragment() {
 
     private val list = ArrayList<AlbumDatabaseEntity>()
-    private lateinit var viewModel: SavedAlbumsViewModel
+    private val viewModel: SavedAlbumsViewModel by viewModels()
     private lateinit var adapter: SavedAlbumsAdapter
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
     /**
      * Inflates layout for this fragment
@@ -48,18 +47,7 @@ class SavedAlbumsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)
-                .get(SavedAlbumsViewModel::class.java)
-
-        initToolbar()
-
         setUpRecycler()
-    }
-
-    private fun initToolbar() {
-        imgBack.visibility = View.GONE
-        txtTitle.text = getString(R.string.saved_albums)
     }
 
     private fun setUpRecycler() {
@@ -106,7 +94,11 @@ class SavedAlbumsFragment : BaseFragment() {
 
     private fun showTryAgain() {
         if (view != null)
-            Snackbar.make(requireView(), getString(R.string.please_try_again), Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(
+                requireView(),
+                getString(R.string.please_try_again),
+                Snackbar.LENGTH_INDEFINITE
+            )
                 .setAction(getString(R.string.please_try_again)) {
                     viewModel.getAllAlbums()
                 }.show()

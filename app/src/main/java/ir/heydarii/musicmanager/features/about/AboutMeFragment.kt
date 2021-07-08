@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.utils.Constants
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_about_me.*
 /**
  * A fragment only to show some about me info
  */
+@AndroidEntryPoint
 class AboutMeFragment : BaseFragment(), View.OnClickListener {
 
     /**

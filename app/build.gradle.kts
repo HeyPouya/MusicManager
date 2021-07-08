@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
     id("kotlin-android-extensions")
     id("androidx.navigation.safeargs.kotlin")
 }
@@ -18,17 +19,17 @@ android {
         versionName = "5.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments = ["room.incremental": "true"]
-//            }
-//        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                argument("room.incremental", "true")
+            }
+        }
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -55,8 +56,8 @@ dependencies {
 
     //Test
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:runner:1.4.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test:runner:1.3.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 
     //REST
     implementation("com.squareup.retrofit2:retrofit:${rootProject.extra["retrofit_version"]}")
@@ -71,13 +72,6 @@ dependencies {
 
     //LiveData and ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.extra["lifecycle_version"]}")
-
-    //Dagger
-    implementation("com.google.dagger:dagger:${rootProject.extra["dagger_version"]}")
-    kapt("com.google.dagger:dagger-compiler:${rootProject.extra["dagger_version"]}")
-    implementation("com.google.dagger:dagger-android:${rootProject.extra["dagger_version"]}")
-    implementation("com.google.dagger:dagger-android-support:${rootProject.extra["dagger_version"]}")
-    kapt("com.google.dagger:dagger-android-processor:${rootProject.extra["dagger_version"]}")
 
     //Logger
     implementation("com.orhanobut:logger:2.2.0")
@@ -97,4 +91,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:${rootProject.extra["nav_version"]}")
     implementation("androidx.navigation:navigation-ui-ktx:${rootProject.extra["nav_version"]}")
 
+    //Hilt
+    implementation("com.google.dagger:hilt-android:${rootProject.extra["hilt_version"]}")
+    kapt("com.google.dagger:hilt-android-compiler:${rootProject.extra["hilt_version"]}")
+}
+
+kapt {
+    correctErrorTypes = true
 }

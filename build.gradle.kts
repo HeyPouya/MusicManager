@@ -6,8 +6,9 @@ buildscript {
     val retrofit_version  by extra("2.9.0")
     val dagger_version    by extra("2.37")
     val room_version      by extra("2.3.0")
-    val kotlin_version    by extra("1.5.20")
+    val kotlin_version    by extra("1.5.10")
     val nav_version       by extra("2.3.5")
+    val hilt_version      by extra("2.37")
 
     repositories {
         google()
@@ -16,6 +17,7 @@ buildscript {
     dependencies {
         classpath ("com.android.tools.build:gradle:4.2.2")
         classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath ("com.google.dagger:hilt-android-gradle-plugin:$hilt_version")
         classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
     }
 }

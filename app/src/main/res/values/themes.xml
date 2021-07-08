@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.MusicManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/white_alpha_100</item>
+        <item name="colorPrimaryVariant">@color/grey_50_alpha_100</item>
+        <item name="colorOnPrimary">@color/black_alpha_100</item>
+        <item name="android:statusBarColor">@color/white_alpha_100</item>
+        <item name="colorOnError">@color/red_400</item>
+        <item name="fontFamily">@font/open_sans</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+    <style name="Theme.MusicManager.CardView">
+        <item name="cardBackgroundColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Theme.MusicManager.Text">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="Theme.MusicManager.Text.Header" parent="Theme.MusicManager.Text">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.MusicManager.Text.Title" parent="Theme.MusicManager.Text.Header">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

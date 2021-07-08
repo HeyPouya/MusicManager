@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.orhanobut.logger.Logger
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.base.ViewModelFactory
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ImageStorageManager
@@ -27,16 +28,15 @@ import kotlinx.android.synthetic.main.toolbar_layout.*
 /**
  * Shows details of an album containing the name and tracks
  */
+@AndroidEntryPoint
 class AlbumDetailsFragment : BaseFragment() {
 
-    private lateinit var viewModel: AlbumDetailsViewModel
     private var albumName = ""
 
     @Inject
     lateinit var imageStorageManager: ImageStorageManager
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    val viewModel by viewModels<AlbumDetailsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,8 +48,6 @@ class AlbumDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel =
-            ViewModelProvider(this, viewModelFactory).get(AlbumDetailsViewModel::class.java)
 
         initToolbar()
 

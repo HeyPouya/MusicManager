@@ -6,34 +6,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
-import ir.heydarii.musicmanager.base.ViewModelFactory
 import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistAdapter
 import ir.heydarii.musicmanager.features.searchartist.adapter.SearchArtistDiffCallback
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_search_artist.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
+import javax.inject.Inject
 
 /**
  * User can search an Artist in this view
  */
+@AndroidEntryPoint
 class SearchArtistFragment : BaseFragment() {
 
-    private lateinit var viewModel: SearchArtistViewModel
+    private val viewModel: SearchArtistViewModel by viewModels()
     private lateinit var adapter: SearchArtistAdapter
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
     /**
      * inflating its layout
@@ -52,20 +50,9 @@ class SearchArtistFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)
-                .get(SearchArtistViewModel::class.java)
-
-        initToolbar()
-
         init() // add setOnClickListener and observe observables
         setUpRecyclerView()
         showEmptyState()
-    }
-
-    private fun initToolbar() {
-        imgBack.visibility = View.GONE
-        txtTitle.text = getString(R.string.find_artist)
     }
 
     private fun setUpRecyclerView() {

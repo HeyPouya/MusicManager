@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="?attr/colorPrimaryVariant">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/average_sans"
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@android:color/black"
@@ -46,7 +45,6 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:fontFamily="@font/average_sans"
             android:justificationMode="inter_word"
             android:text="@string/app_description"
             android:textSize="16sp"
@@ -72,7 +70,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/average_sans"
             android:gravity="start"
             android:text="@string/technologies"
             android:textColor="@android:color/black"
@@ -87,7 +84,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/average_sans"
             android:lineSpacingExtra="8dp"
             android:text="@string/technologies_description"
             android:textSize="16sp"
@@ -113,7 +109,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/average_sans"
             android:gravity="start"
             android:text="@string/contact_me"
             android:textColor="@android:color/black"
@@ -128,7 +123,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/average_sans"
             android:gravity="start"
             android:text="@string/pouya_heydari"
             android:textSize="16sp"

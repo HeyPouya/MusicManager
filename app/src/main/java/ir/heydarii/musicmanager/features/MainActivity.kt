@@ -1,12 +1,12 @@
 package ir.heydarii.musicmanager.features
 
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
-import ir.heydarii.musicmanager.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * The main activity that shows 3 main fragments
@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.activity_main.*
  * 2. SearchArtist
  * 3. About
  */
-class MainActivity : BaseActivity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
     /**
      * finding the navController
@@ -23,12 +24,9 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val nabController = Navigation.findNavController(this, R.id.container)
-
-        setUpBottomNav(nabController)
-    }
-
-    private fun setUpBottomNav(navController: NavController) {
-        bottomNav.setupWithNavController(navController)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.mainNavContainer) as NavHostFragment
+        val navController = navHostFragment.navController
+        findViewById<BottomNavigationView>(R.id.bottomNav).setupWithNavController(navController)
     }
 }

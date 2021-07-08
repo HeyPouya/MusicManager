@@ -3,6 +3,7 @@ package ir.heydarii.musicmanager.features.topalbums
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.Album
@@ -13,6 +14,7 @@ import javax.inject.Inject
 /**
  * ViewModel for TopAlbums of an Artist view
  */
+@HiltViewModel
 class TopAlbumsViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
 
     private val topAlbumsData = MutableLiveData<List<Album>>()
