@@ -4,7 +4,7 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="top">Top</string>
-    <string name="about">about</string>
+    <string name="about">About</string>
     <string name="copy_right">Developed By Pouya Heydari</string>
     <string name="technologies_description">RxJava\nMVVM\nArchitecture components\n(LiveData,ViewModel,Room)\nDagger2\nRetrofit\nNavigation Component\nSingle Activity\nSafe Args</string>
     <string name="tracks">Tracks</string>
@@ -27,4 +27,5 @@
     <string name="linkedin">linkedin</string>
     <string name="website">website</string>
     <string name="app_description">This sample app tries to demonstrate how to implement latest technologies in Android Applications.  for more information kindly visit the github page.</string>
+    <string name="saved">Saved</string>
 </resources>

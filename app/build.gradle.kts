@@ -95,7 +95,3 @@ dependencies {
     implementation("com.google.dagger:hilt-android:${rootProject.extra["hilt_version"]}")
     kapt("com.google.dagger:hilt-android-compiler:${rootProject.extra["hilt_version"]}")
 }
-
-kapt {
-    correctErrorTypes = true
-}
