@@ -37,10 +37,6 @@ android {
     buildFeatures {
         dataBinding = true
     }
-    compileOptions {
-        targetCompatibility = JavaVersion.VERSION_1_8
-        sourceCompatibility = JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
@@ -60,13 +56,11 @@ dependencies {
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:${rootProject.extra["retrofit_version"]}")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:${rootProject.extra["retrofit_version"]}")
     implementation("com.squareup.retrofit2:converter-moshi:${rootProject.extra["retrofit_version"]}")
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
 
-    // Rx
-    implementation("io.reactivex.rxjava2:rxjava:${rootProject.extra["rxjava_Version"]}")
-    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
 
     // Moshi
     implementation("com.squareup.moshi:moshi:${rootProject.extra["moshi_version"]}")
@@ -82,7 +76,7 @@ dependencies {
     // Room
     implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
     kapt("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
-    implementation("androidx.room:room-rxjava2:${rootProject.extra["room_version"]}")
+    implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
 
     // Navigation component
     implementation("androidx.navigation:navigation-fragment-ktx:${rootProject.extra["nav_version"]}")

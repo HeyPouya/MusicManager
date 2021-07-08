@@ -1,8 +1,6 @@
 package ir.heydarii.musicmanager.repository.dbinteractor
 
 import androidx.room.*
-import io.reactivex.Completable
-import io.reactivex.Single
 import ir.heydarii.musicmanager.pojos.AlbumEntity
 import ir.heydarii.musicmanager.pojos.AlbumTracks
 import ir.heydarii.musicmanager.pojos.TrackEntity
@@ -14,22 +12,22 @@ import ir.heydarii.musicmanager.pojos.TrackEntity
 interface AlbumsDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveAlbum(albumEntity: AlbumEntity): Completable
+    suspend fun saveAlbum(albumEntity: AlbumEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveTracks(vararg tracks: TrackEntity): Completable
+    suspend fun saveTracks(vararg tracks: TrackEntity)
 
     @Transaction
     @Query("SELECT * FROM albums")
-    fun getAllAlbums(): Single<List<AlbumTracks>>
+    suspend fun getAllAlbums(): List<AlbumTracks>
 
     @Transaction
     @Query("SELECT * FROM albums WHERE artistName = :artistName and albumName = :albumName LIMIT 1")
-    fun getSpecificAlbum(artistName: String, albumName: String): Single<AlbumTracks>
+    suspend fun getSpecificAlbum(artistName: String, albumName: String): AlbumTracks
 
     @Query("SELECT COUNT(*)>0 from albums WHERE artistName =:artistName and albumName =:albumName")
-    fun doesAlbumExists(artistName: String, albumName: String): Single<Boolean>
+    suspend fun doesAlbumExists(artistName: String, albumName: String): Boolean
 
     @Query("DELETE from albums where artistName = :artistName and albumName =:albumName")
-    fun removeAlbum(artistName: String, albumName: String): Completable
+    suspend fun removeAlbum(artistName: String, albumName: String)
 }

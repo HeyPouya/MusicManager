@@ -2,12 +2,13 @@ package ir.heydarii.musicmanager.features.albumdetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.AlbumTracks
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -17,7 +18,6 @@ import javax.inject.Inject
 class AlbumDetailsViewModel @Inject constructor(private val dataRepository: DataRepository) :
     BaseViewModel() {
 
-    private val composite = CompositeDisposable()
     private val albumDetailsResponse = MutableLiveData<AlbumTracks>()
     private var albumData: AlbumTracks? = null
     private val doesAlbumExistsInDb = MutableLiveData<Boolean>()
@@ -32,37 +32,39 @@ class AlbumDetailsViewModel @Inject constructor(private val dataRepository: Data
 
         checkAlbumExistenceInDb(artistName, albumName)
 
-        composite.add(
-            dataRepository.getAlbumDetails(artistName, albumName, apiKey, offline)
-                .subscribe({
+        viewModelScope.launch {
+            val album = dataRepository.getAlbumDetails(artistName, albumName, offline)
 
-                    if (it.tracks.isEmpty())
-                        viewNotifier.value = ViewNotifierEnums.EMPTY_STATE
-                    else
-                        viewNotifier.value = ViewNotifierEnums.NOT_EMPTY
+            if (album.tracks.isEmpty())
+                viewNotifier.value = ViewNotifierEnums.EMPTY_STATE
+            else
+                viewNotifier.value = ViewNotifierEnums.NOT_EMPTY
 
-                    albumDetailsResponse.value = it
-                    albumData = it
-                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                }, {
-                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
-                })
-        )
+            albumDetailsResponse.postValue(album)
+            albumData = album
+            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+
+        }
     }
+
+//                {
+//                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+//                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
+//                })
+
 
     private fun saveAlbum(imagePath: String) {
         if (albumData != null) {
             albumData?.album?.image = imagePath
-            composite.add(
+            viewModelScope.launch {
                 dataRepository.saveAlbum(albumData!!)
-                    .subscribe({
-                        viewNotifier.value = ViewNotifierEnums.SAVED_INTO_DB
-                        isAlbumSaved = true
-                    }, {
-                        viewNotifier.value = ViewNotifierEnums.ERROR_SAVING_DATA
-                    })
-            )
+                viewNotifier.value = ViewNotifierEnums.SAVED_INTO_DB
+                isAlbumSaved = true
+            }
+
+//                {
+//                    viewNotifier.value = ViewNotifierEnums.ERROR_SAVING_DATA
+//                })
         } else
             viewNotifier.value = ViewNotifierEnums.ERROR_DATA_NOT_AVAILABLE
     }
@@ -79,15 +81,18 @@ class AlbumDetailsViewModel @Inject constructor(private val dataRepository: Data
 
     private fun removeAlbum() {
         if (albumData != null)
-            composite.add(
-                dataRepository.removeAlbum(albumData!!.album.artistName, albumData!!.album.albumName)
-                    .subscribe({
-                        viewNotifier.value = ViewNotifierEnums.REMOVED_FROM_DB
-                        isAlbumSaved = false
-                    }, {
-                        viewNotifier.value = ViewNotifierEnums.ERROR_REMOVING_DATA
-                    })
-            )
+            viewModelScope.launch {
+                dataRepository.removeAlbum(
+                    albumData!!.album.artistName,
+                    albumData!!.album.albumName
+                )
+                viewNotifier.value = ViewNotifierEnums.REMOVED_FROM_DB
+                isAlbumSaved = false
+
+            }
+//                 {
+//                    viewNotifier.value = ViewNotifierEnums.ERROR_REMOVING_DATA
+//                })
         else
             viewNotifier.value = ViewNotifierEnums.ERROR_DATA_NOT_AVAILABLE
     }
@@ -98,26 +103,18 @@ class AlbumDetailsViewModel @Inject constructor(private val dataRepository: Data
     fun getAlbumsResponse(): LiveData<AlbumTracks> = albumDetailsResponse
 
     private fun checkAlbumExistenceInDb(artistName: String, albumName: String) {
-        composite.add(
-            dataRepository.doesAlbumExists(artistName, albumName)
-                .subscribe({
-                    doesAlbumExistsInDb.value = it
-                    isAlbumSaved = it
-                }, {
-                    checkAlbumExistenceInDb(artistName, albumName)
-                })
-        )
+        viewModelScope.launch {
+            val response = dataRepository.doesAlbumExists(artistName, albumName)
+            doesAlbumExistsInDb.postValue(response)
+            isAlbumSaved = response
+
+        }
+//                {
+//                checkAlbumExistenceInDb(artistName, albumName)
+//            })
     }
 
     fun getAlbumExistenceResponse(): LiveData<Boolean> {
         return doesAlbumExistsInDb
-    }
-
-    /**
-     * Clearing the RX disposables
-     */
-    override fun onCleared() {
-        composite.dispose()
-        super.onCleared()
     }
 }

@@ -1,4 +1,4 @@
-package ir.heydarii.musicmanager.utils
+package ir.heydarii.musicmanager.base
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

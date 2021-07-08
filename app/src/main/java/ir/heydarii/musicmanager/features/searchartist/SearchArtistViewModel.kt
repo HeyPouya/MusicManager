@@ -2,12 +2,13 @@ package ir.heydarii.musicmanager.features.searchartist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.Artist
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -17,7 +18,6 @@ import javax.inject.Inject
 class SearchArtistViewModel @Inject constructor(private val dataRepository: DataRepository) :
     BaseViewModel() {
 
-    private val composite = CompositeDisposable()
     private val artistResponse = MutableLiveData<List<Artist>>()
     private var page = 1
     private var shouldLoadMore = true
@@ -39,24 +39,24 @@ class SearchArtistViewModel @Inject constructor(private val dataRepository: Data
 
         viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 
-        composite.add(
-            dataRepository.getArtistName(this.artistName, page, apiKey)
-                .subscribe({
-                    isLoading = false
+        viewModelScope.launch {
+            val artists = dataRepository.findArtist(artistName, page)
+            isLoading = false
 
-                    if (it.results.artistmatches.artist.isEmpty())
-                        shouldLoadMore = false
+            if (artists.results.artistmatches.artist.isEmpty())
+                shouldLoadMore = false
 
-                    list.addAll(it.results.artistmatches.artist)
-                    artistResponse.value = list
-                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                }, {
+            list.addAll(artists.results.artistmatches.artist)
+            artistResponse.value = list
+            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
 
-                    isLoading = false
-                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
-                })
-        )
+        }
+//                    {
+//
+//                    isLoading = false
+//                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
+//                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
+//                })
     }
 
     private fun prepareDataToSearch(isLoadMore: Boolean) {
@@ -74,12 +74,4 @@ class SearchArtistViewModel @Inject constructor(private val dataRepository: Data
      * provides immutable live data to be observed by the view
      */
     fun getArtistResponse(): LiveData<List<Artist>> = artistResponse
-
-    /**
-     * Disposing all disposables after the ViewModel dies
-     */
-    override fun onCleared() {
-        composite.dispose()
-        super.onCleared()
-    }
 }

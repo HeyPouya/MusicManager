@@ -3,6 +3,7 @@ package ir.heydarii.musicmanager.features.searchartist.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
@@ -57,3 +58,16 @@ class SearchArtistAdapter(
         }
     }
 }
+
+/**
+ * DiffUtils for Artists
+ */
+class SearchArtistDiffCallback : DiffUtil.ItemCallback<Artist>() {
+
+    override fun areItemsTheSame(oldItem: Artist, newItem: Artist) =
+        oldItem.name == newItem.name && oldItem.url == newItem.url
+
+    override fun areContentsTheSame(oldItem: Artist, newItem: Artist) =
+        oldItem.name == newItem.name && oldItem.url == newItem.url
+}
+
