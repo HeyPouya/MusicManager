@@ -4,24 +4,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
-import java.io.File
+import ir.heydarii.musicmanager.utils.extensions.loadFile
 import kotlinx.android.synthetic.main.search_layout_item.view.*
+import java.io.File
 
 /**
  * Adapter for recycler view to show saved albums
  */
-class SavedAlbumsAdapter(private var list: List<AlbumDatabaseEntity>, private var clickListener: (String, String) -> Unit) :
-        RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
+class SavedAlbumsAdapter(
+    private var list: List<AlbumDatabaseEntity>,
+    private var clickListener: (String, String) -> Unit
+) :
+    RecyclerView.Adapter<SavedAlbumsAdapter.SearchArtistViewHolder>() {
 
     /**
      * Inflates views for items in recycler view
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.saved_layout_item, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.saved_layout_item, parent, false)
         return SearchArtistViewHolder(view, clickListener)
     }
 
@@ -40,8 +44,11 @@ class SavedAlbumsAdapter(private var list: List<AlbumDatabaseEntity>, private va
     /**
      * ViewHolder for saved items
      */
-    class SearchArtistViewHolder(private val view: View, var clickListener: (String, String) -> Unit) :
-            RecyclerView.ViewHolder(view) {
+    class SearchArtistViewHolder(
+        private val view: View,
+        var clickListener: (String, String) -> Unit
+    ) :
+        RecyclerView.ViewHolder(view) {
 
         /**
          * Sets texts and click listeners for items
@@ -53,7 +60,7 @@ class SavedAlbumsAdapter(private var list: List<AlbumDatabaseEntity>, private va
             if (!album.image.isNullOrEmpty()) {
                 val file = File(album.image)
                 if (file.exists())
-                    Picasso.get().load(file).placeholder(R.drawable.ic_album_placeholder).into(view.imgArtist)
+                    view.imgArtist.loadFile(file, R.drawable.ic_album_placeholder)
             }
 
             view.setOnClickListener {

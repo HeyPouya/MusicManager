@@ -5,23 +5,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.Album
+import ir.heydarii.musicmanager.utils.extensions.loadUrl
 import kotlinx.android.synthetic.main.search_layout_item.view.*
 
 /**
  * Adapter for TopAlbums of an Artist view
  */
-class TopAlbumsAdapter(topAlbumsDiffUtils: TopAlbumsDiffUtils, private val clickListener: (String, String) -> Unit) :
-        ListAdapter<Album, TopAlbumsAdapter.SearchArtistViewHolder>(topAlbumsDiffUtils) {
+class TopAlbumsAdapter(
+    topAlbumsDiffUtils: TopAlbumsDiffUtils,
+    private val clickListener: (String, String) -> Unit
+) :
+    ListAdapter<Album, TopAlbumsAdapter.SearchArtistViewHolder>(topAlbumsDiffUtils) {
 
     /**
      * Inflates layout for the recycler view
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.search_layout_item, parent, false)
         return SearchArtistViewHolder(view, clickListener)
     }
 
@@ -35,8 +39,11 @@ class TopAlbumsAdapter(topAlbumsDiffUtils: TopAlbumsDiffUtils, private val click
     /**
      * ViewHolder for recycler view
      */
-    class SearchArtistViewHolder(private val view: View, val clickListener: (String, String) -> Unit) :
-            RecyclerView.ViewHolder(view) {
+    class SearchArtistViewHolder(
+        private val view: View,
+        val clickListener: (String, String) -> Unit
+    ) :
+        RecyclerView.ViewHolder(view) {
 
         /**
          * sets texts and click listener for items
@@ -46,7 +53,7 @@ class TopAlbumsAdapter(topAlbumsDiffUtils: TopAlbumsDiffUtils, private val click
 
             // Last image has always the best quality
             if (album.image.last().text.isNotEmpty())
-                Picasso.get().load(album.image.last().text).placeholder(R.drawable.ic_album_placeholder).into(view.imgArtist)
+                view.imgArtist.loadUrl(album.image.last().text, R.drawable.ic_album_placeholder)
 
             view.setOnClickListener {
                 clickListener(album.artist.name, album.name)

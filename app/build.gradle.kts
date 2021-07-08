@@ -73,8 +73,9 @@ dependencies {
     //LiveData and ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.extra["lifecycle_version"]}")
 
-    //Picasso
-    implementation("com.squareup.picasso:picasso:2.71828")
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
 
     //lottie
     implementation("com.airbnb.android:lottie:3.4.1")

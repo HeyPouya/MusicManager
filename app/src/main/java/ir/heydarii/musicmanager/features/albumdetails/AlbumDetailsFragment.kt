@@ -9,7 +9,6 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
@@ -17,6 +16,8 @@ import ir.heydarii.musicmanager.pojos.AlbumDatabaseEntity
 import ir.heydarii.musicmanager.utils.Constants
 import ir.heydarii.musicmanager.utils.ImageStorageManager
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import ir.heydarii.musicmanager.utils.extensions.loadFile
+import ir.heydarii.musicmanager.utils.extensions.loadUrl
 import kotlinx.android.synthetic.main.album_details_main_layout.*
 import kotlinx.android.synthetic.main.fragment_album_details.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
@@ -146,12 +147,10 @@ class AlbumDetailsFragment : BaseFragment() {
     private fun setImagesTexts(album: AlbumDatabaseEntity) {
         if (album.image.isNotEmpty())
             if (album.image.startsWith("http"))
-                Picasso.get().load(album.image).placeholder(R.drawable.ic_album_placeholder).into(
-                    imgAlbum
-                )
+                imgAlbum.loadUrl(album.image, R.drawable.ic_album_placeholder)
             else {
                 val file = File(album.image)
-                Picasso.get().load(file).placeholder(R.drawable.ic_album_placeholder).into(imgAlbum)
+                imgAlbum.loadFile(file, R.drawable.ic_album_placeholder)
             }
         txtAlbumName.text = album.albumName
         txtArtistName.text = album.artistName

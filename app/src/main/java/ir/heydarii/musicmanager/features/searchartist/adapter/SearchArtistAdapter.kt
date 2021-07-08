@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.pojos.Artist
+import ir.heydarii.musicmanager.utils.extensions.loadUrl
 import kotlinx.android.synthetic.main.search_layout_item.view.*
 
 /**
@@ -49,9 +49,7 @@ class SearchArtistAdapter(
 
             // Last image has always the best quality
             if (artist.image.last().text.isNotEmpty())
-                Picasso.get().load(artist.image.last().text).placeholder(R.drawable.ic_album_placeholder).into(
-                    view.imgArtist
-                )
+                view.imgArtist.loadUrl(artist.image.last().text, R.drawable.ic_album_placeholder)
 
             view.setOnClickListener {
                 clickListener(artist.name)
