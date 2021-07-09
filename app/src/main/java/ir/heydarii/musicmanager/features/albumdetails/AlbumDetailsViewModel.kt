@@ -26,7 +26,7 @@ class AlbumDetailsViewModel @Inject constructor(private val dataRepository: Data
     /**
      * Gets the album data
      */
-    fun getAlbum(artistName: String, albumName: String, apiKey: String, offline: Boolean) {
+    fun getAlbum(artistName: String, albumName: String, offline: Boolean) {
 
         viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
 

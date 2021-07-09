@@ -9,11 +9,12 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class ArtistResponseModel(
-    val results: Results
+    @Json(name = "results")
+    val artistResults: ArtistResults
 )
 
 @JsonClass(generateAdapter = true)
-data class Results(
+data class ArtistResults(
     val artistmatches: Artistmatches,
     @Json(name = "opensearch:Query")
     val Query: OpensearchQuery,

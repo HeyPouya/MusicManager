@@ -10,6 +10,7 @@ buildscript {
     val hilt_version by extra("2.37")
     val glide_version by extra("4.12.0")
     val moshi_version by extra("1.12.0")
+    val paging_version by extra("3.0.0")
 
     repositories {
         google()

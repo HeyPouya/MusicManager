@@ -25,6 +25,11 @@ class TopAlbumsViewModel @Inject constructor(private val dataRepository: DataRep
     private var artist = ""
 
     /**
+     * Serving LiveData instead of MutableLiveData for activity
+     */
+    fun getTopAlbumsLiveData(): LiveData<List<Album>> = topAlbumsData
+
+    /**
      * Fetches the top albums of a selected artist
      */
     fun onTopAlbumsRequested(artistName: String = artist, apiKey: String) {
@@ -52,10 +57,4 @@ class TopAlbumsViewModel @Inject constructor(private val dataRepository: DataRep
 //                    })
         }
     }
-
-    /**
-     * Serving LiveData instead of MutableLiveData for activity
-     */
-    fun getTopAlbumsLiveData(): LiveData<List<Album>> = topAlbumsData
-
 }

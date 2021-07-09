@@ -2,22 +2,23 @@ package ir.heydarii.musicmanager.features.searchartist
 
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.Toast
+import android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
+import androidx.paging.LoadState.*
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.databinding.FragmentSearchArtistBinding
-import ir.heydarii.musicmanager.pojos.Artist
-import ir.heydarii.musicmanager.utils.Constants
-import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import ir.heydarii.musicmanager.utils.extensions.hideKeyboard
+import ir.heydarii.musicmanager.utils.extensions.onEditorImeAction
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
+private const val LAST_SEARCH_QUERY = "LAST_SEARCH_QUERY"
 
 /**
  * User can search an Artist in this view
@@ -26,8 +27,10 @@ import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 class SearchArtistFragment : BaseFragment<FragmentSearchArtistBinding, SearchArtistViewModel>() {
 
     override var layout = R.layout.fragment_search_artist
-    private lateinit var adapter: SearchArtistAdapter
-
+    private var searchJob: Job? = null
+    private val adapter: SearchArtistAdapter by lazy {
+        SearchArtistAdapter { artistName -> navigateToTopAlbums(artistName) }
+    }
 
     /**
      * all codes are here
@@ -36,103 +39,74 @@ class SearchArtistFragment : BaseFragment<FragmentSearchArtistBinding, SearchArt
         setVM(viewModels())
         super.onViewCreated(view, savedInstanceState)
 
-        init() // add setOnClickListener and observe observables
-        setUpRecyclerView()
-        showEmptyState()
+        setProgressBar(binding.progress)
+
+        initSearch()
+        observeUIStatus()
+        val query = savedInstanceState?.getString(LAST_SEARCH_QUERY)
+        if (query != null)
+            requestArtists(query)
     }
 
-    private fun setUpRecyclerView() {
-
-        adapter = SearchArtistAdapter(SearchArtistDiffCallback()) { artistName ->
-            startTopAlbumsView(artistName)
-        }
-
+    private fun initSearch() {
         binding.recycler.adapter = adapter
-        val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.recycler.layoutManager = layoutManager
-
-        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val lastItem = layoutManager.findLastVisibleItemPosition()
-                val total = layoutManager.itemCount
-                if (total > 0 && total - 1 == lastItem)
-                    viewModel.onUserSearchedArtist(
-                        binding.edtSearch.text.toString(),
-                        Constants.API_KEY,
-                        true
-                    )
-            }
-        })
+        binding.edtSearch.onEditorImeAction(IME_ACTION_SEARCH) { searchArtist() }
+        binding.btnSearch.setOnClickListener { searchArtist() }
     }
 
-    private fun init() {
+    private fun observeUIStatus() {
+        adapter.addLoadStateListener { loadState ->
+            // show empty list
+            val isListEmpty = loadState.refresh is NotLoading && adapter.itemCount == 0
+            showEmptyList(isListEmpty)
 
-        // enables user to search some data view the keyboard's search button
-        binding.edtSearch.setOnEditorActionListener { _, actionId, _ ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_SEARCH -> searchArtist()
+            // Show loading
+            val isLoading = loadState.source.refresh is Loading ||
+                    loadState.source.append is Loading ||
+                    loadState.source.prepend is Loading
+            isLoading(isLoading)
+
+            // Show error
+            val errorState = loadState.source.append as? Error
+                ?: loadState.source.prepend as? Error
+                ?: loadState.append as? Error
+                ?: loadState.prepend as? Error
+            errorState?.let {
+                it.error.printStackTrace()
+                showError(getString(R.string.please_try_again))
             }
-            false
         }
-
-        binding.btnSearch.setOnClickListener {
-            searchArtist()
-        }
-
-        // subscribes to viewModel to get artist response
-        viewModel.getArtistResponse().observe(viewLifecycleOwner, Observer {
-            showRecycler(it.toMutableList())
-        })
-
-        // subscribes to react to loading and errors
-        viewModel.getViewNotifier().observe(viewLifecycleOwner, Observer {
-            when (it) {
-                ViewNotifierEnums.SHOW_LOADING -> binding.progress.visibility = View.VISIBLE
-                ViewNotifierEnums.HIDE_LOADING -> binding.progress.visibility = View.INVISIBLE
-                ViewNotifierEnums.ERROR_GETTING_DATA -> showTryAgain()
-                else -> throw IllegalStateException(getString(R.string.a_notifier_is_not_defined_in_the_when_block))
-            }
-        })
     }
 
-    private fun showTryAgain() {
-        if (view != null)
-            Snackbar.make(
-                requireView(),
-                getString(R.string.please_try_again),
-                Snackbar.LENGTH_LONG
-            ).setAction(getString(R.string.please_try_again)) { searchArtist() }.show()
+    private fun showEmptyList(isEmpty: Boolean) {
+        binding.empty.isVisible = isEmpty
+        binding.recycler.isVisible = !isEmpty
     }
 
     private fun searchArtist() {
-        if (binding.edtSearch.text.toString().isNotEmpty())
-            viewModel.onUserSearchedArtist(binding.edtSearch.text.toString(), Constants.API_KEY, false)
-        else
-            Toast.makeText(
-                context,
-                getString(R.string.please_enter_artist_name),
-                Toast.LENGTH_LONG
-            ).show()
+        if (binding.edtSearch.text.toString().isNotEmpty()) {
+            binding.root.hideKeyboard()
+            requestArtists(binding.edtSearch.text.toString())
+        } else
+            showError(getString(R.string.please_enter_artist_name))
     }
 
-    private fun showRecycler(artistResponse: List<Artist>) {
-        hideEmptyState()
-        adapter.submitList(artistResponse)
+    private fun requestArtists(artistName: String) {
+        searchJob?.cancel()
+        searchJob = lifecycleScope.launch {
+            viewModel.onUserSearchedArtist(artistName).collectLatest {
+                adapter.submitData(it)
+            }
+        }
     }
 
-    private fun startTopAlbumsView(artistName: String) {
-        val showTopAlbumsAction = SearchArtistFragmentDirections.showTopAlbumsAction(artistName)
-       findNavController().navigate(showTopAlbumsAction)
+    private fun navigateToTopAlbums(artistName: String) {
+        findNavController().navigate(SearchArtistFragmentDirections.showTopAlbumsAction(artistName))
     }
 
-    private fun hideEmptyState() {
-        binding.empty.visibility = View.GONE
-        binding.recycler.visibility = View.VISIBLE
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(LAST_SEARCH_QUERY, binding.edtSearch.text.trim().toString())
     }
 
-    private fun showEmptyState() {
-        binding.empty.visibility = View.VISIBLE
-        binding.recycler.visibility = View.GONE
-    }
 }

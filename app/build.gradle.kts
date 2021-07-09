@@ -81,12 +81,17 @@ dependencies {
     implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
 
     // Navigation component
+    implementation("androidx.navigation:navigation-runtime-ktx:${rootProject.extra["nav_version"]}")
     implementation("androidx.navigation:navigation-fragment-ktx:${rootProject.extra["nav_version"]}")
     implementation("androidx.navigation:navigation-ui-ktx:${rootProject.extra["nav_version"]}")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:${rootProject.extra["hilt_version"]}")
     kapt("com.google.dagger:hilt-android-compiler:${rootProject.extra["hilt_version"]}")
+
+    // Paging3
+    implementation("androidx.paging:paging-runtime:${rootProject.extra["paging_version"]}")
+
 }
 
 kapt {

@@ -131,7 +131,6 @@ class AlbumDetailsFragment : BaseFragment<FragmentAlbumDetailsBinding, AlbumDeta
         viewModel.getAlbum(
             receivedData.artistName,
             receivedData.albumName,
-            Constants.API_KEY,
             receivedData.isOffline
         )
     }

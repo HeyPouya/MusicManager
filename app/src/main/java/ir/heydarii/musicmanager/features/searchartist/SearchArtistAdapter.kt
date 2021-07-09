@@ -3,8 +3,8 @@ package ir.heydarii.musicmanager.features.searchartist
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.databinding.SearchLayoutItemBinding
@@ -14,10 +14,8 @@ import ir.heydarii.musicmanager.utils.extensions.loadUrl
 /**
  * shows artist in search artist view
  */
-class SearchArtistAdapter(
-    searchArtistDiffCallback: SearchArtistDiffCallback,
-    private val clickListener: (String) -> Unit
-) : ListAdapter<Artist, SearchArtistAdapter.SearchArtistViewHolder>(searchArtistDiffCallback) {
+class SearchArtistAdapter(private val clickListener: (String) -> Unit) :
+    PagingDataAdapter<Artist, SearchArtistAdapter.SearchArtistViewHolder>(SearchArtistDiffCallback()) {
 
     /**
      * inflates the layout for the recyclerView
@@ -36,7 +34,7 @@ class SearchArtistAdapter(
      * sends object to bind method in ViewHolder
      */
     override fun onBindViewHolder(holder: SearchArtistViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let { holder.bind(it) }
     }
 
     /**

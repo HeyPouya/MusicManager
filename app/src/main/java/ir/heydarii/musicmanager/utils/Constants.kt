@@ -13,5 +13,7 @@ class Constants {
         const val GITHUB_URL = "https://github.com/SirLordPouya/MusicManager"
         const val PERSONAL_WEBSITE_URL = "https://pouyaheydari.com"
         const val LINKED_IN_URL = "https://linkedin.com/in/pouyaheydari/"
+        const val NETWORK_PAGE_SIZE = 30
+
     }
 }

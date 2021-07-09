@@ -56,9 +56,7 @@ class TopAlbumsAdapter(
             if (album.image.last().text.isNotEmpty())
                 imgArtist.loadUrl(album.image.last().text, R.drawable.ic_album_placeholder)
 
-            root.setOnClickListener {
-                clickListener(album.artist.name, album.name)
-            }
+            root.setOnClickListener { clickListener(album.artist.name, album.name) }
         }
     }
 }
