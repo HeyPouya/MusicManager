@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_saved_albums">
         <action
             android:id="@+id/show_album_details_actions"
-            app:destination="@id/albumDetailsActivity" />
+            app:destination="@id/albumDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchArtistFragment"
@@ -26,10 +26,10 @@
         tools:layout="@layout/fragment_search_artist">
         <action
             android:id="@+id/show_top_albums_action"
-            app:destination="@+id/topAlbumsActivity" />
+            app:destination="@+id/topAlbumsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/topAlbumsActivity"
+        android:id="@+id/topAlbumsFragment"
         android:name="ir.heydarii.musicmanager.features.topalbums.TopAlbumsFragment"
         android:label="TopAlbumsActivity"
         tools:layout="@layout/fragment_top_albums">
@@ -39,10 +39,10 @@
             app:nullable="true" />
         <action
             android:id="@+id/show_album_details_actions"
-            app:destination="@id/albumDetailsActivity" />
+            app:destination="@id/albumDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/albumDetailsActivity"
+        android:id="@+id/albumDetailsFragment"
         android:name="ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsFragment"
         android:label="activity_album_details"
         tools:layout="@layout/fragment_album_details">
