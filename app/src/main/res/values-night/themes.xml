@@ -10,10 +10,6 @@
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
     </style>
 
-    <style name="Theme.MusicManager.CardView">
-        <item name="cardBackgroundColor">?attr/colorPrimary</item>
-    </style>
-
     <style name="Theme.MusicManager.Text">
         <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>

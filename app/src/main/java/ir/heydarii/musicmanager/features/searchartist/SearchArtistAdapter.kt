@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.databinding.SearchLayoutItemBinding
-import ir.heydarii.musicmanager.pojos.Artist
-import ir.heydarii.musicmanager.utils.extensions.loadUrl
+import ir.heydarii.musicmanager.pojos.searchartist.Artist
+import ir.heydarii.musicmanager.utils.extensions.load
 
 /**
  * shows artist in search artist view
@@ -39,11 +39,7 @@ class SearchArtistAdapter(private val clickListener: (String) -> Unit) :
          */
         fun bind(artist: Artist) = with(binding) {
             txtName.text = artist.name
-
-            // Last image has always the best quality
-            if (artist.image.last().text.isNotEmpty())
-                imgArtist.loadUrl(artist.image.last().text, R.drawable.ic_album_placeholder)
-
+            imgArtist.load(artist.image.last().text, R.drawable.ic_album_placeholder)
             root.setOnClickListener {
                 clickListener(artist.name)
             }

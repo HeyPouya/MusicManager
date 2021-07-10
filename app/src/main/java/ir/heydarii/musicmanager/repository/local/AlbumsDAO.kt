@@ -1,9 +1,9 @@
 package ir.heydarii.musicmanager.repository.local
 
 import androidx.room.*
-import ir.heydarii.musicmanager.pojos.AlbumEntity
-import ir.heydarii.musicmanager.pojos.AlbumTracks
-import ir.heydarii.musicmanager.pojos.TrackEntity
+import ir.heydarii.musicmanager.pojos.savedalbums.AlbumEntity
+import ir.heydarii.musicmanager.pojos.savedalbums.AlbumTracks
+import ir.heydarii.musicmanager.pojos.savedalbums.TrackEntity
 
 /**
  * All Room queries are in this class
@@ -17,9 +17,8 @@ interface AlbumsDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveTracks(vararg tracks: TrackEntity)
 
-    @Transaction
     @Query("SELECT * FROM albums")
-    suspend fun getAllAlbums(): List<AlbumTracks>
+    suspend fun getAllAlbums(): List<AlbumEntity>
 
     @Transaction
     @Query("SELECT * FROM albums WHERE artistName = :artistName and albumName = :albumName LIMIT 1")

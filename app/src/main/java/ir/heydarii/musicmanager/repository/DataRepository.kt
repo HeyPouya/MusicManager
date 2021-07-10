@@ -5,7 +5,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import ir.heydarii.musicmanager.features.searchartist.SearchArtistPagingSource
 import ir.heydarii.musicmanager.features.topalbums.TopAlbumsPagingSource
-import ir.heydarii.musicmanager.pojos.*
+import ir.heydarii.musicmanager.pojos.savedalbums.AlbumEntity
+import ir.heydarii.musicmanager.pojos.savedalbums.AlbumTracks
+import ir.heydarii.musicmanager.pojos.savedalbums.TrackEntity
+import ir.heydarii.musicmanager.pojos.searchartist.Artist
+import ir.heydarii.musicmanager.pojos.topalbums.Album
 import ir.heydarii.musicmanager.repository.local.AlbumsDAO
 import ir.heydarii.musicmanager.repository.network.RetrofitMainInterface
 import ir.heydarii.musicmanager.utils.Constants.Companion.NETWORK_PAGE_SIZE

@@ -1,4 +1,4 @@
-package ir.heydarii.musicmanager.pojos
+package ir.heydarii.musicmanager.pojos.searchartist
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,14 +12,15 @@
             android:id="@+id/imgCover"
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_cover_image_height"
-            android:contentDescription="@string/cover"
             android:scaleType="centerCrop"
             android:src="@drawable/img_main_cover"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <ImageView
+            android:id="@+id/imgBackgroundCover"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/main_curved_image_margin_top"
@@ -28,27 +28,40 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/main_curved_image_margin_top"
             android:clipToPadding="false"
             android:minWidth="@dimen/saved_items_recycler_min_width"
-            android:paddingTop="32dp"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
             android:paddingBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_max="@dimen/saved_items_recycler_max_width" />
+            app:layout_constraintTop_toTopOf="@+id/imgBackgroundCover"
+            app:layout_constraintWidth_max="@dimen/saved_items_recycler_max_width"
+            app:spanCount="2" />
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imgBackgroundCover" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/empty"
             android:layout_width="0dp"
             android:layout_height="200dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

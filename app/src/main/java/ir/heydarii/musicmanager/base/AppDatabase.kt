@@ -2,8 +2,8 @@ package ir.heydarii.musicmanager.base
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ir.heydarii.musicmanager.pojos.AlbumEntity
-import ir.heydarii.musicmanager.pojos.TrackEntity
+import ir.heydarii.musicmanager.pojos.savedalbums.AlbumEntity
+import ir.heydarii.musicmanager.pojos.savedalbums.TrackEntity
 import ir.heydarii.musicmanager.repository.local.AlbumsDAO
 
 /**

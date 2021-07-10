@@ -1,4 +1,4 @@
-package ir.heydarii.musicmanager.pojos
+package ir.heydarii.musicmanager.pojos.savedalbums
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

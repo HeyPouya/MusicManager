@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.databinding.SearchLayoutItemBinding
-import ir.heydarii.musicmanager.pojos.Album
-import ir.heydarii.musicmanager.utils.extensions.loadUrl
+import ir.heydarii.musicmanager.pojos.topalbums.Album
+import ir.heydarii.musicmanager.utils.extensions.load
 
 /**
  * Adapter for TopAlbums of an Artist view
@@ -49,10 +49,7 @@ class TopAlbumsAdapter(private val clickListener: (String, String) -> Unit) :
          */
         fun bind(album: Album) = with(binding) {
             txtName.text = album.name
-
-            // Last image has always the best quality
-            if (album.image.last().text.isNotEmpty())
-                imgArtist.loadUrl(album.image.last().text, R.drawable.ic_album_placeholder)
+            imgArtist.load(album.image.last().text, R.drawable.ic_album_placeholder)
 
             root.setOnClickListener { clickListener(album.artist.name, album.name) }
         }

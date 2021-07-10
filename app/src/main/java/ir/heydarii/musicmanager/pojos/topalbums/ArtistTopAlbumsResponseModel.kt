@@ -1,7 +1,8 @@
-package ir.heydarii.musicmanager.pojos
+package ir.heydarii.musicmanager.pojos.topalbums
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import ir.heydarii.musicmanager.pojos.searchartist.Image
 
 /**
  * Response of artist's tops albums

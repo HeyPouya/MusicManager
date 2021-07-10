@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.databinding.TracksLayoutItemBinding
-import ir.heydarii.musicmanager.pojos.TrackEntity
+import ir.heydarii.musicmanager.pojos.savedalbums.TrackEntity
 
 /**
  * Adapter to show tracks of songs

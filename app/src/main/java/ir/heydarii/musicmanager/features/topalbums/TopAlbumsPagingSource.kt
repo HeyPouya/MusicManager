@@ -2,7 +2,7 @@ package ir.heydarii.musicmanager.features.topalbums
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import ir.heydarii.musicmanager.pojos.Album
+import ir.heydarii.musicmanager.pojos.topalbums.Album
 import ir.heydarii.musicmanager.repository.network.RetrofitMainInterface
 import ir.heydarii.musicmanager.utils.Constants.Companion.NETWORK_PAGE_SIZE
 import okio.IOException

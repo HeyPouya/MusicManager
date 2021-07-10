@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="main_cover_image_height">200dp</dimen>
-    <dimen name="main_curved_image_margin_top">180dp</dimen>
+    <dimen name="main_cover_image_height">150dp</dimen>
+    <dimen name="main_curved_image_margin_top">130dp</dimen>
     <dimen name="saved_items_recycler_max_width">310dp</dimen>
     <dimen name="saved_item_image_width">150dp</dimen>
     <dimen name="saved_items_recycler_min_width">100dp</dimen>

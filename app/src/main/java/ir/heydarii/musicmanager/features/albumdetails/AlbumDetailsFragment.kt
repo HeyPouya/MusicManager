@@ -12,14 +12,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.databinding.FragmentAlbumDetailsBinding
-import ir.heydarii.musicmanager.pojos.AlbumEntity
-import ir.heydarii.musicmanager.pojos.TrackEntity
-import ir.heydarii.musicmanager.utils.Constants
+import ir.heydarii.musicmanager.pojos.savedalbums.AlbumEntity
+import ir.heydarii.musicmanager.pojos.savedalbums.TrackEntity
 import ir.heydarii.musicmanager.utils.ImageStorageManager
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import ir.heydarii.musicmanager.utils.extensions.loadFile
-import ir.heydarii.musicmanager.utils.extensions.loadUrl
-import java.io.File
+import ir.heydarii.musicmanager.utils.extensions.load
 import javax.inject.Inject
 
 /**
@@ -110,15 +107,9 @@ class AlbumDetailsFragment : BaseFragment<FragmentAlbumDetailsBinding, AlbumDeta
     }
 
     private fun setImagesTexts(album: AlbumEntity) {
-        if (album.image.isNotEmpty())
-            if (album.image.startsWith("http"))
-                binding.imgAlbum.loadUrl(album.image, R.drawable.ic_album_placeholder)
-            else {
-                val file = File(album.image)
-                binding.imgAlbum.loadFile(file, R.drawable.ic_album_placeholder)
-            }
         binding.txtAlbumName.text = album.albumName
         binding.txtArtistName.text = album.artistName
+        binding.imgAlbum.load(album.image, R.drawable.ic_album_placeholder)
     }
 
     private fun showData() {

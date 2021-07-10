@@ -1,8 +1,8 @@
 package ir.heydarii.musicmanager.repository.network
 
-import ir.heydarii.musicmanager.pojos.AlbumDetailsResponseModel
-import ir.heydarii.musicmanager.pojos.ArtistResponseModel
-import ir.heydarii.musicmanager.pojos.ArtistTopAlbumsResponseModel
+import ir.heydarii.musicmanager.pojos.albumdetails.AlbumDetailsResponseModel
+import ir.heydarii.musicmanager.pojos.searchartist.ArtistResponseModel
+import ir.heydarii.musicmanager.pojos.topalbums.ArtistTopAlbumsResponseModel
 import ir.heydarii.musicmanager.utils.Constants.Companion.API_KEY
 import retrofit2.http.GET
 import retrofit2.http.Query
