@@ -10,8 +10,9 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.databinding.FragmentSavedAlbumsBinding
 import ir.heydarii.musicmanager.pojos.savedalbums.AlbumEntity
-import ir.heydarii.musicmanager.pojos.savedalbums.SavedAlbumsState.Loading
-import ir.heydarii.musicmanager.pojos.savedalbums.SavedAlbumsState.Success
+import ir.heydarii.musicmanager.pojos.savedalbums.SavedAlbumsViewState
+import ir.heydarii.musicmanager.pojos.savedalbums.SavedAlbumsViewState.Loading
+import ir.heydarii.musicmanager.pojos.savedalbums.SavedAlbumsViewState.Success
 
 /**
  * Shows albums that user has saved in the database
@@ -37,12 +38,13 @@ class SavedAlbumsFragment : BaseFragment<FragmentSavedAlbumsBinding, SavedAlbums
             when (it) {
                 is Loading -> isLoading(true)
                 is Success -> showAlbumsData(it.data)
+                is SavedAlbumsViewState.EmptyList -> emptyState(true)
             }
         }
     }
 
     private fun showAlbumsData(albums: List<AlbumEntity>) {
-        emptyState(albums.isEmpty())
+        emptyState(false)
         adapter.submitList(albums)
     }
 

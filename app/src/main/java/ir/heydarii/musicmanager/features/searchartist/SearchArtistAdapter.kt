@@ -53,9 +53,8 @@ class SearchArtistAdapter(private val clickListener: (String) -> Unit) :
 class SearchArtistDiffCallback : DiffUtil.ItemCallback<Artist>() {
 
     override fun areItemsTheSame(oldItem: Artist, newItem: Artist) =
-        oldItem.name == newItem.name && oldItem.url == newItem.url
-
+        oldItem.name == newItem.name && oldItem.image == newItem.image
     override fun areContentsTheSame(oldItem: Artist, newItem: Artist) =
-        oldItem.name == newItem.name && oldItem.url == newItem.url
+        oldItem.name == newItem.name && oldItem.image == newItem.image
 }
 

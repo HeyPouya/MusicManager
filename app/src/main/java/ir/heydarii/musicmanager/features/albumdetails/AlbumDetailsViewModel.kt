@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.heydarii.musicmanager.base.BaseViewModel
+import ir.heydarii.musicmanager.pojos.albumdetails.AlbumDetailsViewState
+import ir.heydarii.musicmanager.pojos.albumdetails.AlbumDetailsViewState.*
 import ir.heydarii.musicmanager.pojos.savedalbums.AlbumTracks
-import ir.heydarii.musicmanager.repository.DataRepository
-import ir.heydarii.musicmanager.utils.ViewNotifierEnums
+import ir.heydarii.musicmanager.repository.Repository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,106 +16,67 @@ import javax.inject.Inject
  * ViewModel for AlbumDetails view
  */
 @HiltViewModel
-class AlbumDetailsViewModel @Inject constructor(private val dataRepository: DataRepository) :
+class AlbumDetailsViewModel @Inject constructor(private val repository: Repository) :
     BaseViewModel() {
 
-    private val albumDetailsResponse = MutableLiveData<AlbumTracks>()
+    private val albumDetailsLiveData = MutableLiveData<AlbumDetailsViewState<AlbumTracks>>()
     private var albumData: AlbumTracks? = null
-    private val doesAlbumExistsInDb = MutableLiveData<Boolean>()
-    private var isAlbumSaved = false
 
     /**
-     * Gets the album data
+     * @return [LiveData] version of [albumDetailsLiveData]
      */
-    fun getAlbum(artistName: String, albumName: String, offline: Boolean) {
+    fun getAlbumsResponse(): LiveData<AlbumDetailsViewState<AlbumTracks>> = albumDetailsLiveData
 
-        viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
+    /**
+     * Fetches album data from repository
+     *
+     * @param artistName name of the artist
+     * @param albumName name of the album
+     * @param offline If user has navigated to this view via saved items view  or via search view
+     */
+    fun getAlbum(artistName: String, albumName: String, offline: Boolean) = viewModelScope.launch {
+        albumDetailsLiveData.postValue(Loading())
 
-        checkAlbumExistenceInDb(artistName, albumName)
+        //Check Bookmark
+        val isSaved = checkBookmarkStatus(artistName, albumName)
+        val bookMarkResponse: AlbumDetailsViewState<AlbumTracks> =
+            if (isSaved) Saved() else NotSaved()
+        albumDetailsLiveData.postValue(bookMarkResponse)
 
+        //Fetch data
+        val album = repository.getAlbumDetails(artistName, albumName, offline)
+        albumData = album
+        val response = if (album.tracks.isEmpty()) EmptyTrackList(album) else Success(album)
+        albumDetailsLiveData.postValue(response)
+    }
+
+    private fun saveAlbum() = albumData?.let {
         viewModelScope.launch {
-            val album = dataRepository.getAlbumDetails(artistName, albumName, offline)
-
-            if (album.tracks.isEmpty())
-                viewNotifier.value = ViewNotifierEnums.EMPTY_STATE
-            else
-                viewNotifier.value = ViewNotifierEnums.NOT_EMPTY
-
-            albumDetailsResponse.postValue(album)
-            albumData = album
-            viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-
+            repository.saveAlbum(it)
+            albumDetailsLiveData.postValue(Saved())
         }
     }
 
-//                {
-//                    viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-//                    viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
-//                })
-
-
-    private fun saveAlbum(imagePath: String) {
-        if (albumData != null) {
-            albumData?.album?.image = imagePath
-            viewModelScope.launch {
-                dataRepository.saveAlbum(albumData!!)
-                viewNotifier.value = ViewNotifierEnums.SAVED_INTO_DB
-                isAlbumSaved = true
-            }
-
-//                {
-//                    viewNotifier.value = ViewNotifierEnums.ERROR_SAVING_DATA
-//                })
-        } else
-            viewNotifier.value = ViewNotifierEnums.ERROR_DATA_NOT_AVAILABLE
-    }
-
     /**
-     * Decides to call remove or save function
+     * Adds or removes the album from database, based on the current state
      */
-    fun onClickedOnSaveButton(imagePath: String) {
-        when (isAlbumSaved) {
-            true -> removeAlbum()
-            false -> saveAlbum(imagePath)
+    fun bookMarkClicked() =
+        albumData?.let {
+            viewModelScope.launch {
+                when (checkBookmarkStatus(it.album.artistName, it.album.albumName)) {
+                    true -> removeAlbum()
+                    false -> saveAlbum()
+                }
+            }
         }
-    }
 
-    private fun removeAlbum() {
-        if (albumData != null)
-            viewModelScope.launch {
-                dataRepository.removeAlbum(
-                    albumData!!.album.artistName,
-                    albumData!!.album.albumName
-                )
-                viewNotifier.value = ViewNotifierEnums.REMOVED_FROM_DB
-                isAlbumSaved = false
-
-            }
-//                 {
-//                    viewNotifier.value = ViewNotifierEnums.ERROR_REMOVING_DATA
-//                })
-        else
-            viewNotifier.value = ViewNotifierEnums.ERROR_DATA_NOT_AVAILABLE
-    }
-
-    /**
-     * Returns an ImmutableLiveData instance of albumDetailsResponse
-     */
-    fun getAlbumsResponse(): LiveData<AlbumTracks> = albumDetailsResponse
-
-    private fun checkAlbumExistenceInDb(artistName: String, albumName: String) {
+    private fun removeAlbum() = albumData?.let {
         viewModelScope.launch {
-            val response = dataRepository.doesAlbumExists(artistName, albumName)
-            doesAlbumExistsInDb.postValue(response)
-            isAlbumSaved = response
-
+            repository.removeAlbum(it.album.artistName, it.album.albumName)
+            albumDetailsLiveData.postValue(NotSaved())
         }
-//                {
-//                checkAlbumExistenceInDb(artistName, albumName)
-//            })
     }
 
-    fun getAlbumExistenceResponse(): LiveData<Boolean> {
-        return doesAlbumExistsInDb
-    }
+    private suspend fun checkBookmarkStatus(artistName: String, albumName: String) =
+        repository.doesAlbumExists(artistName, albumName)
 }

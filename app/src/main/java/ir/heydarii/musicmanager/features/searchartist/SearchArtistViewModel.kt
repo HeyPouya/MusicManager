@@ -6,7 +6,7 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.searchartist.Artist
-import ir.heydarii.musicmanager.repository.DataRepository
+import ir.heydarii.musicmanager.repository.Repository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
  * ViewModel for the search artist view
  */
 @HiltViewModel
-class SearchArtistViewModel @Inject constructor(private val repository: DataRepository) :
+class SearchArtistViewModel @Inject constructor(private val repository: Repository) :
     BaseViewModel() {
 
     private var currentSearchResult: Flow<PagingData<Artist>>? = null

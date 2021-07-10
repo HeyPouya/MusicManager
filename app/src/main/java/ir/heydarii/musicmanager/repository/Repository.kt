@@ -20,7 +20,7 @@ import javax.inject.Inject
  * All Observables are gathered here together
  * Network and Database
  */
-class DataRepository @Inject constructor(
+class Repository @Inject constructor(
     private val network: RetrofitMainInterface,
     private val database: AlbumsDAO
 ) : RetrofitMainInterface by network,

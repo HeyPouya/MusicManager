@@ -14,11 +14,7 @@ import ir.heydarii.musicmanager.pojos.savedalbums.TrackEntity
 class TracksAdapter(val list: List<TrackEntity>) :
     RecyclerView.Adapter<TracksAdapter.TracksViewHolder>() {
 
-    /**
-     * inflates views for recycler view
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksViewHolder {
-
         val binding = DataBindingUtil.inflate<TracksLayoutItemBinding>(
             LayoutInflater.from(parent.context),
             R.layout.tracks_layout_item,
@@ -28,26 +24,20 @@ class TracksAdapter(val list: List<TrackEntity>) :
         return TracksViewHolder(binding)
     }
 
-    /**
-     * Returns item size
-     */
     override fun getItemCount() = list.size
 
-    /**
-     * Sends the object to bind method in ViewHolder
-     */
     override fun onBindViewHolder(holder: TracksViewHolder, position: Int) {
         holder.bind(list[position], position)
     }
 
     /**
-     * ViewHolder class
+     * [RecyclerView.ViewHolder] of the [TracksAdapter]
      */
     class TracksViewHolder(private val binding: TracksLayoutItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         /**
-         * Sets texts in views
+         * binds tracks to the recycler view items
          */
         fun bind(track: TrackEntity, position: Int) = with(binding) {
             txtTrackNumber.text = position.toString()

@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.savedalbums.AlbumEntity
-import ir.heydarii.musicmanager.pojos.savedalbums.SavedAlbumsState
-import ir.heydarii.musicmanager.pojos.savedalbums.SavedAlbumsState.Loading
-import ir.heydarii.musicmanager.repository.DataRepository
+import ir.heydarii.musicmanager.pojos.savedalbums.SavedAlbumsViewState
+import ir.heydarii.musicmanager.pojos.savedalbums.SavedAlbumsViewState.*
+import ir.heydarii.musicmanager.repository.Repository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,15 +16,15 @@ import javax.inject.Inject
  * ViewModel of [SavedAlbumsFragment]
  */
 @HiltViewModel
-class SavedAlbumsViewModel @Inject constructor(private val repository: DataRepository) :
+class SavedAlbumsViewModel @Inject constructor(private val repository: Repository) :
     BaseViewModel() {
 
-    private val albumsLiveData = MutableLiveData<SavedAlbumsState<List<AlbumEntity>>>()
+    private val albumsLiveData = MutableLiveData<SavedAlbumsViewState<List<AlbumEntity>>>()
 
     /**
      * @return [LiveData] instance of [albumsLiveData]
      */
-    fun getAlbumsLiveData(): LiveData<SavedAlbumsState<List<AlbumEntity>>> = albumsLiveData
+    fun getAlbumsLiveData(): LiveData<SavedAlbumsViewState<List<AlbumEntity>>> = albumsLiveData
 
     /**
      * Fetches all saved albums from database
@@ -33,7 +33,8 @@ class SavedAlbumsViewModel @Inject constructor(private val repository: DataRepos
         viewModelScope.launch {
             albumsLiveData.postValue(Loading())
             val albums = repository.getAllAlbums()
-            albumsLiveData.postValue(SavedAlbumsState.Success(albums))
+            val response = if (albums.isEmpty()) EmptyList() else Success(albums)
+            albumsLiveData.postValue(response)
         }
     }
 }

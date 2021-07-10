@@ -50,7 +50,6 @@ class TopAlbumsAdapter(private val clickListener: (String, String) -> Unit) :
         fun bind(album: Album) = with(binding) {
             txtName.text = album.name
             imgArtist.load(album.image.last().text, R.drawable.ic_album_placeholder)
-
             root.setOnClickListener { clickListener(album.artist.name, album.name) }
         }
     }
