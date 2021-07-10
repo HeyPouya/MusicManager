@@ -42,7 +42,7 @@ class DataRepository @Inject constructor(
                 image
             )
             val tracks = arrayListOf<TrackEntity>()
-            albumDetails.album.tracks.track.forEach {
+            albumDetails.album.tracks?.track?.forEach {
                 tracks.add(TrackEntity(null, it.name, albumDetails.album.mbid))
             }
 

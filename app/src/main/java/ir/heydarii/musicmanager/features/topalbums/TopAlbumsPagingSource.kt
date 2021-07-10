@@ -28,7 +28,7 @@ class TopAlbumsPagingSource(
             val response = repository.getTopAlbumsByArtist(artistName, position)
             val albums = response.topalbums.album
             val page = response.topalbums.attr
-            val nextKey = if (page.perPage.toInt() * position < page.total.toInt())
+            val nextKey = if (NETWORK_PAGE_SIZE * position < page.total.toInt())
                 position + (params.loadSize / NETWORK_PAGE_SIZE)
             else
                 null

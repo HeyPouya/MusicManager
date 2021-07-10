@@ -8,9 +8,7 @@ import com.squareup.moshi.JsonClass
  */
 
 @JsonClass(generateAdapter = true)
-data class ArtistTopAlbumsResponseModel(
-    val topalbums: Topalbums
-)
+data class ArtistTopAlbumsResponseModel(val topalbums: Topalbums)
 
 @JsonClass(generateAdapter = true)
 data class Topalbums(
@@ -25,22 +23,10 @@ data class Album(
     val image: List<Image>,
     val mbid: String?,
     val name: String,
-    val playcount: Int,
-    val url: String
 )
 
 @JsonClass(generateAdapter = true)
-data class TopAlbumArtist(
-    val mbid: String?,
-    val name: String,
-    val url: String
-)
+data class TopAlbumArtist(val name: String)
 
 @JsonClass(generateAdapter = true)
-data class Attr(
-    val artist: String,
-    val page: String,
-    val perPage: String,
-    val total: String,
-    val totalPages: String
-)
+data class Attr(val total: String)

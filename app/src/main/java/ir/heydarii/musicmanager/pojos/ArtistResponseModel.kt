@@ -16,29 +16,15 @@ data class ArtistResponseModel(
 @JsonClass(generateAdapter = true)
 data class ArtistResults(
     val artistmatches: Artistmatches,
-    @Json(name = "opensearch:Query")
-    val Query: OpensearchQuery,
     @Json(name = "opensearch:itemsPerPage")
     val itemsPerPage: String,
-    @Json(name = "opensearch:startIndex")
-    val startIndex: String,
     @Json(name = "opensearch:totalResults")
     val totalResults: String
 )
 
-@JsonClass(generateAdapter = true)
-data class OpensearchQuery(
-    @Json(name = "#text")
-    val text: String,
-    val role: String,
-    val searchTerms: String,
-    val startPage: String
-)
 
 @JsonClass(generateAdapter = true)
-data class Artistmatches(
-    val artist: List<Artist>
-)
+data class Artistmatches(val artist: List<Artist>)
 
 @JsonClass(generateAdapter = true)
 data class Artist(

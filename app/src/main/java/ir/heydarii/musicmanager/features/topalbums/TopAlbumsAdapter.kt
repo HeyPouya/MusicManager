@@ -64,9 +64,9 @@ class TopAlbumsAdapter(private val clickListener: (String, String) -> Unit) :
  */
 class TopAlbumsDiffUtils : DiffUtil.ItemCallback<Album>() {
     override fun areItemsTheSame(oldItem: Album, newItem: Album) =
-        oldItem.name == newItem.name && oldItem.url == newItem.url
+        oldItem.name == newItem.name && oldItem.mbid == newItem.mbid
 
     override fun areContentsTheSame(oldItem: Album, newItem: Album) =
-        oldItem.name == newItem.name && oldItem.url == newItem.url
+        oldItem.name == newItem.name && oldItem.image == newItem.image
 }
 

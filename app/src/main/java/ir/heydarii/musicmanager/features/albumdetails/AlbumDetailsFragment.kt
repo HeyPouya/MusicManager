@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
@@ -27,6 +28,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AlbumDetailsFragment : BaseFragment<FragmentAlbumDetailsBinding, AlbumDetailsViewModel>() {
 
+    private val args by navArgs<AlbumDetailsFragmentArgs>()
     override var layout = R.layout.fragment_album_details
     private var albumName = ""
 
@@ -121,17 +123,11 @@ class AlbumDetailsFragment : BaseFragment<FragmentAlbumDetailsBinding, AlbumDeta
 
     private fun showData() {
 
-        val receivedData = arguments?.let {
-            AlbumDetailsFragmentArgs.fromBundle(it)
-        }
-
-        check(receivedData != null)
-
-        albumName = receivedData.albumName
+        albumName = args.albumName
         viewModel.getAlbum(
-            receivedData.artistName,
-            receivedData.albumName,
-            receivedData.isOffline
+            args.artistName,
+            args.albumName,
+            args.isOffline
         )
     }
 
