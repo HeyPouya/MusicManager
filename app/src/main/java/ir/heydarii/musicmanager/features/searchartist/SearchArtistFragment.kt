@@ -32,9 +32,6 @@ class SearchArtistFragment : BaseFragment<FragmentSearchArtistBinding, SearchArt
         SearchArtistAdapter { artistName -> navigateToTopAlbums(artistName) }
     }
 
-    /**
-     * all codes are here
-     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setVM(viewModels())
         super.onViewCreated(view, savedInstanceState)
@@ -106,7 +103,8 @@ class SearchArtistFragment : BaseFragment<FragmentSearchArtistBinding, SearchArt
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(LAST_SEARCH_QUERY, binding.edtSearch.text.trim().toString())
+        if (isBindingInitialized())
+            outState.putString(LAST_SEARCH_QUERY, binding.edtSearch.text.trim().toString())
     }
 
 }

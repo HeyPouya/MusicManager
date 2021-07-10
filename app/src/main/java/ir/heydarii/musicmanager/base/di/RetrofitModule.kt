@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ir.heydarii.musicmanager.retrofit.RetrofitMainInterface
+import ir.heydarii.musicmanager.repository.network.RetrofitMainInterface
 import ir.heydarii.musicmanager.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -4,12 +4,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import ir.heydarii.musicmanager.features.searchartist.SearchArtistPagingSource
-import ir.heydarii.musicmanager.pojos.AlbumEntity
-import ir.heydarii.musicmanager.pojos.AlbumTracks
-import ir.heydarii.musicmanager.pojos.Artist
-import ir.heydarii.musicmanager.pojos.TrackEntity
-import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
-import ir.heydarii.musicmanager.retrofit.RetrofitMainInterface
+import ir.heydarii.musicmanager.features.topalbums.TopAlbumsPagingSource
+import ir.heydarii.musicmanager.pojos.*
+import ir.heydarii.musicmanager.repository.local.AlbumsDAO
+import ir.heydarii.musicmanager.repository.network.RetrofitMainInterface
 import ir.heydarii.musicmanager.utils.Constants.Companion.NETWORK_PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -59,6 +57,14 @@ class DataRepository @Inject constructor(
             enablePlaceholders = false
         ),
         pagingSourceFactory = { SearchArtistPagingSource(network, artistName) }
+    ).flow
+
+    fun findTopAlbums(artistName: String): Flow<PagingData<Album>> = Pager(
+        config = PagingConfig(
+            pageSize = NETWORK_PAGE_SIZE,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { TopAlbumsPagingSource(network, artistName) }
     ).flow
 
     suspend fun saveAlbum(albumEntity: AlbumTracks) {

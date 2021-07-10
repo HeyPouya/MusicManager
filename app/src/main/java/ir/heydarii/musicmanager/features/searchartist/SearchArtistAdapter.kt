@@ -17,9 +17,6 @@ import ir.heydarii.musicmanager.utils.extensions.loadUrl
 class SearchArtistAdapter(private val clickListener: (String) -> Unit) :
     PagingDataAdapter<Artist, SearchArtistAdapter.SearchArtistViewHolder>(SearchArtistDiffCallback()) {
 
-    /**
-     * inflates the layout for the recyclerView
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
         val binding = DataBindingUtil.inflate<SearchLayoutItemBinding>(
             LayoutInflater.from(parent.context),
@@ -30,16 +27,10 @@ class SearchArtistAdapter(private val clickListener: (String) -> Unit) :
         return SearchArtistViewHolder(binding)
     }
 
-    /**
-     * sends object to bind method in ViewHolder
-     */
     override fun onBindViewHolder(holder: SearchArtistViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
     }
 
-    /**
-     * ViewHolder for recyclerView
-     */
     inner class SearchArtistViewHolder(private val binding: SearchLayoutItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

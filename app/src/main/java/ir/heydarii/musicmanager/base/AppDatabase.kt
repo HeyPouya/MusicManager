@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import ir.heydarii.musicmanager.pojos.AlbumEntity
 import ir.heydarii.musicmanager.pojos.TrackEntity
-import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
+import ir.heydarii.musicmanager.repository.local.AlbumsDAO
 
 /**
  * Provides access to [RoomDatabase]

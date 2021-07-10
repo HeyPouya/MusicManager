@@ -3,8 +3,8 @@ package ir.heydarii.musicmanager.features.topalbums
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.databinding.SearchLayoutItemBinding
@@ -14,10 +14,8 @@ import ir.heydarii.musicmanager.utils.extensions.loadUrl
 /**
  * Adapter for TopAlbums of an Artist view
  */
-class TopAlbumsAdapter(
-    topAlbumsDiffUtils: TopAlbumsDiffUtils,
-    private val clickListener: (String, String) -> Unit
-) : ListAdapter<Album, TopAlbumsAdapter.SearchArtistViewHolder>(topAlbumsDiffUtils) {
+class TopAlbumsAdapter(private val clickListener: (String, String) -> Unit) :
+    PagingDataAdapter<Album, TopAlbumsAdapter.SearchArtistViewHolder>(TopAlbumsDiffUtils()) {
 
     /**
      * Inflates layout for the recycler view
@@ -37,7 +35,7 @@ class TopAlbumsAdapter(
      * sends object to the bind method of ViewHolder
      */
     override fun onBindViewHolder(holder: SearchArtistViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let { holder.bind(it) }
     }
 
     /**

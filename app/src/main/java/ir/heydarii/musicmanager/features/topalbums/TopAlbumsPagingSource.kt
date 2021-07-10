@@ -1,8 +1,8 @@
-package ir.heydarii.musicmanager.features.searchartist
+package ir.heydarii.musicmanager.features.topalbums
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import ir.heydarii.musicmanager.pojos.Artist
+import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.repository.network.RetrofitMainInterface
 import ir.heydarii.musicmanager.utils.Constants.Companion.NETWORK_PAGE_SIZE
 import okio.IOException
@@ -10,30 +10,30 @@ import retrofit2.HttpException
 
 private const val STARTING_PAGE = 1
 
-class SearchArtistPagingSource(
+class TopAlbumsPagingSource(
     private val repository: RetrofitMainInterface,
     private val artistName: String
-) : PagingSource<Int, Artist>() {
+) : PagingSource<Int, Album>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Artist>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Album>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Artist> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Album> {
         val position = params.key ?: STARTING_PAGE
         return try {
-            val response = repository.findArtist(artistName, position)
-            val artists = response.artistResults
-            val nextKey =
-                if (artists.itemsPerPage.toInt() * position < artists.totalResults.toInt())
-                    position + (params.loadSize / NETWORK_PAGE_SIZE)
-                else
-                    null
+            val response = repository.getTopAlbumsByArtist(artistName, position)
+            val albums = response.topalbums.album
+            val page = response.topalbums.attr
+            val nextKey = if (page.perPage.toInt() * position < page.total.toInt())
+                position + (params.loadSize / NETWORK_PAGE_SIZE)
+            else
+                null
             LoadResult.Page(
-                data = artists.artistmatches.artist,
+                data = albums,
                 prevKey = if (position == STARTING_PAGE) null else position - 1,
                 nextKey = nextKey
             )

@@ -26,10 +26,12 @@ open class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment() {
 
     protected lateinit var binding: T
     protected lateinit var viewModel: V
-    protected var loading: ProgressBar? = null
+    private var loading: ProgressBar? = null
 
     @LayoutRes
     protected open var layout = -1
+
+    fun isBindingInitialized() = ::binding.isInitialized
 
     override fun onCreateView(
         inflater: LayoutInflater,

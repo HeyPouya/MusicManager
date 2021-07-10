@@ -1,60 +1,39 @@
 package ir.heydarii.musicmanager.features.topalbums
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.Album
 import ir.heydarii.musicmanager.repository.DataRepository
 import ir.heydarii.musicmanager.utils.ViewNotifierEnums
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
  * ViewModel for TopAlbums of an Artist view
  */
 @HiltViewModel
-class TopAlbumsViewModel @Inject constructor(private val dataRepository: DataRepository) :
+class TopAlbumsViewModel @Inject constructor(private val repository: DataRepository) :
     BaseViewModel() {
 
-    private val topAlbumsData = MutableLiveData<List<Album>>()
-    private var page = 1
-    private val list = ArrayList<Album>()
-    private var shouldLoadMore = true
-    private var artist = ""
-
-    /**
-     * Serving LiveData instead of MutableLiveData for activity
-     */
-    fun getTopAlbumsLiveData(): LiveData<List<Album>> = topAlbumsData
+    private var currentSearchResult: Flow<PagingData<Album>>? = null
+    private var currentArtistName: String? = null
 
     /**
      * Fetches the top albums of a selected artist
      */
-    fun onTopAlbumsRequested(artistName: String = artist, apiKey: String) {
-
-        if (artistName.isNotEmpty())
-            artist = artistName
-
-        if (shouldLoadMore) {
-            viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
-
-            viewModelScope.launch {
-                val topAlbums = dataRepository.getTopAlbumsByArtist(artistName, page, apiKey)
-                if (topAlbums.topalbums.album.isEmpty())
-                    shouldLoadMore = false
-
-                page++
-                list.addAll(topAlbums.topalbums.album)
-                viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-                topAlbumsData.value = list
-
-            }
-//                        {
-//                        viewNotifier.value = ViewNotifierEnums.HIDE_LOADING
-//                        viewNotifier.value = ViewNotifierEnums.ERROR_GETTING_DATA
-//                    })
+    fun requestTopAlbums(artistName: String): Flow<PagingData<Album>> {
+        val lastResult = currentSearchResult
+        if (artistName == currentArtistName && lastResult != null) {
+            return lastResult
         }
+
+        currentArtistName = artistName
+        viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
+        val newResult = repository.findTopAlbums(artistName).cachedIn(viewModelScope)
+        currentSearchResult = newResult
+        return newResult
     }
 }

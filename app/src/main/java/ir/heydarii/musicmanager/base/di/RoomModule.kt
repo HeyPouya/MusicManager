@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ir.heydarii.musicmanager.base.AppDatabase
-import ir.heydarii.musicmanager.repository.dbinteractor.AlbumsDAO
+import ir.heydarii.musicmanager.repository.local.AlbumsDAO
 import javax.inject.Singleton
 
 private const val DATABASE_NAME = "albums.db"

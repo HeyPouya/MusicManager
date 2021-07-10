@@ -1,4 +1,4 @@
-package ir.heydarii.musicmanager.retrofit
+package ir.heydarii.musicmanager.repository.network
 
 import ir.heydarii.musicmanager.pojos.AlbumDetailsResponseModel
 import ir.heydarii.musicmanager.pojos.ArtistResponseModel

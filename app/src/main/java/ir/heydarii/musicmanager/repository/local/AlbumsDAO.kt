@@ -1,4 +1,4 @@
-package ir.heydarii.musicmanager.repository.dbinteractor
+package ir.heydarii.musicmanager.repository.local
 
 import androidx.room.*
 import ir.heydarii.musicmanager.pojos.AlbumEntity
