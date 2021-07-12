@@ -49,7 +49,6 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.core:core-ktx:1.6.0")
     implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.fragment:fragment-ktx:1.3.5")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.extra["lifecycle_version"]}")
 
     //Test
@@ -63,10 +62,9 @@ dependencies {
     androidTestImplementation("androidx.test:core:1.0.0")
     androidTestImplementation("androidx.test.ext:junit:1.0.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
-    testImplementation ("org.mockito:mockito-core:3.11.2")
-    androidTestImplementation ("org.mockito:mockito-android:3.11.2")
-    testImplementation ("org.mockito:mockito-inline:3.11.2")
-
+    testImplementation("org.mockito:mockito-core:3.11.2")
+    androidTestImplementation("org.mockito:mockito-android:3.11.2")
+    testImplementation("org.mockito:mockito-inline:3.11.2")
 
 
     // Retrofit

@@ -1,19 +1,5 @@
 # MusicManager
-An Android application to learn latest technologies in android world!
-
-[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
-[![Build Status](https://travis-ci.org/SirLordPouya/MusicManager.svg?branch=master)](https://travis-ci.org/SirLordPouya/MusicManager)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/67a4e8c3a6c240eea8bab676e83c1dbc)](https://www.codacy.com/app/SirLordPouya/MusicManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SirLordPouya/MusicManager&amp;utm_campaign=Badge_Grade)
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/appicon.png" width="250">
-</p>
-
-MusicManager is an Android application for those who want to get familiar with the latest technologies in Android World.
-I will keep this project up to date as long as I can.
-You can help to keep it up to date if you like ;)
-
-<img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_2.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_3.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_4.png" width="250">
+An Android application for wise ;)
 
 ## Description
 
@@ -33,30 +19,28 @@ Technologies that have been used in this projects are :
 *   MVVM
 *   Room
 *   ViewModel
-*   ViewModelFactory
-*   DI via Dagger2
+*   Dark/Light Mode
+*   DI via Hilt
 *   Retrofit
-*   RxJava
+*   Kotlin Coroutines
 *   Kotlin
 *   LiveData
-*   Navigation Component
+*   Navigation
 *   Single Activity
 *   Safe Args
 *   DiffUtils
-*   ListAdapter
+*   Binding
+*   Paging3
 
 ### API
 
 All the api's has provided by the last.fm website. for more information please visit their website.
 
-### Downloading application
-
-To see the application itself, Please download it from [google play](https://play.google.com/store/apps/details?id=ir.heydarii.musicmanager)
-
-## License
-
-MusicManager is released under the Apache License 2.0. See [LICENSE](https://github.com/SirLordPouya/MusicManager/blob/master/LICENSE.md) for details.
-
-Copyright (c) 2019 Pouya Heydari
-
-### <div>This App icon and style is designed by <a href="https://dribbble.com/Amirgk" title="Amir Gerdakane">Amir Gerdakane</a>
+### Design Note
+Unfortunately the API that I used is not reliable enough. there is no integer unique identifier for albums,
+or artists. The mbid field is a string id and as we know its not as good as integers for being used as a Primary Key.
+And also you can find lots of cases that even this field is null!
+That's why I have used names(Artists, Albums, Tracks) to retrieve and save data in the room database.
+Also I loved to write more tests, but considering other projects I'm working on,
+I didn't have enough time to complete my test cases.
+I hope you enjoy reading my codes and they don't cause you a headache ;)
