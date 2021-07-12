@@ -23,6 +23,9 @@ class SearchArtistViewModel @Inject constructor(private val repository: Reposito
 
     /**
      * Fetches all artists with the name that user enters
+     *
+     * @param artistName name of the artists
+     * @return flow of artists names is used by paging
      */
     fun onUserSearchedArtist(artistName: String): Flow<PagingData<Artist>> {
         val lastResult = currentSearchResult

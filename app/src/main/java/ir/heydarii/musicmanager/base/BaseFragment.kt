@@ -43,22 +43,6 @@ open class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment() {
         return binding.root
     }
 
-    /**
-     * We are handling errors here
-     */
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        viewModel.getErrorLiveData().observeOnce(viewLifecycleOwner) {
-//            isLoading(false)
-//            when (it) {
-//                ErrorTypes.IOError -> showError(getString(R.string.internet_connection_error))
-//                ErrorTypes.UnknownError -> showError(getString(R.string.please_try_again))
-//                ErrorTypes.ServerError -> showError(getString(R.string.server_connection_error))
-//            }
-//        }
-    }
-
     protected fun showError(message: String) {
         val snackbar = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
         snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red_400))

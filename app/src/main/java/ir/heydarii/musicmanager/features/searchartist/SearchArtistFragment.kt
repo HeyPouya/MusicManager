@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 private const val LAST_SEARCH_QUERY = "LAST_SEARCH_QUERY"
 
 /**
- * User can search an Artist in this view
+ * User can search an artist in this view
  */
 @AndroidEntryPoint
 class SearchArtistFragment : BaseFragment<FragmentSearchArtistBinding, SearchArtistViewModel>() {

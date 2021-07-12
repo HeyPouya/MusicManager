@@ -44,7 +44,7 @@ class AlbumDetailsViewModel @Inject constructor(private val repository: Reposito
         albumDetailsLiveData.postValue(bookMarkResponse)
 
         //Fetch data
-        val album = repository.getAlbumDetails(artistName, albumName, offline)
+        val album = repository.getAlbumDetails(artistName, albumName, offline) ?: return@launch
         albumData = album
         val response = if (album.tracks.isEmpty()) EmptyTrackList(album) else Success(album)
         albumDetailsLiveData.postValue(response)

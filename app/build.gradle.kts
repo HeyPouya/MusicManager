@@ -55,6 +55,14 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:runner:1.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    testImplementation("androidx.room:room-testing:${rootProject.extra["room_version"]}")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    androidTestImplementation("androidx.test:runner:1.1.0")
+    androidTestImplementation("androidx.test:rules:1.1.0")
+    androidTestImplementation("androidx.test:core:1.0.0")
+    androidTestImplementation("androidx.test.ext:junit:1.0.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
+
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:${rootProject.extra["retrofit_version"]}")

@@ -88,7 +88,6 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding, TopAlbumsViewMo
         }
     }
 
-
     private fun navigateToAlbumDetails(artistName: String, albumName: String) {
         val albumDetailsDir =
             TopAlbumsFragmentDirections.showAlbumDetailsActions(artistName, albumName)

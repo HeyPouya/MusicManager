@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
- * ViewModel for TopAlbums of an Artist view
+ * ViewModel of [TopAlbumsFragment]
  */
 @HiltViewModel
 class TopAlbumsViewModel @Inject constructor(private val repository: Repository) :
@@ -23,6 +23,8 @@ class TopAlbumsViewModel @Inject constructor(private val repository: Repository)
 
     /**
      * Fetches the top albums of a selected artist
+     *
+     * @param artistName name of the artist of the albums
      */
     fun requestTopAlbums(artistName: String): Flow<PagingData<Album>> {
         val lastResult = currentSearchResult

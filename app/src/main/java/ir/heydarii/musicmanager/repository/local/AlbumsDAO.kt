@@ -14,11 +14,14 @@ interface AlbumsDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveAlbum(albumEntity: AlbumEntity)
 
+    @Query("SELECT * FROM albums")
+    suspend fun getAllAlbums(): List<AlbumEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveTracks(vararg tracks: TrackEntity)
 
-    @Query("SELECT * FROM albums")
-    suspend fun getAllAlbums(): List<AlbumEntity>
+    @Query("SELECT * FROM tracks")
+    suspend fun getAllTracks(): List<TrackEntity>
 
     @Transaction
     @Query("SELECT * FROM albums WHERE artistName = :artistName and albumName = :albumName LIMIT 1")

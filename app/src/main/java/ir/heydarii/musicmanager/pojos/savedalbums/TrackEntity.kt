@@ -11,7 +11,8 @@ import androidx.room.PrimaryKey
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("albumId"),
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    tableName = "tracks"
 )
 data class TrackEntity(
     @PrimaryKey(autoGenerate = true)
