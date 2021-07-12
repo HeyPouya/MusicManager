@@ -30,7 +30,7 @@ class SavedAlbumsViewModel @Inject constructor(private val repository: Repositor
      * Fetches all saved albums from database
      */
     fun getAllAlbums() {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutinesLaunchOption) {
             albumsLiveData.postValue(Loading())
             val albums = repository.getAllAlbums()
             val response = if (albums.isEmpty()) EmptyList() else Success(albums)

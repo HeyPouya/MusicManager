@@ -28,4 +28,6 @@
     <string name="app_description">This application demonstrates how to implement latest technologies in Android. For more information kindly visit the Github page.</string>
     <string name="saved">Saved</string>
     <string name="save_button">Save button</string>
+    <string name="internet_connection_error">Internet connection error</string>
+    <string name="server_connection_error">Server connection error</string>
 </resources>

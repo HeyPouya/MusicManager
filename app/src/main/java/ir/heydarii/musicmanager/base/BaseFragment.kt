@@ -16,7 +16,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.musicmanager.R
-import ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsViewModel
+import ir.heydarii.musicmanager.pojos.base.ErrorTypes
 
 /**
  * All fragments inherit this class.
@@ -41,6 +41,19 @@ open class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment() {
         require(layout != -1) { "Layout is not provided" }
         binding = DataBindingUtil.inflate(inflater, layout, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (this::viewModel.isInitialized)
+            viewModel.getErrorLiveData().observeOnce(viewLifecycleOwner) {
+                isLoading(false)
+                when (it) {
+                    ErrorTypes.IOError -> showError(getString(R.string.internet_connection_error))
+                    ErrorTypes.UnknownError -> showError(getString(R.string.please_try_again))
+                    ErrorTypes.ServerError -> showError(getString(R.string.server_connection_error))
+                }
+            }
     }
 
     protected fun showError(message: String) {

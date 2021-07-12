@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.pojos.topalbums.Album
 import ir.heydarii.musicmanager.repository.Repository
-import ir.heydarii.musicmanager.utils.ViewNotifierEnums
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -33,7 +32,6 @@ class TopAlbumsViewModel @Inject constructor(private val repository: Repository)
         }
 
         currentArtistName = artistName
-        viewNotifier.value = ViewNotifierEnums.SHOW_LOADING
         val newResult = repository.findTopAlbums(artistName).cachedIn(viewModelScope)
         currentSearchResult = newResult
         return newResult
