@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import ir.heydarii.musicmanager.pojos.savedalbums.AlbumEntity
 import ir.heydarii.musicmanager.pojos.savedalbums.TrackEntity
-import ir.heydarii.musicmanager.repository.local.AlbumsDAO
+import ir.heydarii.musicmanager.repository.local.AlbumsDao
 
 /**
  * Provides access to [RoomDatabase]
@@ -14,7 +14,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     /**
      * Room handles this function
-     * @return An instance of [AlbumsDAO]
+     * @return An instance of [AlbumsDao]
      */
-    abstract fun albumsDAO(): AlbumsDAO
+    abstract fun albumsDAO(): AlbumsDao
 }

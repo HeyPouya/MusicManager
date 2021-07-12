@@ -9,7 +9,7 @@ import ir.heydarii.musicmanager.pojos.savedalbums.TrackEntity
  * All Room queries are in this class
  */
 @Dao
-interface AlbumsDAO {
+interface AlbumsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveAlbum(albumEntity: AlbumEntity)

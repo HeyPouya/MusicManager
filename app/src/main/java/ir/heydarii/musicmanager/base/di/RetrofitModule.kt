@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ir.heydarii.musicmanager.repository.network.RetrofitMainInterface
+import ir.heydarii.musicmanager.repository.network.RetrofitAlbumsInterface
 import ir.heydarii.musicmanager.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -50,6 +50,6 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun getMainInterface(retrofit: Retrofit): RetrofitMainInterface =
-        retrofit.create(RetrofitMainInterface::class.java)
+    fun getMainInterface(retrofit: Retrofit): RetrofitAlbumsInterface =
+        retrofit.create(RetrofitAlbumsInterface::class.java)
 }

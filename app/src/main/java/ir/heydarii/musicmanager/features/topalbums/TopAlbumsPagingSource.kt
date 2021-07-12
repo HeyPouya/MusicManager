@@ -3,7 +3,7 @@ package ir.heydarii.musicmanager.features.topalbums
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import ir.heydarii.musicmanager.pojos.topalbums.Album
-import ir.heydarii.musicmanager.repository.network.RetrofitMainInterface
+import ir.heydarii.musicmanager.repository.network.RetrofitAlbumsInterface
 import ir.heydarii.musicmanager.utils.Constants.Companion.NETWORK_PAGE_SIZE
 import okio.IOException
 import retrofit2.HttpException
@@ -11,7 +11,7 @@ import retrofit2.HttpException
 private const val STARTING_PAGE = 1
 
 class TopAlbumsPagingSource(
-    private val repository: RetrofitMainInterface,
+    private val repository: RetrofitAlbumsInterface,
     private val artistName: String
 ) : PagingSource<Int, Album>() {
 

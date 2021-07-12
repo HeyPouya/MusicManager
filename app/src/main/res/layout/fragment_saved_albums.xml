@@ -46,14 +46,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imgBackgroundCover"
             app:layout_constraintWidth_max="@dimen/saved_items_recycler_max_width"
-            app:spanCount="2" />
+            app:spanCount="2"
+            tools:listitem="@layout/saved_albums_item" />
 
         <ProgressBar
-            android:visibility="gone"
             android:id="@+id/progress"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_margin="8dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/imgBackgroundCover" />
 

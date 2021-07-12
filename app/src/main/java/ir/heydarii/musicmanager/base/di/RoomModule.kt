@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ir.heydarii.musicmanager.base.AppDatabase
-import ir.heydarii.musicmanager.repository.local.AlbumsDAO
+import ir.heydarii.musicmanager.repository.local.AlbumsDao
 import javax.inject.Singleton
 
 private const val DATABASE_NAME = "albums.db"
@@ -29,5 +29,5 @@ class RoomModule {
 
     @Singleton
     @Provides
-    fun provideAlbumsDAO(appDatabase: AppDatabase): AlbumsDAO = appDatabase.albumsDAO()
+    fun provideAlbumsDAO(appDatabase: AppDatabase): AlbumsDao = appDatabase.albumsDAO()
 }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.musicmanager.R
-import ir.heydarii.musicmanager.databinding.SavedLayoutItemBinding
+import ir.heydarii.musicmanager.databinding.SavedAlbumsItemBinding
 import ir.heydarii.musicmanager.pojos.savedalbums.AlbumEntity
 import ir.heydarii.musicmanager.utils.extensions.load
 
@@ -18,9 +18,9 @@ class SavedAlbumsAdapter(private var clickListener: (String, String) -> Unit) :
     ListAdapter<AlbumEntity, SavedAlbumsAdapter.SearchArtistViewHolder>(AlbumDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
-        val binding = DataBindingUtil.inflate<SavedLayoutItemBinding>(
+        val binding = DataBindingUtil.inflate<SavedAlbumsItemBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.saved_layout_item,
+            R.layout.saved_albums_item,
             parent,
             false
         )
@@ -31,7 +31,7 @@ class SavedAlbumsAdapter(private var clickListener: (String, String) -> Unit) :
         holder.bind(getItem(position))
     }
 
-    inner class SearchArtistViewHolder(private val binding: SavedLayoutItemBinding) :
+    inner class SearchArtistViewHolder(private val binding: SavedAlbumsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         /**

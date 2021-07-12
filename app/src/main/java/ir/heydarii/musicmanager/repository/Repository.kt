@@ -10,8 +10,8 @@ import ir.heydarii.musicmanager.pojos.savedalbums.AlbumTracks
 import ir.heydarii.musicmanager.pojos.savedalbums.TrackEntity
 import ir.heydarii.musicmanager.pojos.searchartist.Artist
 import ir.heydarii.musicmanager.pojos.topalbums.Album
-import ir.heydarii.musicmanager.repository.local.AlbumsDAO
-import ir.heydarii.musicmanager.repository.network.RetrofitMainInterface
+import ir.heydarii.musicmanager.repository.local.AlbumsDao
+import ir.heydarii.musicmanager.repository.network.RetrofitAlbumsInterface
 import ir.heydarii.musicmanager.utils.Constants.Companion.NETWORK_PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -21,10 +21,10 @@ import javax.inject.Inject
  * Network and Database
  */
 class Repository @Inject constructor(
-    private val network: RetrofitMainInterface,
-    private val database: AlbumsDAO
-) : RetrofitMainInterface by network,
-    AlbumsDAO by database {
+    private val network: RetrofitAlbumsInterface,
+    private val database: AlbumsDao
+) : RetrofitAlbumsInterface by network,
+    AlbumsDao by database {
 
     suspend fun getAlbumDetails(
         artistName: String,

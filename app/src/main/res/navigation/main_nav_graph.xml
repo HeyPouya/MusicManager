@@ -17,7 +17,11 @@
         tools:layout="@layout/fragment_saved_albums">
         <action
             android:id="@+id/show_album_details_actions"
-            app:destination="@id/albumDetailsFragment" />
+            app:destination="@id/albumDetailsFragment"
+            app:enterAnim="@anim/slide_right_to_left_anim"
+            app:exitAnim="@anim/slide_to_left_from_center_anim"
+            app:popEnterAnim="@anim/slide_left_to_right_anim"
+            app:popExitAnim="@anim/slide_to_right_from_center_anim" />
     </fragment>
     <fragment
         android:id="@+id/searchArtistFragment"
@@ -26,7 +30,11 @@
         tools:layout="@layout/fragment_search_artist">
         <action
             android:id="@+id/show_top_albums_action"
-            app:destination="@+id/topAlbumsFragment" />
+            app:destination="@+id/topAlbumsFragment"
+            app:enterAnim="@anim/slide_right_to_left_anim"
+            app:exitAnim="@anim/slide_to_left_from_center_anim"
+            app:popEnterAnim="@anim/slide_left_to_right_anim"
+            app:popExitAnim="@anim/slide_to_right_from_center_anim" />
     </fragment>
     <fragment
         android:id="@+id/topAlbumsFragment"
@@ -38,7 +46,11 @@
             app:argType="string" />
         <action
             android:id="@+id/show_album_details_actions"
-            app:destination="@id/albumDetailsFragment" />
+            app:destination="@id/albumDetailsFragment"
+            app:enterAnim="@anim/slide_right_to_left_anim"
+            app:exitAnim="@anim/slide_to_left_from_center_anim"
+            app:popEnterAnim="@anim/slide_left_to_right_anim"
+            app:popExitAnim="@anim/slide_to_right_from_center_anim" />
     </fragment>
     <fragment
         android:id="@+id/albumDetailsFragment"

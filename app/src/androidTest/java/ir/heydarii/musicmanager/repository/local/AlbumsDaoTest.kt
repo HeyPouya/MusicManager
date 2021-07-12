@@ -20,7 +20,7 @@ import org.junit.runner.RunWith
 class AlbumsDaoTest : TestCase() {
 
     private lateinit var db: AppDatabase
-    private lateinit var albumsDao: AlbumsDAO
+    private lateinit var albumsDao: AlbumsDao
 
     @Before
     public override fun setUp() {

@@ -3,15 +3,13 @@ package ir.heydarii.musicmanager.features.searchartist
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import ir.heydarii.musicmanager.pojos.searchartist.Artist
-import ir.heydarii.musicmanager.repository.network.RetrofitMainInterface
+import ir.heydarii.musicmanager.repository.network.RetrofitAlbumsInterface
 import ir.heydarii.musicmanager.utils.Constants.Companion.NETWORK_PAGE_SIZE
-import okio.IOException
-import retrofit2.HttpException
 
 private const val STARTING_PAGE = 1
 
 class SearchArtistPagingSource(
-    private val repository: RetrofitMainInterface,
+    private val repository: RetrofitAlbumsInterface,
     private val artistName: String
 ) : PagingSource<Int, Artist>() {
 
@@ -37,9 +35,8 @@ class SearchArtistPagingSource(
                 prevKey = if (position == STARTING_PAGE) null else position - 1,
                 nextKey = nextKey
             )
-        } catch (exception: IOException) {
-            return LoadResult.Error(exception)
-        } catch (exception: HttpException) {
+        } catch (exception: Exception) {
+            exception.printStackTrace()
             return LoadResult.Error(exception)
         }
     }

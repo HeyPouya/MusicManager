@@ -10,7 +10,7 @@ import retrofit2.http.Query
 /**
  * Retrofit interface to call the needed apis
  */
-interface RetrofitMainInterface {
+interface RetrofitAlbumsInterface {
 
     @GET("?method=artist.search&format=json")
     suspend fun findArtist(

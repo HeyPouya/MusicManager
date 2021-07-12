@@ -13,7 +13,6 @@ import ir.heydarii.musicmanager.databinding.FragmentAlbumDetailsBinding
 import ir.heydarii.musicmanager.pojos.albumdetails.AlbumDetailsViewState
 import ir.heydarii.musicmanager.pojos.savedalbums.AlbumTracks
 import ir.heydarii.musicmanager.utils.extensions.load
-import javax.inject.Inject
 
 /**
  * Shows details of an album containing the name and tracks

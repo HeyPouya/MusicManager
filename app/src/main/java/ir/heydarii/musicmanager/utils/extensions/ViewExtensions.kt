@@ -7,31 +7,14 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import java.io.File
 
 private const val NO_PLACEHOLDER = -1
 
-fun ImageView.load(path: String, placeholder: Int = NO_PLACEHOLDER) {
-    when {
-        path.isEmpty() -> return
-        path.startsWith("http") -> loadUrl(this, path, placeholder)
-        else -> loadFile(this, path, placeholder)
-    }
-}
-
-private fun loadUrl(imgView: ImageView, url: String, placeholder: Int) {
-    val glide = Glide.with(imgView).load(url)
+fun ImageView.load(url: String, placeholder: Int = NO_PLACEHOLDER) {
+    val glide = Glide.with(this).load(url)
     if (placeholder != NO_PLACEHOLDER)
         glide.placeholder(placeholder)
-    glide.into(imgView)
-}
-
-private fun loadFile(imgView: ImageView, filePath: String, placeholder: Int) {
-    val file = File(filePath)
-    val glide = Glide.with(imgView).load(file)
-    if (placeholder != NO_PLACEHOLDER)
-        glide.placeholder(placeholder)
-    glide.into(imgView)
+    glide.into(this)
 }
 
 fun View.showKeyboard() {
