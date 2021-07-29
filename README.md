@@ -41,6 +41,9 @@ Unfortunately the API that I used is not reliable enough. there is no integer un
 or artists. The mbid field is a string id and as we know its not as good as integers for being used as a Primary Key.
 And also you can find lots of cases that even this field is null!
 That's why I have used names(Artists, Albums, Tracks) to retrieve and save data in the room database.
-Also I loved to write more tests, but considering other projects I'm working on,
-I didn't have enough time to complete my test cases.
-I hope you enjoy reading my codes and they don't cause you a headache ;)
+
+## License
+
+MusicManager is released under the Apache License 2.0. See [LICENSE](https://github.com/SirLordPouya/MusicManager/blob/master/LICENSE.md) for details.
+
+Copyright (c) 2019 Pouya Heydari
