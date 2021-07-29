@@ -1,11 +1,24 @@
 # MusicManager
-An Android application for wise ;)
+An Android application to learn latest technologies in android world!
+
+[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+[![Build Status](https://travis-ci.org/SirLordPouya/MusicManager.svg?branch=master)](https://travis-ci.org/SirLordPouya/MusicManager)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/67a4e8c3a6c240eea8bab676e83c1dbc)](https://www.codacy.com/app/SirLordPouya/MusicManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SirLordPouya/MusicManager&amp;utm_campaign=Badge_Grade)
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/appicon.png" width="250">
+</p>
+
+MusicManager is an Android application for those who want to get familiar with the latest technologies in Android World.
+
+<img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_2.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_3.png" width="250"> <img src="https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/shots/Screenshot_4.png" width="250">
 
 ## Description
 
 ### How app works
 
-This application is designed to find singers and their top albums. I used the api from last.fm website (you can find the details in api section). There are 4 main pages :
+This application is designed to find singers and their top albums. I used the api from last.fm website (you can find the details in the api section).
+There are 4 main pages:
 
 1.  Saved albums : shows albums saved by user. works also in offline mode
 2.  Search artist
