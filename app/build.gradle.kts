@@ -8,7 +8,7 @@ plugins {
 
 android {
     compileSdk = 30
-    buildToolsVersion = "30.0.3"
+    buildToolsVersion = "31.0.0"
 
     defaultConfig {
         applicationId = "ir.heydarii.musicmanager"
@@ -20,9 +20,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments += mapOf(
-                    "room.incremental" to "true",
-                )
+                arguments += mapOf("room.incremental" to "true")
             }
         }
     }
@@ -61,7 +59,7 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.1.0")
     androidTestImplementation("androidx.test:core:1.0.0")
     androidTestImplementation("androidx.test.ext:junit:1.0.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${rootProject.extra["coroutines_version"]}")
     testImplementation("org.mockito:mockito-core:3.11.2")
     androidTestImplementation("org.mockito:mockito-android:3.11.2")
     testImplementation("org.mockito:mockito-inline:3.11.2")
@@ -73,7 +71,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.extra["coroutines_version"]}")
 
     // Moshi
     implementation("com.squareup.moshi:moshi:${rootProject.extra["moshi_version"]}")
