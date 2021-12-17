@@ -14,7 +14,9 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.MusicManager">
 
-        <activity android:name=".features.MainActivity">
+        <activity
+            android:name=".features.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

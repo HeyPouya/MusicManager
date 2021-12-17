@@ -44,7 +44,6 @@
 
 # Top-level functions that can only be used by Kotlin.
 -dontwarn retrofit2.KotlinExtensions
--dontwarn retrofit2.KotlinExtensions$*
 
 # With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
 # and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
@@ -52,21 +51,6 @@
 -keep,allowobfuscation interface <1>
 
 -dontwarn org.conscrypt.**
-
-# To support Enum type of class members
--keepclassmembers enum * { *; }
-
--keep class ir.heydarii.musicmanager.pojos**
--keepclassmembers class ir.heydarii.musicmanager.pojos**{*;}
-# For using GSON @Expose annotation
--keepattributes *Annotation*
-
-# Gson specific classes
--dontwarn sun.misc.**
-#-keep class com.google.gson.stream.** { *; }
-
-# Application classes that will be serialized/deserialized over Gson
--keep class com.google.gson.examples.android.model.** { <fields>; }
 
 # Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule

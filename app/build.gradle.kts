@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdk = 30
-    buildToolsVersion = "31.0.0"
+    compileSdk = 31
+    buildToolsVersion = "32.0.0"
 
     defaultConfig {
         applicationId = "ir.heydarii.musicmanager"
         minSdk = 21
-        targetSdk = 30
+        targetSdk = 31
         versionCode = 500
         versionName = "5.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
