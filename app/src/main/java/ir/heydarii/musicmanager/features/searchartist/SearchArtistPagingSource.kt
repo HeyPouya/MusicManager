@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import ir.heydarii.musicmanager.pojos.searchartist.Artist
 import ir.heydarii.musicmanager.repository.network.RetrofitAlbumsInterface
-import ir.heydarii.musicmanager.utils.Constants.Companion.NETWORK_PAGE_SIZE
+import ir.heydarii.musicmanager.utils.NETWORK_PAGE_SIZE
 
 private const val STARTING_PAGE = 1
 

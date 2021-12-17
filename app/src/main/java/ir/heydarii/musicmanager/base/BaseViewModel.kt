@@ -17,7 +17,7 @@ import java.util.concurrent.TimeoutException
 open class BaseViewModel : ViewModel() {
     private val errorLiveData = SingleLiveEvent<ErrorTypes>()
 
-    fun coroutinesExceptionHandler() = CoroutineExceptionHandler { _, throwable ->
+    private fun coroutinesExceptionHandler() = CoroutineExceptionHandler { _, throwable ->
         println(throwable)
         when (throwable) {
             is IOException, is TimeoutException -> errorLiveData.postValue(ErrorTypes.IOError)

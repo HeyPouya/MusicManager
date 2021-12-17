@@ -9,11 +9,15 @@ import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.base.BaseFragment
 import ir.heydarii.musicmanager.base.BaseViewModel
 import ir.heydarii.musicmanager.databinding.FragmentAboutMeBinding
-import ir.heydarii.musicmanager.utils.Constants
 
 /**
  * Shows some about me info
  */
+
+private const val GITHUB_URL = "https://github.com/SirLordPouya/MusicManager"
+private const val PERSONAL_WEBSITE_URL = "https://pouyaheydari.com"
+private const val LINKED_IN_URL = "https://linkedin.com/in/pouyaheydari/"
+
 @AndroidEntryPoint
 class AboutMeFragment : BaseFragment<FragmentAboutMeBinding, BaseViewModel>(),
     View.OnClickListener {
@@ -31,11 +35,11 @@ class AboutMeFragment : BaseFragment<FragmentAboutMeBinding, BaseViewModel>(),
     override fun onClick(v: View) {
         when (v.id) {
             R.id.imgGithub ->
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.GITHUB_URL)))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_URL)))
             R.id.imgLinkedin ->
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.LINKED_IN_URL)))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(LINKED_IN_URL)))
             R.id.imgWebsite ->
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.PERSONAL_WEBSITE_URL)))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PERSONAL_WEBSITE_URL)))
         }
     }
 }

@@ -5,7 +5,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ir.heydarii.musicmanager.repository.network.RetrofitAlbumsInterface
-import ir.heydarii.musicmanager.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,6 +15,9 @@ import javax.inject.Singleton
 /**
  * Provides [Retrofit] interfaces
  */
+
+private const val BASE_URL = "https://ws.audioscrobbler.com/2.0/"
+
 @InstallIn(SingletonComponent::class)
 @Module
 class RetrofitModule {
@@ -24,7 +26,7 @@ class RetrofitModule {
     @Provides
     fun provideRetrofit(moshi: MoshiConverterFactory, httpClient: OkHttpClient.Builder): Retrofit =
         Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(moshi)
             .client(httpClient.build())
             .build()
