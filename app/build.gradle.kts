@@ -1,9 +1,12 @@
+import com.pouyaheydari.android.buildsrc.Libs
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.devtools.ksp").version("1.6.0-1.0.1")
 }
 
 android {
@@ -42,64 +45,63 @@ android {
 dependencies {
 
     // Support
-    implementation("androidx.appcompat:appcompat:1.3.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("androidx.core:core-ktx:1.6.0")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.extra["lifecycle_version"]}")
+    implementation(Libs.AndroidX.appcompat)
+    implementation(Libs.AndroidX.coreKtx)
+    implementation(Libs.AndroidX.liveData)
+    implementation(Libs.AndroidX.viewModel)
+
+    // Ui
+    implementation(Libs.Material.material)
+    implementation(Libs.AndroidX.constraintLayout)
 
     //Test
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:runner:1.3.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
-    testImplementation("androidx.room:room-testing:${rootProject.extra["room_version"]}")
-    testImplementation("androidx.arch.core:core-testing:2.1.0")
-    androidTestImplementation("androidx.test:runner:1.1.0")
-    androidTestImplementation("androidx.test:rules:1.1.0")
-    androidTestImplementation("androidx.test:core:1.0.0")
-    androidTestImplementation("androidx.test.ext:junit:1.0.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${rootProject.extra["coroutines_version"]}")
-    testImplementation("org.mockito:mockito-core:3.11.2")
-    androidTestImplementation("org.mockito:mockito-android:3.11.2")
-    testImplementation("org.mockito:mockito-inline:3.11.2")
-
+    testImplementation(Libs.Test.JUnit.junit)
+    androidTestImplementation(Libs.Test.Ext.junit)
+    testImplementation(Libs.Coroutines.test)
+    testImplementation(Libs.AndroidX.Room.test)
+    androidTestImplementation(Libs.Test.rules)
+    androidTestImplementation(Libs.Test.core)
+    testImplementation(Libs.Test.arch)
+    androidTestImplementation(Libs.Test.espressoCore)
+    androidTestImplementation("androidx.test:runner:1.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
+    testImplementation("org.mockito:mockito-core:4.2.0")
+    androidTestImplementation("org.mockito:mockito-android:4.2.0")
+    testImplementation("org.mockito:mockito-inline:4.2.0")
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:${rootProject.extra["retrofit_version"]}")
-    implementation("com.squareup.retrofit2:converter-moshi:${rootProject.extra["retrofit_version"]}")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+    implementation(Libs.Network.Retrofit.retrofit)
+    implementation(Libs.Network.Retrofit.moshiConverter)
+    implementation(Libs.Network.Retrofit.logging)
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.extra["coroutines_version"]}")
+    implementation(Libs.Coroutines.android)
 
     // Moshi
-    implementation("com.squareup.moshi:moshi:${rootProject.extra["moshi_version"]}")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:${rootProject.extra["moshi_version"]}")
+    ksp(Libs.Network.Moshi.moshi)
 
     // Glide
-    implementation("com.github.bumptech.glide:glide:${rootProject.extra["glide_version"]}")
-    kapt("com.github.bumptech.glide:compiler:${rootProject.extra["glide_version"]}")
+    implementation(Libs.Glide.glide)
+    kapt(Libs.Glide.compiler)
 
     // Lottie
-    implementation("com.airbnb.android:lottie:3.7.1")
+    implementation(Libs.Lottie.lottie)
 
     // Room
-    implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
-    kapt("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
-    implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
+    implementation(Libs.AndroidX.Room.runtime)
+    implementation(Libs.AndroidX.Room.kotlinExtension)
+    ksp(Libs.AndroidX.Room.compiler)
 
     // Navigation component
-    implementation("androidx.navigation:navigation-runtime-ktx:${rootProject.extra["nav_version"]}")
-    implementation("androidx.navigation:navigation-fragment-ktx:${rootProject.extra["nav_version"]}")
-    implementation("androidx.navigation:navigation-ui-ktx:${rootProject.extra["nav_version"]}")
+    implementation(Libs.AndroidX.Navigation.fragment)
+    implementation(Libs.AndroidX.Navigation.ui)
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:${rootProject.extra["hilt_version"]}")
-    kapt("com.google.dagger:hilt-android-compiler:${rootProject.extra["hilt_version"]}")
+    implementation(Libs.Hilt.android)
+    kapt(Libs.Hilt.compiler)
 
     // Paging3
-    implementation("androidx.paging:paging-runtime:${rootProject.extra["paging_version"]}")
+    implementation(Libs.AndroidX.Paging.paging)
 
 }
 
