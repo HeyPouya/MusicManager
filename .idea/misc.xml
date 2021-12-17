@@ -8,7 +8,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_arrow_back.xml" value="0.19537037037037036" />
+        <entry key="app/src/main/res/drawable/ic_contact.xml" value="0.19537037037037036" />
+        <entry key="app/src/main/res/drawable/ic_empty_star.xml" value="0.19537037037037036" />
+        <entry key="app/src/main/res/drawable/ic_full_star.xml" value="0.19537037037037036" />
+        <entry key="app/src/main/res/drawable/ic_github.xml" value="0.19537037037037036" />
         <entry key="app/src/main/res/drawable/ic_linkedin.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/drawable/ic_saved_items.xml" value="0.19537037037037036" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.19537037037037036" />
+        <entry key="app/src/main/res/drawable/ic_tech.xml" value="0.19537037037037036" />
+        <entry key="app/src/main/res/drawable/ic_world.xml" value="0.19537037037037036" />
+        <entry key="app/src/main/res/drawable/main_curved_background.xml" value="0.19537037037037036" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.11499493414387031" />
         <entry key="app/src/main/res/layout/fragment_about_me.xml" value="0.22239583333333332" />
         <entry key="app/src/main/res/layout/fragment_album_details.xml" value="0.12817028985507245" />
@@ -19,6 +29,7 @@
         <entry key="app/src/main/res/layout/search_layout_item.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/layout/toolbar_layout.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/tracks_layout_item.xml" value="0.23645833333333333" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.14814814814814814" />
       </map>
     </option>
   </component>

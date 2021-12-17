@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MusicManager"
 include(":app")
+include (":core")

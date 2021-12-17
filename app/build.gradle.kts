@@ -21,11 +21,6 @@ android {
         versionName = "5.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += mapOf("room.incremental" to "true")
-            }
-        }
     }
     buildTypes {
         getByName("release") {
@@ -43,6 +38,8 @@ android {
 }
 
 dependencies {
+
+    implementation(":core")
 
     // Support
     implementation(Libs.AndroidX.appcompat)
