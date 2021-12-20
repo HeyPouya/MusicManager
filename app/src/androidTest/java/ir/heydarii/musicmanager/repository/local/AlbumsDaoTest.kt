@@ -5,10 +5,11 @@ import android.database.sqlite.SQLiteConstraintException
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import ir.heydarii.musicmanager.base.AppDatabase
-import ir.heydarii.musicmanager.pojos.savedalbums.AlbumEntity
-import ir.heydarii.musicmanager.pojos.savedalbums.AlbumTracks
-import ir.heydarii.musicmanager.pojos.savedalbums.TrackEntity
+import ir.heydarii.musicmanager.framework.db.AppDatabase
+import ir.heydarii.musicmanager.framework.db.AlbumEntity
+import ir.heydarii.musicmanager.framework.db.AlbumTracksEntity
+import ir.heydarii.musicmanager.framework.db.AlbumsDao
+import ir.heydarii.musicmanager.framework.db.TrackEntity
 import junit.framework.TestCase
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -70,7 +71,7 @@ class AlbumsDaoTest : TestCase() {
 
         val selectedAlbum = albums[1]
         val result = albumsDao.getSpecificAlbum(selectedAlbum.artistName, selectedAlbum.albumName)
-        val selectedAlbumTrack = AlbumTracks(selectedAlbum, listOf())
+        val selectedAlbumTrack = AlbumTracksEntity(selectedAlbum, listOf())
         assertEquals(selectedAlbumTrack, result)
     }
 
@@ -106,7 +107,7 @@ class AlbumsDaoTest : TestCase() {
         val selectedAlbum = albums[1]
         val selectedTrack = tracks[1]
         val result = albumsDao.getSpecificAlbum(selectedAlbum.artistName, selectedAlbum.albumName)
-        val selectedAlbumTrack = AlbumTracks(selectedAlbum, listOf(selectedTrack))
+        val selectedAlbumTrack = AlbumTracksEntity(selectedAlbum, listOf(selectedTrack))
         assertEquals(selectedAlbumTrack, result)
     }
 

@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".base.BaseApplication"
+        android:name=".framework.BaseApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MusicManager">
 
         <activity
-            android:name=".features.MainActivity"
+            android:name="ir.heydarii.musicmanager.presentation.features.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

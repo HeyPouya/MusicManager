@@ -39,7 +39,7 @@ android {
 
 dependencies {
 
-    implementation(":core")
+    implementation(project(":core"))
 
     // Support
     implementation(Libs.AndroidX.appcompat)

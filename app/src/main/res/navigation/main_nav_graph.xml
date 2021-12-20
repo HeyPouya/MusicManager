@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/aboutMeFragment"
-        android:name="ir.heydarii.musicmanager.features.about.AboutMeFragment"
+        android:name="ir.heydarii.musicmanager.presentation.features.about.AboutMeFragment"
         android:label="fragment_about_me"
         tools:layout="@layout/fragment_about_me" />
     <fragment
         android:id="@+id/savedAlbumsFragment"
-        android:name="ir.heydarii.musicmanager.features.savedalbums.SavedAlbumsFragment"
+        android:name="ir.heydarii.musicmanager.presentation.features.savedalbums.SavedAlbumsFragment"
         android:label="saved_albums_fragment"
         tools:layout="@layout/fragment_saved_albums">
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchArtistFragment"
-        android:name="ir.heydarii.musicmanager.features.searchartist.SearchArtistFragment"
+        android:name="ir.heydarii.musicmanager.presentation.features.searchartist.SearchArtistFragment"
         android:label="search_artist_fragment"
         tools:layout="@layout/fragment_search_artist">
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/topAlbumsFragment"
-        android:name="ir.heydarii.musicmanager.features.topalbums.TopAlbumsFragment"
+        android:name="ir.heydarii.musicmanager.presentation.features.topalbums.TopAlbumsFragment"
         android:label="TopAlbumsActivity"
         tools:layout="@layout/fragment_top_albums">
         <argument
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/albumDetailsFragment"
-        android:name="ir.heydarii.musicmanager.features.albumdetails.AlbumDetailsFragment"
+        android:name="ir.heydarii.musicmanager.presentation.features.albumdetails.AlbumDetailsFragment"
         android:label="activity_album_details"
         tools:layout="@layout/fragment_album_details">
         <argument

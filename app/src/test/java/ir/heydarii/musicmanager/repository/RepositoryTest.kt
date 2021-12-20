@@ -1,8 +1,8 @@
 package ir.heydarii.musicmanager.repository
 
-import ir.heydarii.musicmanager.pojos.savedalbums.AlbumTracks
-import ir.heydarii.musicmanager.repository.local.AlbumsDao
-import ir.heydarii.musicmanager.repository.network.RetrofitAlbumsInterface
+import ir.heydarii.musicmanager.framework.db.AlbumTracksEntity
+import ir.heydarii.musicmanager.framework.db.AlbumsDao
+import ir.heydarii.musicmanager.framework.network.RetrofitAlbumsInterface
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
@@ -28,7 +28,7 @@ class RepositoryTest {
 
     @Test
     fun test_save_album() = runBlocking {
-        val album = Mockito.mock(AlbumTracks::class.java)
+        val album = Mockito.mock(AlbumTracksEntity::class.java)
 
         repository.saveAlbum(album)
 

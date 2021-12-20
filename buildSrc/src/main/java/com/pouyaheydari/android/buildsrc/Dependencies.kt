@@ -2,9 +2,10 @@ package com.pouyaheydari.android.buildsrc
 
 object Libs {
 
-    object Android{
+    object Android {
         const val gradlePlugin = "com.android.tools.build:gradle:7.0.4"
     }
+
     object Kotlin {
         private const val version = "1.6.10"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
@@ -73,7 +74,9 @@ object Libs {
         }
 
         object Paging {
-            const val paging = "androidx.paging:paging-runtime:3.1.0"
+            private const val version = "3.1.0"
+            const val paging = "androidx.paging:paging-runtime:$version"
+            const val common = "androidx.paging:paging-common:$version"
         }
 
         object Room {

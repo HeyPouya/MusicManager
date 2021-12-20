@@ -7,4 +7,5 @@ plugins {
 dependencies {
     implementation(Libs.JavaX.inject)
     implementation(Libs.Coroutines.core)
+    implementation(Libs.AndroidX.Paging.common)
 }
