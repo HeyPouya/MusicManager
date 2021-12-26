@@ -64,7 +64,6 @@ object Libs {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.2"
         const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-        const val activity = "androidx.activity:activity-ktx:1.4.0"
 
         object Navigation {
             private const val version = "2.3.5"

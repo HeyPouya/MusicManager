@@ -19,8 +19,4 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Theme.MusicManager.Text.Title" parent="Theme.MusicManager.Text.Header">
-        <item name="android:textSize">16sp</item>
-    </style>
-
 </resources>

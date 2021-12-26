@@ -1,7 +1,6 @@
-package ir.heydarii.musicmanager.pojos.topalbums
+package ir.heydarii.musicmanager.framework.network
 
 import com.squareup.moshi.Json
-import ir.heydarii.musicmanager.framework.network.Image
 
 /**
  * Response of artist's tops albums

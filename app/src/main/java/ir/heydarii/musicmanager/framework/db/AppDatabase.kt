@@ -2,9 +2,6 @@ package ir.heydarii.musicmanager.framework.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ir.heydarii.musicmanager.framework.db.AlbumEntity
-import ir.heydarii.musicmanager.framework.db.TrackEntity
-import ir.heydarii.musicmanager.framework.db.AlbumsDao
 
 /**
  * Provides access to [RoomDatabase]

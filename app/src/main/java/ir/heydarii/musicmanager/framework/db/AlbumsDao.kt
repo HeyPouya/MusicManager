@@ -1,9 +1,6 @@
 package ir.heydarii.musicmanager.framework.db
 
 import androidx.room.*
-import ir.heydarii.musicmanager.framework.db.AlbumEntity
-import ir.heydarii.musicmanager.framework.db.AlbumTracksEntity
-import ir.heydarii.musicmanager.framework.db.TrackEntity
 
 /**
  * All Room queries are in this class

@@ -1,6 +1,5 @@
 package ir.heydarii.musicmanager.framework.network
 
-import ir.heydarii.musicmanager.pojos.topalbums.ArtistTopAlbumsResponseModel
 import retrofit2.http.GET
 import retrofit2.http.Query
 
