@@ -2,7 +2,6 @@ package ir.heydarii.musicmanager.presentation.features.topalbums
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -22,9 +21,8 @@ class TopAlbumsAdapter(private val clickListener: (String, String) -> Unit) :
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
 
-        val binding = DataBindingUtil.inflate<SearchLayoutItemBinding>(
+        val binding = SearchLayoutItemBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.search_layout_item,
             parent,
             false
         )

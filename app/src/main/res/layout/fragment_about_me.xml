@@ -1,181 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryVariant">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimaryVariant">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/img_about_cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imgLogo"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/logo"
-                android:src="@drawable/img_about_cover"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgLogo" />
 
-            <TextView
-                android:id="@+id/txt1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center"
-                android:text="@string/app_name"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imgLogo" />
+        <TextView
+            android:id="@+id/txt3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:justificationMode="inter_word"
+            android:text="@string/app_description"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt1"
+            tools:targetApi="o" />
 
-            <TextView
-                android:id="@+id/txt3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:justificationMode="inter_word"
-                android:text="@string/app_description"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt1"
-                tools:targetApi="o" />
+        <ImageView
+            android:id="@+id/imgTech"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/technologies"
+            android:src="@drawable/ic_tech"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt3" />
 
-            <ImageView
-                android:id="@+id/imgTech"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginTop="32dp"
-                android:contentDescription="@string/technologies"
-                android:src="@drawable/ic_tech"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt3" />
+        <TextView
+            android:id="@+id/txtTech"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="start"
+            android:text="@string/technologies"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgTech"
+            app:layout_constraintTop_toBottomOf="@id/txt3" />
 
-            <TextView
-                android:id="@+id/txtTech"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:gravity="start"
-                android:text="@string/technologies"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgTech"
-                app:layout_constraintTop_toBottomOf="@id/txt3" />
+        <TextView
+            android:id="@+id/txtTechDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:lineSpacingExtra="8dp"
+            android:text="@string/technologies_description"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgTech"
+            app:layout_constraintTop_toBottomOf="@id/txtTech" />
 
-            <TextView
-                android:id="@+id/txtTechDesc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:lineSpacingExtra="8dp"
-                android:text="@string/technologies_description"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgTech"
-                app:layout_constraintTop_toBottomOf="@id/txtTech" />
+        <ImageView
+            android:id="@+id/imgContact"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/contact"
+            android:src="@drawable/ic_contact"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtTechDesc" />
 
-            <ImageView
-                android:id="@+id/imgContact"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginTop="32dp"
-                android:contentDescription="@string/contact"
-                android:src="@drawable/ic_contact"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtTechDesc" />
+        <TextView
+            android:id="@+id/txtContact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="start"
+            android:text="@string/contact_me"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgTech"
+            app:layout_constraintTop_toBottomOf="@id/txtTechDesc" />
 
-            <TextView
-                android:id="@+id/txtContact"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:gravity="start"
-                android:text="@string/contact_me"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgTech"
-                app:layout_constraintTop_toBottomOf="@id/txtTechDesc" />
+        <TextView
+            android:id="@+id/txtContactDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:gravity="start"
+            android:text="@string/pouya_heydari"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgContact"
+            app:layout_constraintTop_toBottomOf="@id/txtContact" />
 
-            <TextView
-                android:id="@+id/txtContactDetails"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:gravity="start"
-                android:text="@string/pouya_heydari"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgContact"
-                app:layout_constraintTop_toBottomOf="@id/txtContact" />
+        <ImageView
+            android:id="@+id/imgGithub"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="@string/github"
+            android:src="@drawable/ic_github"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgLinkedin"
+            app:layout_constraintStart_toEndOf="@id/imgContact"
+            app:layout_constraintTop_toBottomOf="@id/txtContactDetails" />
 
-            <ImageView
-                android:id="@+id/imgGithub"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="32dp"
-                android:contentDescription="@string/github"
-                android:src="@drawable/ic_github"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imgLinkedin"
-                app:layout_constraintStart_toEndOf="@id/imgContact"
-                app:layout_constraintTop_toBottomOf="@id/txtContactDetails" />
+        <ImageView
+            android:id="@+id/imgLinkedin"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="@string/linkedin"
+            android:src="@drawable/ic_linkedin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imgWebsite"
+            app:layout_constraintStart_toEndOf="@id/imgGithub"
+            app:layout_constraintTop_toBottomOf="@id/txtContactDetails" />
 
-            <ImageView
-                android:id="@+id/imgLinkedin"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="32dp"
-                android:contentDescription="@string/linkedin"
-                android:src="@drawable/ic_linkedin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/imgWebsite"
-                app:layout_constraintStart_toEndOf="@id/imgGithub"
-                app:layout_constraintTop_toBottomOf="@id/txtContactDetails" />
+        <ImageView
+            android:id="@+id/imgWebsite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="@string/website"
+            android:src="@drawable/ic_world"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgLinkedin"
+            app:layout_constraintTop_toBottomOf="@id/txtContactDetails" />
 
-            <ImageView
-                android:id="@+id/imgWebsite"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="32dp"
-                android:contentDescription="@string/website"
-                android:src="@drawable/ic_world"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgLinkedin"
-                app:layout_constraintTop_toBottomOf="@id/txtContactDetails" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</layout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

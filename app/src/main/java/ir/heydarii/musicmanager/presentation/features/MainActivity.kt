@@ -3,7 +3,6 @@ package ir.heydarii.musicmanager.presentation.features
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,8 +21,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.mainNavContainer) as NavHostFragment
@@ -32,8 +31,8 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.topAlbumsFragment, R.id.albumDetailsFragment ->
-                    binding.bottomNav.isVisible = false
+                R.id.topAlbumsFragment,
+                R.id.albumDetailsFragment -> binding.bottomNav.isVisible = false
                 else -> binding.bottomNav.isVisible = true
             }
         }

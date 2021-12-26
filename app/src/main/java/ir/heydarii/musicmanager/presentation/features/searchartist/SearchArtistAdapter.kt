@@ -2,7 +2,6 @@ package ir.heydarii.musicmanager.presentation.features.searchartist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +17,8 @@ class SearchArtistAdapter(private val clickListener: (String) -> Unit) :
     PagingDataAdapter<Artist, SearchArtistAdapter.SearchArtistViewHolder>(SearchArtistDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
-        val binding = DataBindingUtil.inflate<SearchLayoutItemBinding>(
+        val binding = SearchLayoutItemBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.search_layout_item,
             parent,
             false
         )
@@ -54,6 +52,7 @@ class SearchArtistDiffCallback : DiffUtil.ItemCallback<Artist>() {
 
     override fun areItemsTheSame(oldItem: Artist, newItem: Artist) =
         oldItem.name == newItem.name && oldItem.image == newItem.image
+
     override fun areContentsTheSame(oldItem: Artist, newItem: Artist) =
         oldItem.name == newItem.name && oldItem.image == newItem.image
 }

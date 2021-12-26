@@ -2,7 +2,6 @@ package ir.heydarii.musicmanager.presentation.features.savedalbums
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +17,8 @@ class SavedAlbumsAdapter(private var clickListener: (String, String) -> Unit) :
     ListAdapter<Album, SavedAlbumsAdapter.SearchArtistViewHolder>(AlbumDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchArtistViewHolder {
-        val binding = DataBindingUtil.inflate<SavedAlbumsItemBinding>(
+        val binding = SavedAlbumsItemBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.saved_albums_item,
             parent,
             false
         )

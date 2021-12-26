@@ -2,10 +2,8 @@ package ir.heydarii.musicmanager.presentation.features.albumdetails
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pouyaheydari.android.core.domain.Track
-import ir.heydarii.musicmanager.R
 import ir.heydarii.musicmanager.databinding.TracksLayoutItemBinding
 
 /**
@@ -15,11 +13,8 @@ class TracksAdapter(val list: List<Track>?) :
     RecyclerView.Adapter<TracksAdapter.TracksViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksViewHolder {
-        val binding = DataBindingUtil.inflate<TracksLayoutItemBinding>(
-            LayoutInflater.from(parent.context),
-            R.layout.tracks_layout_item,
-            parent,
-            false
+        val binding = TracksLayoutItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
         )
         return TracksViewHolder(binding)
     }
