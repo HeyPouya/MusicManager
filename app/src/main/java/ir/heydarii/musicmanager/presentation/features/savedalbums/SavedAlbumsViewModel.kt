@@ -2,18 +2,24 @@ package ir.heydarii.musicmanager.presentation.features.savedalbums
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.pouyaheydari.android.core.domain.Album
 import com.pouyaheydari.android.core.interctors.GetAllAlbums
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.heydarii.musicmanager.framework.BaseViewModel
 import ir.heydarii.musicmanager.presentation.features.savedalbums.SavedAlbumsViewState.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
  * ViewModel of [SavedAlbumsFragment]
  */
 @HiltViewModel
-class SavedAlbumsViewModel @Inject constructor(private val getAllAlbumsUseCase: GetAllAlbums) :
+class SavedAlbumsViewModel @Inject constructor(
+    private val getAllAlbumsUseCase: GetAllAlbums,
+    private val dispatcher: CoroutineDispatcher
+) :
     BaseViewModel() {
 
     private val albumsLiveData = MutableLiveData<SavedAlbumsViewState<List<Album>>>()
@@ -26,7 +32,7 @@ class SavedAlbumsViewModel @Inject constructor(private val getAllAlbumsUseCase: 
     /**
      * Fetches all saved albums from database
      */
-    fun getAllAlbums() = launch {
+    fun getAllAlbums() = viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
         albumsLiveData.postValue(Loading())
         val albums = getAllAlbumsUseCase().albums
         val response = if (albums.isEmpty()) EmptyList() else Success(albums)

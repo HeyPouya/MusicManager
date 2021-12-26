@@ -60,11 +60,8 @@ dependencies {
     androidTestImplementation(Libs.Test.core)
     testImplementation(Libs.Test.arch)
     androidTestImplementation(Libs.Test.espressoCore)
+    testImplementation(Libs.Test.Mockk.mockk)
     androidTestImplementation("androidx.test:runner:1.4.0")
-    androidTestImplementation("androidx.test:runner:1.4.0")
-    testImplementation("org.mockito:mockito-core:4.2.0")
-    androidTestImplementation("org.mockito:mockito-android:4.2.0")
-    testImplementation("org.mockito:mockito-inline:4.2.0")
 
     // Retrofit
     implementation(Libs.Network.Retrofit.retrofit)

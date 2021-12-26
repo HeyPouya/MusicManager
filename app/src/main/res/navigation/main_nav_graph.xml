@@ -63,9 +63,5 @@
         <argument
             android:name="albumName"
             app:argType="string" />
-        <argument
-            android:name="isOffline"
-            android:defaultValue="false"
-            app:argType="boolean" />
     </fragment>
 </navigation>

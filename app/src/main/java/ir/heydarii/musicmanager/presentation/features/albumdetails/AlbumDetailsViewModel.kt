@@ -2,6 +2,7 @@ package ir.heydarii.musicmanager.presentation.features.albumdetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.pouyaheydari.android.core.domain.AlbumDetails
 import com.pouyaheydari.android.core.interctors.DoesAlbumExists
 import com.pouyaheydari.android.core.interctors.GetAlbumDetails
@@ -10,6 +11,9 @@ import com.pouyaheydari.android.core.interctors.SaveAlbum
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.heydarii.musicmanager.framework.BaseViewModel
 import ir.heydarii.musicmanager.presentation.features.albumdetails.AlbumDetailsViewState.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -20,7 +24,8 @@ class AlbumDetailsViewModel @Inject constructor(
     private val doesAlbumExists: DoesAlbumExists,
     private val saveAlbum: SaveAlbum,
     private val getAlbumDetails: GetAlbumDetails,
-    private val removeAlbum: RemoveAlbum
+    private val removeAlbum: RemoveAlbum,
+    private val dispatcher: CoroutineDispatcher
 ) :
     BaseViewModel() {
 
@@ -38,26 +43,28 @@ class AlbumDetailsViewModel @Inject constructor(
      *
      * @param artistName name of the artist
      * @param albumName name of the album
-     * @param offline If user has navigated to this view via saved items view  or via search view
      */
-    fun getAlbum(artistName: String, albumName: String, offline: Boolean) = launch {
-        albumDetailsLiveData.postValue(Loading())
+    fun getAlbum(artistName: String, albumName: String) =
+        viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
+            albumDetailsLiveData.postValue(Loading())
+            val album = getAlbumDetails(artistName, albumName)
+            albumDataEntity = album
+            val response = if (album.tracks.isEmpty()) EmptyTrackList(album) else Success(album)
+            albumDetailsLiveData.postValue(response)
+        }
 
-        //Check Bookmark
-        val isSaved = checkBookmarkStatus(artistName, albumName)
-        val bookMarkResponse: AlbumDetailsViewState<AlbumDetails> =
-            if (isSaved) Saved() else NotSaved()
-        albumDetailsLiveData.postValue(bookMarkResponse)
-
-        //Fetch data
-        val album = getAlbumDetails(artistName, albumName)
-        albumDataEntity = album
-        val response = if (album.tracks.isEmpty()) EmptyTrackList(album) else Success(album)
-        albumDetailsLiveData.postValue(response)
-    }
+    fun checkBookMark(artistName: String, albumName: String) =
+        viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
+            val isSaved = checkBookmarkStatus(artistName, albumName)
+            val bookMarkResponse: AlbumDetailsViewState<AlbumDetails> =
+                if (isSaved) Saved() else NotSaved()
+            launch(Dispatchers.Main) {
+                albumDetailsLiveData.value = bookMarkResponse
+            }
+        }
 
     private fun saveAlbum() = albumDataEntity?.let {
-        launch {
+        viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
             saveAlbum(it)
             albumDetailsLiveData.postValue(Saved())
         }
@@ -68,7 +75,7 @@ class AlbumDetailsViewModel @Inject constructor(
      */
     fun bookMarkClicked() =
         albumDataEntity?.let {
-            launch {
+            viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
                 when (checkBookmarkStatus(it.artist, it.name)) {
                     true -> removeAlbum()
                     false -> saveAlbum()
@@ -77,7 +84,7 @@ class AlbumDetailsViewModel @Inject constructor(
         }
 
     private fun removeAlbum() = albumDataEntity?.let {
-        launch {
+        viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
             removeAlbum(it.artist, it.name)
             albumDetailsLiveData.postValue(NotSaved())
         }

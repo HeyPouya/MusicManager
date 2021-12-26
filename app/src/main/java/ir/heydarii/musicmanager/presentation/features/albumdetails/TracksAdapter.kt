@@ -11,7 +11,7 @@ import ir.heydarii.musicmanager.databinding.TracksLayoutItemBinding
 /**
  * Adapter to show tracks of songs
  */
-class TracksAdapter(val list: List<Track>) :
+class TracksAdapter(val list: List<Track>?) :
     RecyclerView.Adapter<TracksAdapter.TracksViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksViewHolder {
@@ -24,10 +24,10 @@ class TracksAdapter(val list: List<Track>) :
         return TracksViewHolder(binding)
     }
 
-    override fun getItemCount() = list.size
+    override fun getItemCount() = list?.size ?: 0
 
     override fun onBindViewHolder(holder: TracksViewHolder, position: Int) {
-        holder.bind(list[position], position)
+        holder.bind(list?.get(position), position)
     }
 
     /**
@@ -39,9 +39,9 @@ class TracksAdapter(val list: List<Track>) :
         /**
          * binds tracks to the recycler view items
          */
-        fun bind(track: Track, position: Int) = with(binding) {
+        fun bind(track: Track?, position: Int) = with(binding) {
             txtTrackNumber.text = position.toString()
-            txtTrackName.text = track.name
+            txtTrackName.text = track?.name
         }
     }
 }

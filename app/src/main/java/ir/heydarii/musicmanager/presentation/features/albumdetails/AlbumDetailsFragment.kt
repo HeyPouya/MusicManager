@@ -9,8 +9,8 @@ import androidx.navigation.fragment.navArgs
 import com.pouyaheydari.android.core.domain.AlbumDetails
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.musicmanager.R
-import ir.heydarii.musicmanager.framework.BaseFragment
 import ir.heydarii.musicmanager.databinding.FragmentAlbumDetailsBinding
+import ir.heydarii.musicmanager.framework.BaseFragment
 import ir.heydarii.musicmanager.presentation.utils.extensions.load
 
 /**
@@ -27,7 +27,10 @@ class AlbumDetailsFragment : BaseFragment<FragmentAlbumDetailsBinding, AlbumDeta
         super.onViewCreated(view, savedInstanceState)
 
         setProgressBar(binding.progressBar)
-        viewModel.getAlbum(args.artistName, args.albumName, args.isOffline)
+
+        viewModel.getAlbum(args.artistName, args.albumName)
+        viewModel.checkBookMark(args.artistName, args.albumName)
+
         initToolbar()
         subscribeToViewModel()
 
@@ -52,17 +55,20 @@ class AlbumDetailsFragment : BaseFragment<FragmentAlbumDetailsBinding, AlbumDeta
                 is AlbumDetailsViewState.Loading -> isLoading(true)
                 is AlbumDetailsViewState.NotSaved -> showSaveAnimation(false)
                 is AlbumDetailsViewState.Saved -> showSaveAnimation(true)
-                is AlbumDetailsViewState.Success -> showData(it.data)
+                is AlbumDetailsViewState.Success -> {
+                    showData(it.data)
+                    emptyState(false)
+                }
             }
         }
     }
 
-    private fun showData(data: AlbumDetails) {
+    private fun showData(data: AlbumDetails?) {
         isLoading(false)
-        binding.recycler.adapter = TracksAdapter(data.tracks)
-        binding.txtAlbumName.text = data.name
-        binding.txtArtistName.text = data.artist
-        binding.imgAlbum.load(data.image, R.drawable.ic_album_placeholder)
+        binding.recycler.adapter = TracksAdapter(data?.tracks)
+        binding.txtAlbumName.text = data?.name
+        binding.txtArtistName.text = data?.artist
+        binding.imgAlbum.load(data?.image.orEmpty(), R.drawable.ic_album_placeholder)
     }
 
     private fun emptyState(isEmpty: Boolean) {

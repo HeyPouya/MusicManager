@@ -42,7 +42,7 @@ class SavedAlbumsFragment : BaseFragment<FragmentSavedAlbumsBinding, SavedAlbums
         }
     }
 
-    private fun showAlbumsData(albums: List<Album>) {
+    private fun showAlbumsData(albums: List<Album>?) {
         emptyState(false)
         adapter.submitList(albums)
     }
@@ -54,7 +54,7 @@ class SavedAlbumsFragment : BaseFragment<FragmentSavedAlbumsBinding, SavedAlbums
 
     private fun navigateToAlbumDetails(artistName: String, albumName: String) {
         val showDetailsViewAction =
-            SavedAlbumsFragmentDirections.showAlbumDetailsActions(artistName, albumName, true)
+            SavedAlbumsFragmentDirections.showAlbumDetailsActions(artistName, albumName)
         findNavController().navigate(showDetailsViewAction)
     }
 }

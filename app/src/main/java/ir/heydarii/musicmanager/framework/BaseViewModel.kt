@@ -1,12 +1,9 @@
 package ir.heydarii.musicmanager.framework
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import ir.heydarii.musicmanager.presentation.ErrorTypes
 import ir.heydarii.musicmanager.presentation.utils.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
 import java.util.concurrent.TimeoutException
@@ -17,7 +14,7 @@ import java.util.concurrent.TimeoutException
 open class BaseViewModel : ViewModel() {
     private val errorLiveData = SingleLiveEvent<ErrorTypes>()
 
-    private fun coroutinesExceptionHandler() = CoroutineExceptionHandler { _, throwable ->
+    protected fun coroutinesExceptionHandler() = CoroutineExceptionHandler { _, throwable ->
         println(throwable)
         when (throwable) {
             is IOException, is TimeoutException -> errorLiveData.postValue(ErrorTypes.IOError)
@@ -30,9 +27,4 @@ open class BaseViewModel : ViewModel() {
      * @return [androidx.lifecycle.LiveData] version of [errorLiveData]
      */
     fun getErrorLiveData(): SingleLiveEvent<ErrorTypes> = errorLiveData
-
-    fun launch(block: suspend () -> Unit) =
-        viewModelScope.launch(IO + coroutinesExceptionHandler()) {
-            block()
-        }
 }
