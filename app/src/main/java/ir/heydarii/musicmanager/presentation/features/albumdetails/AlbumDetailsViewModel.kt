@@ -9,8 +9,9 @@ import com.pouyaheydari.android.core.interctors.GetAlbumDetails
 import com.pouyaheydari.android.core.interctors.RemoveAlbum
 import com.pouyaheydari.android.core.interctors.SaveAlbum
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.heydarii.musicmanager.framework.BaseViewModel
+import ir.heydarii.musicmanager.presentation.BaseViewModel
 import ir.heydarii.musicmanager.presentation.features.albumdetails.AlbumDetailsViewState.*
+import ir.heydarii.musicmanager.presentation.utils.coroutinesExceptionHandler
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,7 +46,7 @@ class AlbumDetailsViewModel @Inject constructor(
      * @param albumName name of the album
      */
     fun getAlbum(artistName: String, albumName: String) =
-        viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
+        viewModelScope.launch(dispatcher + coroutinesExceptionHandler(errorLiveData)) {
             albumDetailsLiveData.postValue(Loading())
             val album = getAlbumDetails(artistName, albumName)
             albumDataEntity = album
@@ -54,7 +55,7 @@ class AlbumDetailsViewModel @Inject constructor(
         }
 
     fun checkBookMark(artistName: String, albumName: String) =
-        viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
+        viewModelScope.launch(dispatcher + coroutinesExceptionHandler(errorLiveData)) {
             val isSaved = checkBookmarkStatus(artistName, albumName)
             val bookMarkResponse: AlbumDetailsViewState<AlbumDetails> =
                 if (isSaved) Saved() else NotSaved()
@@ -64,7 +65,7 @@ class AlbumDetailsViewModel @Inject constructor(
         }
 
     private fun saveAlbum() = albumDataEntity?.let {
-        viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
+        viewModelScope.launch(dispatcher + coroutinesExceptionHandler(errorLiveData)) {
             saveAlbum(it)
             albumDetailsLiveData.postValue(Saved())
         }
@@ -75,7 +76,7 @@ class AlbumDetailsViewModel @Inject constructor(
      */
     fun bookMarkClicked() =
         albumDataEntity?.let {
-            viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
+            viewModelScope.launch(dispatcher + coroutinesExceptionHandler(errorLiveData)) {
                 when (checkBookmarkStatus(it.artist, it.name)) {
                     true -> removeAlbum()
                     false -> saveAlbum()
@@ -84,7 +85,7 @@ class AlbumDetailsViewModel @Inject constructor(
         }
 
     private fun removeAlbum() = albumDataEntity?.let {
-        viewModelScope.launch(dispatcher + coroutinesExceptionHandler()) {
+        viewModelScope.launch(dispatcher + coroutinesExceptionHandler(errorLiveData)) {
             removeAlbum(it.artist, it.name)
             albumDetailsLiveData.postValue(NotSaved())
         }

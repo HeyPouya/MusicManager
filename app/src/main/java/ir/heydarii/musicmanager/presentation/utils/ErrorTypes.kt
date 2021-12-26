@@ -1,4 +1,4 @@
-package ir.heydarii.musicmanager.presentation
+package ir.heydarii.musicmanager.presentation.utils
 
 /**
  * A sealed class to exchange different error between [BaseViewModel] and [BaseFragment]

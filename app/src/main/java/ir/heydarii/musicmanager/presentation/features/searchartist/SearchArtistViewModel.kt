@@ -6,7 +6,7 @@ import androidx.paging.cachedIn
 import com.pouyaheydari.android.core.domain.Artist
 import com.pouyaheydari.android.core.interctors.FindArtist
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.heydarii.musicmanager.framework.BaseViewModel
+import ir.heydarii.musicmanager.presentation.BaseViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
