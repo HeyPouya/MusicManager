@@ -19,5 +19,5 @@ data class TrackEntity(
     val id: Int?,
     val name: String,
     @ColumnInfo(index = true)
-    val albumId: String
+    val albumId: Long?
 )

@@ -7,7 +7,7 @@ import com.pouyaheydari.android.core.domain.Track
 
 interface AlbumsDataSource {
 
-    suspend fun saveAlbum(album: Album)
+    suspend fun saveAlbum(album: Album):Long
 
     suspend fun getAllAlbums(): AlbumResponse
 

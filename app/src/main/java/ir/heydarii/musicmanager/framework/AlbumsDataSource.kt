@@ -11,7 +11,7 @@ import ir.heydarii.musicmanager.framework.db.TrackEntity
 import javax.inject.Inject
 
 class AlbumsDataSource @Inject constructor(private val albumsDao: AlbumsDao) : AlbumsDataSource {
-    override suspend fun saveAlbum(album: Album) = with(album) {
+    override suspend fun saveAlbum(album: Album):Long = with(album) {
         albumsDao.saveAlbum(AlbumEntity(id, albumName, artistName, image))
     }
 
@@ -35,7 +35,6 @@ class AlbumsDataSource @Inject constructor(private val albumsDao: AlbumsDao) : A
         return AlbumDetails(
             albumTracks.album.artistName,
             albumTracks.album.image,
-            albumTracks.album.id,
             albumTracks.album.albumName,
             albumTracks.tracks.map { Track(it.id, it.name, it.albumId) }
         )

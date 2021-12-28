@@ -9,7 +9,7 @@ import androidx.room.*
 interface AlbumsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveAlbum(albumEntity: AlbumEntity)
+    suspend fun saveAlbum(albumEntity: AlbumEntity): Long
 
     @Query("SELECT * FROM albums")
     suspend fun getAllAlbums(): List<AlbumEntity>

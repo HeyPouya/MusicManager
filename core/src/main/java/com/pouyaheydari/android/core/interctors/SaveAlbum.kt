@@ -7,7 +7,8 @@ import javax.inject.Inject
 
 class SaveAlbum @Inject constructor(private val albumsRepository: AlbumsRepository) {
     suspend operator fun invoke(album: AlbumDetails) {
-        albumsRepository.saveAlbum(Album(album.mbid, album.name, album.artist, album.image))
-        albumsRepository.saveTracks(*album.tracks.toTypedArray())
+        val albumId = albumsRepository.saveAlbum(Album(null, album.name, album.artist, album.image))
+        val tracks = album.tracks.onEach { it.albumId = albumId }
+        albumsRepository.saveTracks(*tracks.toTypedArray())
     }
 }

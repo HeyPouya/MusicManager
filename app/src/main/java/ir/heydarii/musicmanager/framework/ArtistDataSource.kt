@@ -23,7 +23,7 @@ class ArtistDataSource @Inject constructor(private val artistRetrofit: RetrofitA
         val response = artistRetrofit.getTopAlbumsByArtist(artist, pageNumber)
         val albums = response.topalbums.album.map {
             Album(
-                it.mbid.toString(),
+                null,
                 it.name,
                 it.artist.name,
                 it.image.last().text
@@ -37,9 +37,8 @@ class ArtistDataSource @Inject constructor(private val artistRetrofit: RetrofitA
         return AlbumDetails(
             response.album.artist,
             response.album.image.last()?.text.toString(),
-            response.album.mbid,
             response.album.name,
-            response.album.tracks?.track?.map { Track(null, it.name, response.album.mbid) }
+            response.album.tracks?.track?.map { Track(null, it.name, null) }
                 .orEmpty()
         )
     }
