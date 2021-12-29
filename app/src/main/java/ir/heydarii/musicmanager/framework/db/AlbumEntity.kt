@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "albums")
 data class AlbumEntity(
-    // Unfortunately the only unique id that we can get from last.fm api is mbid String so we have to use it as our primary key
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
     val albumName: String,

@@ -12,8 +12,6 @@ class AlbumsRepository @Inject constructor(private val albumsDataSource: AlbumsD
 
     suspend fun saveTracks(vararg tracks: Track) = albumsDataSource.saveTracks(*tracks)
 
-    suspend fun getAllTracks() = albumsDataSource.getAllTracks()
-
     suspend fun getSpecificAlbum(artistName: String, albumName: String) =
         albumsDataSource.getSpecificAlbum(artistName, albumName)
 
