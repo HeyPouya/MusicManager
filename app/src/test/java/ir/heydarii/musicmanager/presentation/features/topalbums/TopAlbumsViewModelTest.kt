@@ -7,21 +7,19 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import io.mockk.unmockkAll
-import ir.heydarii.musicmanager.presentation.CoroutineDispatcherRule
 import ir.heydarii.musicmanager.presentation.albumListGenerator
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.*
 
+@ExperimentalCoroutinesApi
 class TopAlbumsViewModelTest {
 
     private lateinit var viewModel: TopAlbumsViewModel
 
     @get:Rule
     var rule = InstantTaskExecutorRule()
-
-    @get:Rule
-    val dispatcherRule = CoroutineDispatcherRule()
 
     @MockK
     private lateinit var getTopAlbums: GetTopAlbumsByArtist
@@ -38,15 +36,14 @@ class TopAlbumsViewModelTest {
     }
 
     @Test
-    fun `if the artist name is same then the responded flow must be exactly the same`() =
-        runBlockingTest {
-            val artistName = "SAMPLE ARTIST"
-            val flow = flowOf(PagingData.from(albumListGenerator()))
-            coEvery { getTopAlbums(artistName) }.coAnswers { flow }
+    fun `if the artist name is same then the responded flow must be exactly the same`() = runTest {
+        val artistName = "SAMPLE ARTIST"
+        val flow = flowOf(PagingData.from(albumListGenerator()))
+        coEvery { getTopAlbums(artistName) }.coAnswers { flow }
 
-            val firstResponse = viewModel.requestTopAlbums(artistName)
-            val secondResponse = viewModel.requestTopAlbums(artistName)
+        val firstResponse = viewModel.requestTopAlbums(artistName)
+        val secondResponse = viewModel.requestTopAlbums(artistName)
 
-            Assert.assertEquals(firstResponse, secondResponse)
-        }
+        Assert.assertEquals(firstResponse, secondResponse)
+    }
 }

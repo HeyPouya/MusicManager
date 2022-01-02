@@ -162,19 +162,19 @@ class AlbumsDaoTest : TestCase() {
 
     private fun getAlbumList() = listOf(
         AlbumEntity(
-            "TEST ALBUM1",
+            1,
             "TEST ALBUM NAME1",
             "TEST ARTIST NAME1",
             "https://testimage1.com"
         ),
         AlbumEntity(
-            "TEST ALBUM2",
+            2,
             "TEST ALBUM NAME2",
             "TEST ARTIST NAME2",
             "https://testimage2.com"
         ),
         AlbumEntity(
-            "TEST ALBUM3",
+            3,
             "TEST ALBUM NAME3",
             "TEST ARTIST NAME3",
             "https://testimage3.com"
@@ -185,17 +185,17 @@ class AlbumsDaoTest : TestCase() {
         TrackEntity(
             1,
             "TEST TRACK NAME1",
-            "TEST ALBUM1",
+            1,
         ),
         TrackEntity(
             2,
             "TEST TRACK NAME2",
-            "TEST ALBUM2",
+            2,
         ),
         TrackEntity(
             3,
             "TEST TRACK NAME3",
-            "TEST ALBUM3",
+            3,
         ),
     )
 }

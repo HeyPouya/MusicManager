@@ -6,7 +6,9 @@ plugins {
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
-    id("com.google.devtools.ksp").version("1.6.0-1.0.1")
+    id("com.google.devtools.ksp").version("1.6.10-1.0.2")
+    //use ./gradlew dependencyUpdates to check for dependency updates
+    id("com.github.ben-manes.versions").version("0.40.0")
 }
 
 android {

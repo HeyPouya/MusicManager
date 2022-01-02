@@ -7,11 +7,13 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import io.mockk.unmockkAll
-import ir.heydarii.musicmanager.presentation.CoroutineDispatcherRule
 import ir.heydarii.musicmanager.presentation.albumListGenerator
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.runTest
 import org.junit.*
 
+@ExperimentalCoroutinesApi
 class SavedAlbumsViewModelTest {
 
     private lateinit var viewModel: SavedAlbumsViewModel
@@ -19,8 +21,7 @@ class SavedAlbumsViewModelTest {
     @get:Rule
     var rule = InstantTaskExecutorRule()
 
-    @get:Rule
-    val dispatcherRule = CoroutineDispatcherRule()
+    private val testCoroutineDispatcher = UnconfinedTestDispatcher()
 
     @MockK
     private lateinit var getAllAlbums: GetAllAlbums
@@ -28,7 +29,7 @@ class SavedAlbumsViewModelTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        viewModel = SavedAlbumsViewModel(getAllAlbums, dispatcherRule.testDispatcher)
+        viewModel = SavedAlbumsViewModel(getAllAlbums, testCoroutineDispatcher)
     }
 
     @After
@@ -38,7 +39,7 @@ class SavedAlbumsViewModelTest {
 
     @Test
     fun `test calling get all albums then return all albums stored in database`() =
-        dispatcherRule.runBlockingTest {
+        runTest(testCoroutineDispatcher) {
 
             val albumResponse = AlbumResponse(albumListGenerator(), 6)
             viewModel.getAlbumsLiveData().observeForever { }
